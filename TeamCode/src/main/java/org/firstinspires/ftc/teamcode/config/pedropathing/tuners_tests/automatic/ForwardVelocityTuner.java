@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.config.pedroPathing.tuners_tests.automatic;
+package org.firstinspires.ftc.teamcode.config.pedropathing.tuners_tests.automatic;
 
 import static com.pedropathing.follower.FollowerConstants.leftFrontMotorName;
 import static com.pedropathing.follower.FollowerConstants.leftRearMotorName;
@@ -28,8 +28,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import pedroPathing.constants.FConstants;
-import pedroPathing.constants.LConstants;
+import org.firstinspires.ftc.teamcode.config.pedropathing.constants.*;
 
 /**
  * This is the ForwardVelocityTuner autonomous follower OpMode. This runs the robot forwards at max
