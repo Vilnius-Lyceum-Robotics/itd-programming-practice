@@ -20,10 +20,10 @@ public class SimpleTeleOp extends LinearOpMode {
         // constructor takes in frontLeft, frontRight, backLeft, backRight motors
         // IN THAT ORDER
         MecanumDrive drive = new MecanumDrive(
-                new Motor(hardwareMap, "frontLeft", Motor.GoBILDA.RPM_435),
-                new Motor(hardwareMap, "frontRight", Motor.GoBILDA.RPM_435),
-                new Motor(hardwareMap, "backLeft", Motor.GoBILDA.RPM_435),
-                new Motor(hardwareMap, "backRight", Motor.GoBILDA.RPM_435)
+                new Motor(hardwareMap, "leftFront", Motor.GoBILDA.RPM_435),
+                new Motor(hardwareMap, "rightFront", Motor.GoBILDA.RPM_435),
+                new Motor(hardwareMap, "leftRear", Motor.GoBILDA.RPM_435),
+                new Motor(hardwareMap, "rightRear", Motor.GoBILDA.RPM_435)
         );
 
         // This is the built-in IMU in the REV hub.

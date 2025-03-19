@@ -2,15 +2,14 @@ package org.firstinspires.ftc.teamcode.config.pedropathing.constants;
 
 import com.pedropathing.localization.*;
 import com.pedropathing.localization.constants.*;
-import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 public class LConstants {
     static {
         //TODO: Tune everything
 
-        PinpointConstants.forwardY = 1;
-        PinpointConstants.strafeX = -2.5;
+        PinpointConstants.forwardY = 134; // From CAD
+        PinpointConstants.strafeX = 80; // From CAD
         PinpointConstants.distanceUnit = DistanceUnit.MM;
         PinpointConstants.hardwareMapName = "pinpoint";
         PinpointConstants.useYawScalar = false;
