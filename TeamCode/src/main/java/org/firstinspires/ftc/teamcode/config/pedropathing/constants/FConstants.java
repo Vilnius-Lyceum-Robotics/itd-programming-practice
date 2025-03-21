@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 public class FConstants {
     static {
         //TODO: Tune everything
-        FollowerConstants.localizers = Localizers.TWO_WHEEL;
+        FollowerConstants.localizers = Localizers.PINPOINT;
 
         FollowerConstants.leftFrontMotorName = "leftFront";
         FollowerConstants.leftRearMotorName = "leftRear";

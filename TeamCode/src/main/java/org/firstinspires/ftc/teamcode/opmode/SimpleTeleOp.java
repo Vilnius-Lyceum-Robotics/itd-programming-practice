@@ -13,17 +13,25 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 @TeleOp(name="Simple TeleOp Driving")
 public class SimpleTeleOp extends LinearOpMode {
 
-    static final boolean FIELD_CENTRIC = true;
+    static final boolean FIELD_CENTRIC = false;
+
+    private Motor fL, fR, bL, bR;
 
     @Override
     public void runOpMode() throws InterruptedException {
+
+        fL = new Motor(hardwareMap, "leftFront", Motor.GoBILDA.RPM_435);
+        fR = new Motor(hardwareMap, "rightFront", Motor.GoBILDA.RPM_435);
+        bL = new Motor(hardwareMap, "leftRear", Motor.GoBILDA.RPM_435);
+        bR = new Motor(hardwareMap, "rightRear", Motor.GoBILDA.RPM_435);
+
+        bL.setInverted(true);
+        bR.setInverted(true);
+
         // constructor takes in frontLeft, frontRight, backLeft, backRight motors
         // IN THAT ORDER
         MecanumDrive drive = new MecanumDrive(
-                new Motor(hardwareMap, "leftFront", Motor.GoBILDA.RPM_435),
-                new Motor(hardwareMap, "rightFront", Motor.GoBILDA.RPM_435),
-                new Motor(hardwareMap, "leftRear", Motor.GoBILDA.RPM_435),
-                new Motor(hardwareMap, "rightRear", Motor.GoBILDA.RPM_435)
+                fL, fR, bL, bR
         );
 
         // This is the built-in IMU in the REV hub.
