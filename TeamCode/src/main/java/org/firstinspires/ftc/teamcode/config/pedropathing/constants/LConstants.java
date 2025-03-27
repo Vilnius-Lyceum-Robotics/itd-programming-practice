@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.config.pedropathing.constants;
 import com.pedropathing.localization.*;
 import com.pedropathing.localization.constants.*;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+import org.firstinspires.ftc.teamcode.config.core.RobotConstants.DriveConstants;
 
 public class LConstants {
     static {
@@ -11,7 +12,7 @@ public class LConstants {
         PinpointConstants.forwardY = 134; // From CAD
         PinpointConstants.strafeX = 80; // From CAD
         PinpointConstants.distanceUnit = DistanceUnit.MM;
-        PinpointConstants.hardwareMapName = "pinpoint";
+        PinpointConstants.hardwareMapName = DriveConstants.PINPOINT_NAME;
         PinpointConstants.useYawScalar = false;
         PinpointConstants.yawScalar = 1.0;
         PinpointConstants.useCustomEncoderResolution = false;
@@ -19,20 +20,6 @@ public class LConstants {
         PinpointConstants.customEncoderResolution = 13.26291192; //Not going to be used
         PinpointConstants.forwardEncoderDirection = GoBildaPinpointDriver.EncoderDirection.REVERSED;
         PinpointConstants.strafeEncoderDirection = GoBildaPinpointDriver.EncoderDirection.REVERSED;
-
-
-
-//        Old config meant for use without Pinpoint
-//        TwoWheelConstants.forwardTicksToInches = .001989436789;
-//        TwoWheelConstants.strafeTicksToInches = .001989436789;
-//        TwoWheelConstants.forwardY = 1;
-//        TwoWheelConstants.strafeX = -2.5;
-//        TwoWheelConstants.forwardEncoder_HardwareMapName = "leftFront";
-//        TwoWheelConstants.strafeEncoder_HardwareMapName = "rightRear";
-//        TwoWheelConstants.forwardEncoderDirection = Encoder.REVERSE;
-//        TwoWheelConstants.strafeEncoderDirection = Encoder.FORWARD;
-//        TwoWheelConstants.IMU_HardwareMapName = "imu";
-//        TwoWheelConstants.IMU_Orientation = new RevHubOrientationOnRobot(RevHubOrientationOnRobot.LogoFacingDirection.UP, RevHubOrientationOnRobot.UsbFacingDirection.LEFT);
     }
 }
 
