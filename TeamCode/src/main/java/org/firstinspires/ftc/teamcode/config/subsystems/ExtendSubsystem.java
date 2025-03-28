@@ -1,18 +1,16 @@
 package org.firstinspires.ftc.teamcode.config.subsystems;
 
-import com.acmerobotics.dashboard.FtcDashboard;
-import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
+import static org.firstinspires.ftc.teamcode.config.core.RobotConstants.*;
+
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.seattlesolvers.solverslib.command.SubsystemBase;
 import com.seattlesolvers.solverslib.controller.PIDController;
-import com.seattlesolvers.solverslib.controller.PIDFController;
+import com.seattlesolvers.solverslib.hardware.motors.Motor;
 import com.seattlesolvers.solverslib.solversHardware.SolversMotor;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.teamcode.config.core.RobotConstants;
-import org.firstinspires.ftc.teamcode.config.core.RobotConstants.*;
 
 public class ExtendSubsystem extends SubsystemBase {
 
@@ -21,43 +19,42 @@ public class ExtendSubsystem extends SubsystemBase {
     }
 
     private Telemetry telemetry;
-    private SolversMotor extendMotor;
+    private Motor extendMotor;
     private ExtendState extendState = ExtendState.ZERO;
-    private PIDFController pidf;
+    private PIDController pid;
     private boolean pidOn = false;
     private int target;
 
     public ExtendSubsystem(HardwareMap hardwareMap, Telemetry telemetry){
         this.telemetry = telemetry;
 
-        extendMotor = new SolversMotor(hardwareMap.get(DcMotor.class, RobotConstants.EXTEND_MOTOR), RobotConstants.POWER_THRESHOLD);
+        extendMotor = new Motor(hardwareMap, MOTOR_EXTEND, Motor.GoBILDA.RPM_435); // Don't know the correct motor
+        extendMotor.setInverted(false); // Todo: find correct direction
+        extendMotor.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
+        extendMotor.setRunMode(Motor.RunMode.RawPower);
+        extendMotor.stopAndResetEncoder();
 
-        extendMotor.setDirection(DcMotorSimple.Direction.FORWARD); // Todo: find correct direction
-        extendMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        extendMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        extendMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-
-        pidf = new PIDFController(RobotConstants.kP, RobotConstants.kI, RobotConstants.kD, RobotConstants.kF);
-        pidf.setTolerance(RobotConstants.ERROR_TOLERANCE);
+        pid = new PIDController(EXTEND_kP, EXTEND_kI, EXTEND_kD);
+        pid.setTolerance(EXTEND_ERROR_TOLERANCE);
     }
 
     @Override
     public void periodic(){
         if(!pidOn) {
-            extendMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+            extendMotor.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
             return;
         }
         if(reachedTarget()) {
-            extendMotor.setPower(0);
+            extendMotor.set(0);
             return;
         }
 
-        pidf.setPIDF(RobotConstants.kP, RobotConstants.kI, RobotConstants.kD, RobotConstants.kF);
-        extendMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        pid.setPID(EXTEND_kP, EXTEND_kI, EXTEND_kD);
+        extendMotor.setZeroPowerBehavior(Motor.ZeroPowerBehavior.FLOAT);
         double encoderPosition = getPos();
-        double power = pidf.calculate(encoderPosition);
+        double power = pid.calculate(encoderPosition);
 //            if(encoderPosition < 50 && target < 50) extendMotor.setPower(0); // Copied from Indubitables
-        extendMotor.setPower(power);
+        extendMotor.set(power);
     }
 
     public void setTarget(ExtendState state){
@@ -66,21 +63,21 @@ public class ExtendSubsystem extends SubsystemBase {
 
         switch(state) {
             case FULL:
-                target = RobotConstants.EXTEND_FULL;
+                target = EXTEND_FULL;
                 break;
             case ZERO:
-                target = RobotConstants.EXTEND_ZERO;
+                target = EXTEND_ZERO;
                 break;
             case TRANSFER:
-                target = RobotConstants.EXTEND_TRANSFER;
+                target = EXTEND_TRANSFER;
                 break;
         }
 
-        pidf.setSetPoint(target);
+        pid.setSetPoint(target);
     }
 
     public int getPos(){
-        return extendMotor.getPosition();
+        return extendMotor.getCurrentPosition();
     }
 
     public ExtendState getState(){
@@ -88,7 +85,7 @@ public class ExtendSubsystem extends SubsystemBase {
     }
 
     public boolean reachedTarget(){
-        return pidf.atSetPoint(); // Math.abs(errorVal_p) < errorTolerance_p
+        return pid.atSetPoint(); // Math.abs(errorVal_p) < errorTolerance_p
     }
 
     public void toFull(){
