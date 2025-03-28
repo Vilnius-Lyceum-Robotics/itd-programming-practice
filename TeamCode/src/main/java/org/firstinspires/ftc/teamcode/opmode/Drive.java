@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.opmode;
 
+import com.acmerobotics.dashboard.FtcDashboard;
+import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.seattlesolvers.solverslib.command.CommandOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.seattlesolvers.solverslib.command.InstantCommand;
@@ -19,6 +21,8 @@ public class Drive extends CommandOpMode{
     public void initialize(){
         super.reset();
 
+        telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
+
         extendSubsystem = new ExtendSubsystem(hardwareMap, telemetry);
         controlGamepad = new GamepadEx(gamepad1);
 
@@ -37,6 +41,8 @@ public class Drive extends CommandOpMode{
     public void run(){
         super.run();
 
+        extendSubsystem.telemetry();
+        telemetry.addLine("hello world");
         telemetry.update();
     }
 

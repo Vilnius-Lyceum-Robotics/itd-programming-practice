@@ -17,9 +17,9 @@ public class RobotConstants {
     public static final String EXTEND_MOTOR = "rightFront"; // Temporary
 //        public static final GoBILDA MOTOR_TYPE = GoBILDA.RPM_435; // Don't know the correct motor
     public static double POWER_THRESHOLD = 0.01;
-    public static double kP = 0; // Proportional gain
+    public static double kP = 0.005; // Proportional gain
     public static double kI = 0; // Integral gain
-    public static double kD = 0; // Derivative gain
+    public static double kD = 0.0001; // Derivative gain
     public static double kF = 0; // Feedforward gain
     public static double ERROR_TOLERANCE = 5;
 

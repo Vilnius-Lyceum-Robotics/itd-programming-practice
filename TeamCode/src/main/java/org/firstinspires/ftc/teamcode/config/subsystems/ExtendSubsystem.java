@@ -28,7 +28,7 @@ public class ExtendSubsystem extends SubsystemBase {
     private int target;
 
     public ExtendSubsystem(HardwareMap hardwareMap, Telemetry telemetry){
-        this.telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
+        this.telemetry = telemetry;
 
         extendMotor = new SolversMotor(hardwareMap.get(DcMotor.class, RobotConstants.EXTEND_MOTOR), RobotConstants.POWER_THRESHOLD);
 
@@ -43,21 +43,21 @@ public class ExtendSubsystem extends SubsystemBase {
 
     @Override
     public void periodic(){
-        if(pidOn) {
-            pidf.setPIDF(RobotConstants.kP, RobotConstants.kI, RobotConstants.kD, RobotConstants.kF);
-
-            extendMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-
-            double encoderPosition = getPos();
-            double power = pidf.calculate(encoderPosition, target);
-
-//            if(encoderPosition < 50 && target < 50) extendMotor.setPower(0); // Copied from Indubitables
-            extendMotor.setPower(power);
-        } else {
+        if(!pidOn) {
             extendMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+            return;
+        }
+        if(reachedTarget()) {
+            extendMotor.setPower(0);
+            return;
         }
 
-        telemetry();
+        pidf.setPIDF(RobotConstants.kP, RobotConstants.kI, RobotConstants.kD, RobotConstants.kF);
+        extendMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        double encoderPosition = getPos();
+        double power = pidf.calculate(encoderPosition);
+//            if(encoderPosition < 50 && target < 50) extendMotor.setPower(0); // Copied from Indubitables
+        extendMotor.setPower(power);
     }
 
     public void setTarget(ExtendState state){
@@ -75,6 +75,8 @@ public class ExtendSubsystem extends SubsystemBase {
                 target = RobotConstants.EXTEND_TRANSFER;
                 break;
         }
+
+        pidf.setSetPoint(target);
     }
 
     public int getPos(){
