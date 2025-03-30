@@ -90,6 +90,14 @@ public class OuttakeSubsystem extends SubsystemBase {
         }
     }
 
+    public void open(){
+        setGrabState(OuttakeSubsystem.GrabState.OPEN);
+    }
+
+    public void close(){
+        setGrabState(OuttakeSubsystem.GrabState.CLOSED);
+    }
+
     public void toTransfer(){
         setRotateState(RotateState.NORMAL);
         setPivotState(PivotState.TRANSFER);
@@ -111,6 +119,12 @@ public class OuttakeSubsystem extends SubsystemBase {
     public void toChamber() {
         setRotateState(RotateState.FLIPPED);
         setPivotState(PivotState.CHAMBER);
+        setGrabState(GrabState.CLOSED);
+    }
+
+    public void toPark(){
+        setRotateState(RotateState.NORMAL);
+        setPivotState(PivotState.PARK);
         setGrabState(GrabState.CLOSED);
     }
 

@@ -1,9 +1,31 @@
 package org.firstinspires.ftc.teamcode.config.core;
 
 import com.acmerobotics.dashboard.config.Config;
+import com.pedropathing.localization.Pose;
 
 @Config
 public class RobotConstants {
+
+//    public enum AllianceColor {
+//        RED,
+//        BLUE
+//    }
+//
+//    public enum PoseLocationName {
+//        BUCKET,
+//        OBSERVATION
+//    }
+//
+//    public static AllianceColor allianceColor = AllianceColor.RED;
+//    public static PoseLocationName poseLocationName;
+//
+//    public static Pose subSample1 = new Pose(62.000, 93.700, Math.toRadians(90));
+//    public static Pose subSample2 = new Pose(62.000, 93.700, Math.toRadians(90));
+//    public static Pose autoEndPose = new Pose(0, 0, Math.toRadians(0));
+//
+//    // Robot Width and Length (in centimeters)
+//    public static double ROBOT_WIDTH = 0;
+//    public static double ROBOT_LENGTH = 0;
 
     // Extend (horizontal extension)
     public static final String MOTOR_EXTEND = "extend";
@@ -26,7 +48,7 @@ public class RobotConstants {
     public static double LIFT_kI = 0; // Integral gain
     public static double LIFT_kD = 0.0001; // Derivative gain
     public static double LIFT_kF = 0; // Feedforward gain
-    public static double LIFT_ERROR_TOLERANCE = 5;
+    public static double LIFT_ERROR_TOLERANCE = 10;
 
     public static int LIFT_ZERO = 0;
     public static int LIFT_HIGH_BASKET = 0;

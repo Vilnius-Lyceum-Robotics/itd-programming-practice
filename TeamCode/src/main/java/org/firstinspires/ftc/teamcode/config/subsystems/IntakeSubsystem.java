@@ -123,6 +123,12 @@ public class IntakeSubsystem extends SubsystemBase {
         setPivotState(PivotState.HOVER);
     }
 
+    public void toPark(){
+        setRotateDegrees(0);
+        setPivotState(PivotState.PARK);
+        setGrabState(GrabState.CLOSED);
+    }
+
     public void telemetry(){
         telemetry.addData("Intake Grab State: ", grabState);
         telemetry.addData("Intake Pivot State: ", pivotState);
