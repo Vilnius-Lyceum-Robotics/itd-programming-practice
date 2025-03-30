@@ -4,26 +4,67 @@ import com.acmerobotics.dashboard.config.Config;
 
 @Config
 public class RobotConstants {
-    @Config
-    public static class DriveConstants {
-        public static final String MOTOR_LEFT_FRONT = "leftFront";
-        public static final String MOTOR_RIGHT_FRONT = "rightFront";
-        public static final String MOTOR_LEFT_BACK = "leftRear";
-        public static final String MOTOR_RIGHT_BACK = "rightRear";
 
-        public static final String PINPOINT_NAME = "pinpoint";
-    }
+    // Extend (horizontal extension)
+    public static final String MOTOR_EXTEND = "extend";
 
-    public static final String EXTEND_MOTOR = "rightFront"; // Temporary
-//        public static final GoBILDA MOTOR_TYPE = GoBILDA.RPM_435; // Don't know the correct motor
-    public static double POWER_THRESHOLD = 0.01;
-    public static double kP = 0.005; // Proportional gain
-    public static double kI = 0; // Integral gain
-    public static double kD = 0.0001; // Derivative gain
-    public static double kF = 0; // Feedforward gain
-    public static double ERROR_TOLERANCE = 5;
+    public static double EXTEND_kP = 0.005; // Proportional gain
+    public static double EXTEND_kI = 0; // Integral gain
+    public static double EXTEND_kD = 0.0001; // Derivative gain
+    public static double EXTEND_ERROR_TOLERANCE = 5;
 
     public static int EXTEND_ZERO = 0;
     public static int EXTEND_TRANSFER = 0;
     public static int EXTEND_FULL = 300;
+
+
+    // Lift (vertical lift)
+    public static final String MOTOR_LIFT_LEFT = "leftLift";
+    public static final String MOTOR_LIFT_RIGHT = "rightLift";
+
+    public static double LIFT_kP = 0.005; // Proportional gain
+    public static double LIFT_kI = 0; // Integral gain
+    public static double LIFT_kD = 0.0001; // Derivative gain
+    public static double LIFT_kF = 0; // Feedforward gain
+    public static double LIFT_ERROR_TOLERANCE = 5;
+
+    public static int LIFT_ZERO = 0;
+    public static int LIFT_HIGH_BASKET = 0;
+    public static int LIFT_LOW_BASKET = 0;
+    public static int LIFT_TO_CHAMBER = 0;
+    public static int LIFT_SCORE_CHAMBER = 0;
+    public static int LIFT_HUMAN_PLAYER = 0;
+    public static int LIFT_TRANSFER = 0;
+
+
+    // Outtake (vertical arm claw + pivot)
+    public static final String SERVO_OUTTAKE_GRAB = "outtakeGrab";
+    public static final String SERVO_OUTTAKE_ROTATE = "outtakeRotate";
+    public static final String SERVO_OUTTAKE_PIVOT_LEFT = "outtakePivotLeft";
+    public static final String SERVO_OUTTAKE_PIVOT_RIGHT = "outtakePivotRight";
+
+    public static double OUTTAKE_GRAB_CLOSE = 0;
+    public static double OUTTAKE_GRAB_OPEN = 0;
+    public static double OUTTAKE_ROTATE_NORMAL = 0;
+    public static double OUTTAKE_ROTATE_FLIPPED = 0;
+    public static double OUTTAKE_PIVOT_TRANSFER = 0;
+    public static double OUTTAKE_PIVOT_BUCKET = 0;
+    public static double OUTTAKE_PIVOT_HUMAN = 0;
+    public static double OUTTAKE_PIVOT_CHAMBER = 0;
+    public static double OUTTAKE_PIVOT_PARK = 0;
+
+    // Intake (horizontal arm claw)
+    public static final String SERVO_INTAKE_GRAB = "intakeGrab";
+    public static final String SERVO_INTAKE_PIVOT = "intakePivot";
+    public static final String SERVO_INTAKE_ROTATE = "intakeRotate";
+
+    public static double INTAKE_GRAB_CLOSE = 0;
+    public static double INTAKE_GRAB_OPEN = 0;
+    public static double INTAKE_ROTATE_MIN = 0; // Position that corresponds to -90 degree rotation
+    public static double INTAKE_ROTATE_MAX = 0; // Position that corresponds to +90 degree rotation
+    public static double INTAKE_PIVOT_GROUND = 0;
+    public static double INTAKE_PIVOT_HOVER = 0;
+    public static double INTAKE_PIVOT_TRANSFER = 0;
+    public static double INTAKE_PIVOT_PARK = 0;
+
 }

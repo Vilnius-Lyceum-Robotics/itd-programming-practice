@@ -15,7 +15,7 @@ public class ExtendSubsystem extends SubsystemBase {
     private Motor extendMotor;
     private PIDController pid;
     private boolean pidOn = false;
-    private int target;
+    private int target = 0;
 
     public ExtendSubsystem(HardwareMap hardwareMap, Telemetry telemetry){
         this.telemetry = telemetry;
@@ -44,7 +44,7 @@ public class ExtendSubsystem extends SubsystemBase {
         pid.setPID(EXTEND_kP, EXTEND_kI, EXTEND_kD);
 //        extendMotor.setZeroPowerBehavior(Motor.ZeroPowerBehavior.FLOAT);
         double encoderPosition = getPos();
-        double power = pid.calculate(encoderPosition);
+        double power = pid.calculate(encoderPosition, target);
         extendMotor.set(power);
     }
 

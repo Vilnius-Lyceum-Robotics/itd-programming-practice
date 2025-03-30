@@ -8,13 +8,16 @@ import com.seattlesolvers.solverslib.command.InstantCommand;
 import com.seattlesolvers.solverslib.gamepad.GamepadEx;
 import com.seattlesolvers.solverslib.gamepad.GamepadKeys;
 
-import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.config.subsystems.ExtendSubsystem;
+import org.firstinspires.ftc.teamcode.config.subsystems.IntakeSubsystem;
+import org.firstinspires.ftc.teamcode.config.subsystems.LiftSubsystem;
 
 @TeleOp(name = "Drive", group = "!")
 public class Drive extends CommandOpMode{
 
     private ExtendSubsystem extendSubsystem;
+    private LiftSubsystem liftSubsystem;
+    private IntakeSubsystem intakeSubsystem;
     private GamepadEx controlGamepad;
 
     @Override
@@ -24,16 +27,35 @@ public class Drive extends CommandOpMode{
         telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
 
         extendSubsystem = new ExtendSubsystem(hardwareMap, telemetry);
+        liftSubsystem = new LiftSubsystem(hardwareMap, telemetry);
+        intakeSubsystem = new IntakeSubsystem(hardwareMap, telemetry);
         controlGamepad = new GamepadEx(gamepad1);
 
         controlGamepad.getGamepadButton(GamepadKeys.Button.DPAD_UP)
                 .whenPressed(new InstantCommand(() -> {
                     extendSubsystem.toFull();
                 }));
-
         controlGamepad.getGamepadButton(GamepadKeys.Button.DPAD_DOWN)
                 .whenPressed(new InstantCommand(() -> {
                     extendSubsystem.toZero();
+                }));
+
+        controlGamepad.getGamepadButton(GamepadKeys.Button.DPAD_LEFT)
+                .whenPressed(new InstantCommand(() -> {
+                    liftSubsystem.toHighBucket();
+                }));
+        controlGamepad.getGamepadButton(GamepadKeys.Button.DPAD_RIGHT)
+                .whenPressed(new InstantCommand(() -> {
+                    liftSubsystem.toZero();
+                }));
+
+        controlGamepad.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
+                .whenPressed(new InstantCommand(() -> {
+                    intakeSubsystem.rotateCycle(true);
+                }));
+        controlGamepad.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER)
+                .whenPressed(new InstantCommand(() -> {
+                    intakeSubsystem.rotateCycle(false);
                 }));
     }
 
@@ -42,7 +64,8 @@ public class Drive extends CommandOpMode{
         super.run();
 
         extendSubsystem.telemetry();
-        telemetry.addLine("hello world");
+        liftSubsystem.telemetry();
+
         telemetry.update();
     }
 
