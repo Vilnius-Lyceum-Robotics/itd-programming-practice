@@ -15,6 +15,7 @@ import com.seattlesolvers.solverslib.pedroCommand.FollowPathCommand;
 
 import org.firstinspires.ftc.teamcode.config.commands.Chamber;
 import org.firstinspires.ftc.teamcode.config.commands.Park;
+import org.firstinspires.ftc.teamcode.config.core.paths.OneSpec;
 import org.firstinspires.ftc.teamcode.config.pedropathing.constants.FConstants;
 import org.firstinspires.ftc.teamcode.config.pedropathing.constants.LConstants;
 import org.firstinspires.ftc.teamcode.config.subsystems.ExtendSubsystem;
@@ -24,8 +25,8 @@ import org.firstinspires.ftc.teamcode.config.subsystems.OuttakeSubsystem;
 
 import java.util.List;
 
-@Autonomous(name = "SpecimenAuto", group = "!")
-public class OneSpec extends CommandOpMode {
+@Autonomous(name = "One Specimen Auto", group = "!")
+public class OneSpecAuto extends CommandOpMode {
     private Follower follower;
     private LiftSubsystem liftSubsystem;
     private OuttakeSubsystem outtakeSubsystem;
@@ -56,7 +57,7 @@ public class OneSpec extends CommandOpMode {
 
                 new SequentialCommandGroup(
                         new ParallelCommandGroup(
-                                new FollowPathCommand(follower, org.firstinspires.ftc.teamcode.config.core.paths.OneSpec.score1()),
+                                new FollowPathCommand(follower, OneSpec.score1()),
                                 new SequentialCommandGroup(
                                         new WaitCommand(500),
                                         new Chamber(outtakeSubsystem, liftSubsystem)
@@ -64,7 +65,7 @@ public class OneSpec extends CommandOpMode {
                         ),
                         new InstantCommand(outtakeSubsystem::open),
                         new ParallelCommandGroup(
-                                new FollowPathCommand(follower, org.firstinspires.ftc.teamcode.config.core.paths.OneSpec.park()),
+                                new FollowPathCommand(follower, OneSpec.park()),
                                 new Park(outtakeSubsystem, liftSubsystem, intakeSubsystem, extendSubsystem)
                         )
                 )
