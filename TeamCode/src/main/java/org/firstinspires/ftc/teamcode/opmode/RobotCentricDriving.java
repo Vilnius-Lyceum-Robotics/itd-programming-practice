@@ -24,6 +24,8 @@ public class RobotCentricDriving extends LinearOpMode {
 
         bL.setInverted(true);
         bR.setInverted(true);
+        fL.setInverted(true);
+        fR.setInverted(true);
 
         // constructor takes in frontLeft, frontRight, backLeft, backRight motors
         // IN THAT ORDER

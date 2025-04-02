@@ -22,12 +22,10 @@ import org.firstinspires.ftc.teamcode.config.subsystems.IntakeSubsystem;
 import org.firstinspires.ftc.teamcode.config.subsystems.LiftSubsystem;
 import org.firstinspires.ftc.teamcode.config.subsystems.OuttakeSubsystem;
 
-import org.firstinspires.ftc.teamcode.config.core.paths.OneSpec;
-
 import java.util.List;
 
 @Autonomous(name = "SpecimenAuto", group = "!")
-public class SpecimenAuto extends CommandOpMode {
+public class OneSpec extends CommandOpMode {
     private Follower follower;
     private LiftSubsystem liftSubsystem;
     private OuttakeSubsystem outtakeSubsystem;
@@ -58,7 +56,7 @@ public class SpecimenAuto extends CommandOpMode {
 
                 new SequentialCommandGroup(
                         new ParallelCommandGroup(
-                                new FollowPathCommand(follower, OneSpec.score1()),
+                                new FollowPathCommand(follower, org.firstinspires.ftc.teamcode.config.core.paths.OneSpec.score1()),
                                 new SequentialCommandGroup(
                                         new WaitCommand(500),
                                         new Chamber(outtakeSubsystem, liftSubsystem)
@@ -66,7 +64,7 @@ public class SpecimenAuto extends CommandOpMode {
                         ),
                         new InstantCommand(outtakeSubsystem::open),
                         new ParallelCommandGroup(
-                                new FollowPathCommand(follower, OneSpec.park()),
+                                new FollowPathCommand(follower, org.firstinspires.ftc.teamcode.config.core.paths.OneSpec.park()),
                                 new Park(outtakeSubsystem, liftSubsystem, intakeSubsystem, extendSubsystem)
                         )
                 )

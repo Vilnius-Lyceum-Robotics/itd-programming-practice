@@ -19,7 +19,7 @@ public class OneSpec {
                                 score1Pose
                         )
                 )
-                .setConstantHeadingInterpolation(Math.toRadians(180))
+                .setConstantHeadingInterpolation(startPose.getHeading())
 //                .setZeroPowerAccelerationMultiplier(6)
                 .build();
     }
@@ -33,7 +33,7 @@ public class OneSpec {
                                 parkPose
                         )
                 )
-                .setConstantHeadingInterpolation(Math.toRadians(180))
+                .setConstantHeadingInterpolation(parkPose.getHeading())
 //                .setZeroPowerAccelerationMultiplier(7)
                 .build();
     }

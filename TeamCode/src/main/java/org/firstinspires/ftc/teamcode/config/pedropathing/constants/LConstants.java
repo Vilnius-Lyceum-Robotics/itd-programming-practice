@@ -8,8 +8,8 @@ public class LConstants {
     static {
         //TODO: Tune everything
 
-        PinpointConstants.forwardY = 13.4; // From CAD
-        PinpointConstants.strafeX = 8; // From CAD
+        PinpointConstants.forwardY = -17; // From CAD 13.4
+        PinpointConstants.strafeX = 12; // From CAD
         PinpointConstants.distanceUnit = DistanceUnit.CM;
         PinpointConstants.hardwareMapName = "pinpoint";
         PinpointConstants.useYawScalar = false;
@@ -18,7 +18,7 @@ public class LConstants {
         PinpointConstants.encoderResolution = GoBildaPinpointDriver.GoBildaOdometryPods.goBILDA_SWINGARM_POD;
         PinpointConstants.customEncoderResolution = 13.26291192; //Not going to be used
         PinpointConstants.forwardEncoderDirection = GoBildaPinpointDriver.EncoderDirection.REVERSED;
-        PinpointConstants.strafeEncoderDirection = GoBildaPinpointDriver.EncoderDirection.REVERSED;
+        PinpointConstants.strafeEncoderDirection = GoBildaPinpointDriver.EncoderDirection.FORWARD;
     }
 }
 
