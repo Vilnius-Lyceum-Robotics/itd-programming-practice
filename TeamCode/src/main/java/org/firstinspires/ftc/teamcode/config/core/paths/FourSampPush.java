@@ -3,30 +3,29 @@ package org.firstinspires.ftc.teamcode.config.core.paths;
 import com.pedropathing.localization.Pose;
 import com.pedropathing.pathgen.BezierCurve;
 import com.pedropathing.pathgen.BezierLine;
-import com.pedropathing.pathgen.Path;
 import com.pedropathing.pathgen.PathBuilder;
 import com.pedropathing.pathgen.PathChain;
 
 public class FourSampPush {
 
     public static Pose start = new Pose(9, 88, Math.toRadians(0));
-    public static Pose score1 = new Pose(18, 125, Math.toRadians(-45));
-    public static Pose prepare2 = new Pose(62, 121, Math.toRadians(0));
-    public static Pose push2 = new Pose(9, 124, Math.toRadians(0));
-    public static Pose prepare3 = new Pose(62, 132, Math.toRadians(0));
-    public static Pose push3 = new Pose(18, 132, Math.toRadians(0));
-    public static Pose prepare4 = new Pose(62, 137, Math.toRadians(0));
-    public static Pose push4 = new Pose(29, 137, Math.toRadians(0));
-    public static Pose park = new Pose(63, 97, Math.toRadians(-90));
+    public static Pose score = new Pose(18, 125, Math.toRadians(-45));
+    public static Pose toBottomSample = new Pose(62, 121, Math.toRadians(0));
+    public static Pose pushedBottomSample = new Pose(9, 124, Math.toRadians(0));
+    public static Pose toMiddleSample = new Pose(62, 132, Math.toRadians(0));
+    public static Pose pushedMiddleSample = new Pose(18, 132, Math.toRadians(0));
+    public static Pose toTopSample = new Pose(62, 137, Math.toRadians(0));
+    public static Pose pushedTopSample = new Pose(29, 137, Math.toRadians(0));
+    public static Pose park = new Pose(63, 97, Math.toRadians(90));
 
     public static PathChain scorePreload() {
         return new PathBuilder()
                 .addPath(
                         new BezierLine(
-                                start, score1
+                                start, score
                         )
                 )
-                .setLinearHeadingInterpolation(start.getHeading(), score1.getHeading())
+                .setLinearHeadingInterpolation(start.getHeading(), score.getHeading())
                 .build();
     }
 
@@ -35,33 +34,33 @@ public class FourSampPush {
                 //prepare 2
                 .addPath(
                         new BezierCurve(
-                                score1,
+                                score,
                                 new Pose(54, 95),
-                                prepare2
+                                toBottomSample
                         )
                 )
-                .setLinearHeadingInterpolation(score1.getHeading(), prepare2.getHeading())
+                .setLinearHeadingInterpolation(score.getHeading(), toBottomSample.getHeading())
 
                 //push 2
-                .addPath(new BezierLine(prepare2, push2))
+                .addPath(new BezierLine(toBottomSample, pushedBottomSample))
 
                 //get back to prepare 2
-                .addPath(new BezierLine(push2, prepare2))
+                .addPath(new BezierLine(pushedBottomSample, toBottomSample))
 
                 //prepare 3
-                .addPath(new BezierLine(prepare2, prepare3))
+                .addPath(new BezierLine(toBottomSample, toMiddleSample))
 
                 //push 3
-                .addPath(new BezierLine(prepare3, push3))
+                .addPath(new BezierLine(toMiddleSample, pushedMiddleSample))
 
                 //get back to prepare 3
-                .addPath(new BezierLine(push3, prepare3))
+                .addPath(new BezierLine(pushedMiddleSample, toMiddleSample))
 
                 //prepare 4
-                .addPath(new BezierLine(prepare3, prepare4))
+                .addPath(new BezierLine(toMiddleSample, toTopSample))
 
                 //push 4
-                .addPath(new BezierLine(prepare4, push4))
+                .addPath(new BezierLine(toTopSample, pushedTopSample))
                 .build();
     }
 
@@ -69,10 +68,10 @@ public class FourSampPush {
         return new PathBuilder()
                 .addPath(
                         new BezierLine(
-                                push4, park
+                                pushedTopSample, park
                         )
                 )
-                .setLinearHeadingInterpolation(push4.getHeading(), park.getHeading())
+                .setLinearHeadingInterpolation(pushedTopSample.getHeading(), park.getHeading())
                 .build();
 
     }
