@@ -100,6 +100,8 @@ public class FullTeleOp extends CommandOpMode{
 
         extendSubsystem.telemetry();
         liftSubsystem.telemetry();
+        intakeSubsystem.telemetry();
+        outtakeSubsystem.telemetry();
 
         telemetry.update(); // DO NOT REMOVE! Needed for telemetry
     }

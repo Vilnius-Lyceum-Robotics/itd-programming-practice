@@ -126,7 +126,6 @@ public class IntakeSubsystem extends SubsystemBase {
     public void toPark(){
         setRotateDegrees(0);
         setPivotState(PivotState.PARK);
-        setGrabState(GrabState.CLOSED);
     }
 
     public void telemetry(){
