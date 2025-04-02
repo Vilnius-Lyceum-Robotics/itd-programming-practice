@@ -8,9 +8,9 @@ import com.pedropathing.pathgen.PathBuilder;
 import com.pedropathing.pathgen.PathChain;
 public class OneSamp {
 
-    public static Pose start = new Pose(89, 88, Math.toRadians(180));
-    public static Pose score = new Pose(18, 125, Math.toRadians(135));
-    public static Pose park = new Pose(62, 98, Math.toRadians(90));
+    public static Pose start = new Pose(89, 88, Math.toRadians(0));
+    public static Pose score = new Pose(18, 125, Math.toRadians(-45));
+    public static Pose park = new Pose(62, 98, Math.toRadians(-90));
 
     public static PathChain score1() {
         return new PathBuilder()
