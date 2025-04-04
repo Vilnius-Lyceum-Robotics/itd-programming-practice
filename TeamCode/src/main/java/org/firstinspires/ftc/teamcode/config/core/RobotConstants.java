@@ -89,4 +89,11 @@ public class RobotConstants {
     public static double INTAKE_PIVOT_TRANSFER = 0;
     public static double INTAKE_PIVOT_PARK = 0;
 
+    // Linkage slides *for testing* (horizontal extension)
+    public static final String SERVO_LINKAGE_LEFT = "linkageLeft";
+    public static final String SERVO_LINKAGE_RIGHT = "linkageRight";
+
+    public static double LINKAGE_ZERO = 0;
+    public static double LINKAGE_FULL = 0;
+
 }
