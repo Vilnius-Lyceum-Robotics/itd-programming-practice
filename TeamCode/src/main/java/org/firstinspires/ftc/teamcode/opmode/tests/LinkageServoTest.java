@@ -27,15 +27,15 @@ public class LinkageServoTest extends CommandOpMode {
         firstDriver = new GamepadEx(gamepad1);
 
         firstDriver.getGamepadButton(GamepadKeys.Button.DPAD_UP)
-                .whenPressed(() -> sadLittleServo.increment(0.1));
+                .whenPressed(() -> sadLittleServo.extend());
 
         firstDriver.getGamepadButton(GamepadKeys.Button.DPAD_DOWN)
-                .whenPressed(() -> sadLittleServo.increment(-0.1));
+                .whenPressed(() -> sadLittleServo.retract());
 
         firstDriver.getGamepadButton(GamepadKeys.Button.DPAD_RIGHT)
-                .whenPressed(() -> sadLittleServo.extend());
+                .whenPressed(() -> sadLittleServo.increment(0.25));
         firstDriver.getGamepadButton(GamepadKeys.Button.DPAD_LEFT)
-                .whenPressed(() -> sadLittleServo.retract());
+                .whenPressed(() -> sadLittleServo.increment(-0.25));
 
 
 

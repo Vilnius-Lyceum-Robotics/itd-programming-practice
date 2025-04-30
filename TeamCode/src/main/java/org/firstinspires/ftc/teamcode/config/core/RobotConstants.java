@@ -96,7 +96,8 @@ public class RobotConstants {
     public static double LINKAGE_ZERO = 0;
     public static double LINKAGE_FULL = 0;
 
-    public static double H_ARM_FULL = 0.35;
-    public static double H_ARM_DEFAULT = 0;
+    public static double H_ARM_FULL = 0.3;
+    public static double H_ARM_DEFAULT = 0.1;
+    public static double H_ARM_FORCE = 0.08;
 
 }

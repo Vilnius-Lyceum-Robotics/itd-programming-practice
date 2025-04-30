@@ -11,19 +11,19 @@ public class LinkageServo extends SubsystemBase {
 
     private Telemetry telemetry;
     private Servo sadLittleServo;
-    private double pos = 0;
+    private double pos = 0.1;
 
     public LinkageServo(HardwareMap hardwareMap, Telemetry telemetry) {
         this.telemetry = telemetry;
 
-        sadLittleServo = hardwareMap.get(Servo.class, "sadLittleServo");
-        sadLittleServo.setDirection(Servo.Direction.FORWARD);
+        sadLittleServo = hardwareMap.get(Servo.class, "rightLinkage");
+        sadLittleServo.setDirection(Servo.Direction.REVERSE);
 
-        setTarget(0);
+        setTarget(this.pos);
     }
 
     public void setTarget(double target) {
-        if (this.pos + target >= 0) {
+        if (target >= 0) {
             this.pos = target;
             sadLittleServo.setPosition(target);
         }
