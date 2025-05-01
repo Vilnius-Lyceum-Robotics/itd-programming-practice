@@ -34,7 +34,7 @@ import java.util.List;
 @TeleOp(name = "MaybeSemiWorkingTeleOp", group = "!")
 public class FullTeleOp extends CommandOpMode{
 
-    //private Follower follower;
+    private Follower follower;
     //private ExtendSubsystem extendSubsystem;
     //private LiftSubsystem liftSubsystem;
     //private IntakeSubsystem intakeSubsystem;
@@ -43,7 +43,6 @@ public class FullTeleOp extends CommandOpMode{
     private Chassis chassis;
     private GamepadEx firstDriver;
     private GamepadEx secondDriver;
-    private Motor fL, fR, bL, bR;
 
 
     @Override
@@ -59,7 +58,7 @@ public class FullTeleOp extends CommandOpMode{
 
         telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
 
-        //follower = new Follower(hardwareMap, FConstants.class, LConstants.class);
+        follower = new Follower(hardwareMap, FConstants.class, LConstants.class);
         //extendSubsystem = new ExtendSubsystem(hardwareMap, telemetry);
         //liftSubsystem = new LiftSubsystem(hardwareMap, telemetry);
         //intakeSubsystem = new IntakeSubsystem(hardwareMap, telemetry);
@@ -114,10 +113,10 @@ public class FullTeleOp extends CommandOpMode{
         super.run(); // DO NOT REMOVE! Runs FTCLib Command Scheduler
 
         // Pedro field centric movement
-        /*follower.setTeleOpMovementVectors(driver.getLeftY(), driver.getLeftX(), driver.getRightX() * 0.40, false);
+        //follower.setTeleOpMovementVectors(driver.getLeftY(), driver.getLeftX(), driver.getRightX() * 0.40, false);
         follower.update();
 
-        extendSubsystem.telemetry();
+        /*extendSubsystem.telemetry();
         liftSubsystem.telemetry();
         intakeSubsystem.telemetry();
         outtakeSubsystem.telemetry();*/

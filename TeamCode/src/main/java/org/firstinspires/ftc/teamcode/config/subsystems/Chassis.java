@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.config.subsystems;
 
+import com.pedropathing.localization.GoBildaPinpointDriver;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.seattlesolvers.solverslib.drivebase.MecanumDrive;
 import com.seattlesolvers.solverslib.hardware.motors.Motor;
@@ -11,12 +12,12 @@ public class Chassis {
     private Motor frontRight, frontLeft, rearRight, rearLeft;
     private Telemetry telemetry;
     private MecanumDrive drive;
-
+    private GoBildaPinpointDriver pinpoint;
     public Chassis (HardwareMap hardwareMap, Telemetry telemetry) {
-        frontRight = new Motor(hardwareMap, "frontRight", Motor.GoBILDA.RPM_435);
-        frontLeft = new Motor(hardwareMap, "frontLeft", Motor.GoBILDA.RPM_435);
-        rearRight = new Motor(hardwareMap, "rearRight", Motor.GoBILDA.RPM_435);
-        rearLeft = new Motor(hardwareMap, "rearLeft", Motor.GoBILDA.RPM_435);
+        frontRight = new MotorEx(hardwareMap, "frontRight", Motor.GoBILDA.RPM_435);
+        frontLeft = new MotorEx(hardwareMap, "frontLeft", Motor.GoBILDA.RPM_435);
+        rearRight = new MotorEx(hardwareMap, "rearRight", Motor.GoBILDA.RPM_435);
+        rearLeft = new MotorEx(hardwareMap, "rearLeft", Motor.GoBILDA.RPM_435);
 
         this.telemetry = telemetry;
 
@@ -24,6 +25,9 @@ public class Chassis {
         frontLeft.setInverted(true);
         rearRight.setInverted(true);
         rearLeft.setInverted(true);
+
+        pinpoint = hardwareMap.get(GoBildaPinpointDriver.class,"pinpoint");
+        pinpoint.resetPosAndIMU();
 
         drive = new MecanumDrive(frontLeft, frontRight, rearLeft, rearRight);
 

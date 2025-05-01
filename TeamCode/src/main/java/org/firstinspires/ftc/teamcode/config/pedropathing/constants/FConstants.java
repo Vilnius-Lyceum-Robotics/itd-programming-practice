@@ -11,10 +11,10 @@ public class FConstants {
         //TODO: Tune everything
         FollowerConstants.localizers = Localizers.PINPOINT;
 
-        FollowerConstants.leftFrontMotorName = "leftFront";
-        FollowerConstants.leftRearMotorName = "leftRear";
-        FollowerConstants.rightFrontMotorName = "rightFront";
-        FollowerConstants.rightRearMotorName = "rightRear";
+        FollowerConstants.leftFrontMotorName = "frontLeft";
+        FollowerConstants.leftRearMotorName = "rearLeft";
+        FollowerConstants.rightFrontMotorName = "frontRight";
+        FollowerConstants.rightRearMotorName = "rearRight";
 
         FollowerConstants.leftFrontMotorDirection = DcMotorSimple.Direction.REVERSE;
         FollowerConstants.leftRearMotorDirection = DcMotorSimple.Direction.REVERSE;

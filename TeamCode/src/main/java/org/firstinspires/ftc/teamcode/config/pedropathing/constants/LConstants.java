@@ -8,8 +8,8 @@ public class LConstants {
     static {
         //TODO: Tune everything
 
-        PinpointConstants.forwardY = -17; // From CAD 13.4
-        PinpointConstants.strafeX = 12; // From CAD
+        PinpointConstants.forwardY = -5.6;// From CAD 13.4
+        PinpointConstants.strafeX = -2.3; // From CAD
         PinpointConstants.distanceUnit = DistanceUnit.CM;
         PinpointConstants.hardwareMapName = "pinpoint";
         PinpointConstants.useYawScalar = false;
