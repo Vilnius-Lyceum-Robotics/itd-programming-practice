@@ -41,11 +41,11 @@ public class LinkageServo extends SubsystemBase {
         setTarget(this.pos + increment);
     }
     public void extend() {
-        setTarget(H_ARM_FULL);
+        setTarget(LINKAGE_FULL);
     }
 
     public void retract() {
-        setTarget(H_ARM_DEFAULT);
+        setTarget(LINKAGE_ZERO);
     }
 
 

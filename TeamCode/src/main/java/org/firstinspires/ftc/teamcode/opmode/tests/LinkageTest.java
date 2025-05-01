@@ -33,6 +33,11 @@ public class LinkageTest extends CommandOpMode {
         firstDriver.getGamepadButton(GamepadKeys.Button.DPAD_DOWN)
                 .whenPressed(() -> linkage.retract());
 
+        firstDriver.getGamepadButton(GamepadKeys.Button.DPAD_RIGHT)
+                .whenPressed(() -> linkage.increment(0.1));
+
+        firstDriver.getGamepadButton(GamepadKeys.Button.DPAD_LEFT)
+                .whenPressed(() -> linkage.increment(-0.1));
 
         //firstDriver.getGamepadButton(GamepadKeys.Button.DPAD_UP).whenPressed(new InstantCommand(linkageSubsystem::toFull));
 

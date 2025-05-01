@@ -16,7 +16,7 @@ public class Linkage extends SubsystemBase {
     private Telemetry telemetry;
     private Servo leftLinkage;
     private Servo rightLinkage;
-    private double pos = 0.1;
+    private double pos = LINKAGE_ZERO;
 
     public Linkage(HardwareMap hardwareMap, Telemetry telemetry) {
         this.telemetry = telemetry;
@@ -41,6 +41,7 @@ public class Linkage extends SubsystemBase {
         } else {
             leftLinkage.setPosition(target);
             rightLinkage.setPosition(target);
+            this.pos = target;
         }
     }
 
