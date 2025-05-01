@@ -93,11 +93,7 @@ public class RobotConstants {
     public static final String SERVO_LINKAGE_LEFT = "linkageLeft";
     public static final String SERVO_LINKAGE_RIGHT = "linkageRight";
 
-    public static double LINKAGE_ZERO = 0;
-    public static double LINKAGE_FULL = 0;
-
-    public static double H_ARM_FULL = 0.3;
-    public static double H_ARM_DEFAULT = 0.1;
-    public static double H_ARM_FORCE = 0.08;
+    public static double LINKAGE_ZERO = 0.08;
+    public static double LINKAGE_FULL = 0.3;
 
 }

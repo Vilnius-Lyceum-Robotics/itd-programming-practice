@@ -30,14 +30,14 @@ public class Linkage extends SubsystemBase {
     }
 
     public void setTarget(double target) {
-        if (target >= H_ARM_FULL) {
-            this.pos = H_ARM_FULL;
-            leftLinkage.setPosition(H_ARM_FULL);
-            rightLinkage.setPosition(H_ARM_FULL);
-        } else if (target <= H_ARM_FORCE) {
-            this.pos = H_ARM_FORCE;
-            leftLinkage.setPosition(H_ARM_FORCE);
-            rightLinkage.setPosition(H_ARM_FORCE);
+        if (target >= LINKAGE_FULL) {
+            this.pos = LINKAGE_FULL;
+            leftLinkage.setPosition(LINKAGE_FULL);
+            rightLinkage.setPosition(LINKAGE_FULL);
+        } else if (target <= LINKAGE_ZERO) {
+            this.pos = LINKAGE_ZERO;
+            leftLinkage.setPosition(LINKAGE_ZERO);
+            rightLinkage.setPosition(LINKAGE_ZERO);
         } else {
             leftLinkage.setPosition(target);
             rightLinkage.setPosition(target);
@@ -61,9 +61,7 @@ public class Linkage extends SubsystemBase {
         setTarget(this.pos + increment);
     }
     public void extend() {
-        setTarget(H_ARM_FULL);
+        setTarget(LINKAGE_FULL);
     }
-    public void retract() {
-        setTarget(H_ARM_DEFAULT);
-    }
+    public void retract() {setTarget(LINKAGE_ZERO);}
 }
