@@ -32,33 +32,34 @@ public class HorizontalArm extends SubsystemBase {
         //clawRotation.setDirection(Servo.Direction.FORWARD);
         //clawGripper.setDirection(Servo.Direction.FORWARD);
 
-        this.elbowPos = H_ELBOW_DOWN;
-        setElbowAngle(H_ELBOW_DOWN);
+        this.elbowPos = ELBOW_DOWN;
+        setElbowAngle(ELBOW_DOWN);
 
     }
 
     public void setElbowAngle(double target) {
-        if (target >= H_ELBOW_UP) {
-            leftElbow.setPosition(H_ELBOW_UP);
-            rightElbow.setPosition(H_ELBOW_UP / H_ELBOW_COEF + 0.2);
-            this.elbowPos = H_ELBOW_UP;
-        } else if (target <= H_ELBOW_DOWN) {
-            leftElbow.setPosition(H_ELBOW_DOWN);
-            rightElbow.setPosition(H_ELBOW_DOWN / H_ELBOW_COEF + 0.2);
-            this.elbowPos = H_ELBOW_DOWN;
+        if (target >= ELBOW_UP) {
+            leftElbow.setPosition(ELBOW_UP);
+            rightElbow.setPosition(ELBOW_UP / ELBOW_COEF + 0.2);
+            this.elbowPos = ELBOW_UP;
+        } else if (target <= ELBOW_DOWN) {
+            leftElbow.setPosition(ELBOW_DOWN);
+            rightElbow.setPosition(ELBOW_DOWN / ELBOW_COEF + 0.2);
+            this.elbowPos = ELBOW_DOWN;
         } else {
             leftElbow.setPosition(target);
-            rightElbow.setPosition(target / H_ELBOW_COEF + 0.2);
+            rightElbow.setPosition(target / ELBOW_COEF + 0.2);
             this.elbowPos = target;
         }
     }
+
 
 
     public double getElbowPos() { return this.elbowPos;}
 
     public void telemetry() {
         telemetry.addData("Left elbow position: ", getElbowPos());
-        telemetry.addData("Right elbow position: ", getElbowPos() / H_ELBOW_COEF + 0.2);
+        telemetry.addData("Right elbow position: ", getElbowPos() / ELBOW_COEF + 0.2);
     }
 
     public void elbowIncrement(double amount) {
