@@ -96,4 +96,21 @@ public class RobotConstants {
     public static double LINKAGE_ZERO = 0.77;
     public static double LINKAGE_FULL = 1;
 
+    public static double H_ELBOW_DOWN = 0;
+    public static double H_ELBOW_INTAKE = 0.5;
+    public static double H_ELBOW_UP = 1;
+
+    // Because we need the 5turn and 300 degrees moving at the same rate
+    // TODO find the correct coefficient
+    public static double H_ELBOW_COEF = 4;
+    enum ElbowState {
+        DOWN(0),
+        TRANSFER(1),
+        INTAKE(0.5);
+
+        public final double pos;
+
+        ElbowState(double pos) { this.pos = pos; }
+    }
+
 }
