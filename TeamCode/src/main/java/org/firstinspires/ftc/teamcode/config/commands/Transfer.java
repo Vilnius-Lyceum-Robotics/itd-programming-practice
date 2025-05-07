@@ -6,7 +6,6 @@ import com.seattlesolvers.solverslib.command.SequentialCommandGroup;
 import com.seattlesolvers.solverslib.command.WaitCommand;
 import com.seattlesolvers.solverslib.command.WaitUntilCommand;
 
-import org.firstinspires.ftc.teamcode.config.subsystems.ExtendSubsystem;
 import org.firstinspires.ftc.teamcode.config.subsystems.IntakeSubsystem;
 import org.firstinspires.ftc.teamcode.config.subsystems.LiftSubsystem;
 import org.firstinspires.ftc.teamcode.config.subsystems.OuttakeSubsystem;
