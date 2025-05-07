@@ -101,8 +101,7 @@ public class RobotConstants {
     public static double ELBOW_UP = 1;
 
     // Because we need the 5turn and 300 degrees moving at the same rate
-    // TODO find the correct coefficient
-    public static double ELBOW_COEF = 4;
+    public static double ELBOW_COEF = 6;
     enum ElbowState { //not used for now
         DOWN(0),
         TRANSFER(1),
@@ -112,5 +111,8 @@ public class RobotConstants {
 
         ElbowState(double pos) { this.pos = pos; }
     }
+
+    public static double H_WRIST_UP = 1;
+    public static double H_WRIST_DOWN = 0;
 
 }

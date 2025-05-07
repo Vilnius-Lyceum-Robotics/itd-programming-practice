@@ -22,18 +22,20 @@ public class HorizontalArm extends SubsystemBase {
 
         leftElbow = hardwareMap.get(Servo.class, "leftElbow");
         rightElbow = hardwareMap.get(Servo.class, "rightElbow");
-        //wrist = hardwareMap.get(Servo.class, "wrist");
+        wrist = hardwareMap.get(Servo.class, "wrist");
         //clawRotation = hardwareMap.get(Servo.class, "clawRotation");
         //clawGripper = hardwareMap.get(Servo.class, "clawGripper");
 
         leftElbow.setDirection(Servo.Direction.FORWARD);
         rightElbow.setDirection(Servo.Direction.REVERSE);
-        //wrist.setDirection(Servo.Direction.FORWARD);
+        wrist.setDirection(Servo.Direction.REVERSE);
         //clawRotation.setDirection(Servo.Direction.FORWARD);
         //clawGripper.setDirection(Servo.Direction.FORWARD);
 
         this.elbowPos = ELBOW_DOWN;
         setElbowAngle(ELBOW_DOWN);
+        this.wristPos = H_WRIST_UP;
+        setWristAngle(H_WRIST_UP);
 
     }
 
@@ -53,17 +55,34 @@ public class HorizontalArm extends SubsystemBase {
         }
     }
 
-
+    public void setWristAngle(double target) {
+        if (target >= H_WRIST_UP) {
+            wrist.setPosition(H_WRIST_UP);
+            this.wristPos = H_WRIST_UP;
+        } else if (target <= H_WRIST_DOWN) {
+            wrist.setPosition(H_WRIST_DOWN);
+            this.wristPos = H_WRIST_DOWN;
+        } else {
+            wrist.setPosition(target);
+            this.wristPos = target;
+        }
+    }
 
     public double getElbowPos() { return this.elbowPos;}
+    public double getWristPos() {return this.wristPos;}
 
     public void telemetry() {
         telemetry.addData("Left elbow position: ", getElbowPos());
         telemetry.addData("Right elbow position: ", getElbowPos() / ELBOW_COEF + 0.2);
+        telemetry.addData("Wrist position: ", getWristPos());
     }
 
     public void elbowIncrement(double amount) {
         setElbowAngle(this.elbowPos + amount);
+    }
+
+    public void wristIncrement(double amount) {
+        setWristAngle(this.wristPos + amount);
     }
 
 
