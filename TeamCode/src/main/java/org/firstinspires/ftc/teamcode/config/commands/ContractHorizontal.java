@@ -15,7 +15,7 @@ public class ContractHorizontal extends ParallelCommandGroup {
     public ContractHorizontal(Linkage linkageSubsystem, HorizontalArm horizontalArmSubsystem){
         addCommands(
                 new InstantCommand(linkageSubsystem::retract),
-                new InstantCommand(horizontalArmSubsystem::toHover),
+//                new InstantCommand(horizontalArmSubsystem::toHover),
                 new WaitCommand(2000) // To make sure linkage contracts
         );
         addRequirements(linkageSubsystem, horizontalArmSubsystem);
