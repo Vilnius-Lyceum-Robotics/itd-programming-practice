@@ -30,19 +30,9 @@ public class Linkage extends SubsystemBase {
     }
 
     public void setTarget(double target) {
-        if (target >= LINKAGE_FULL) {
-            this.pos = LINKAGE_FULL;
-            leftLinkage.setPosition(LINKAGE_FULL);
-            rightLinkage.setPosition(LINKAGE_FULL);
-        } else if (target <= LINKAGE_ZERO) {
-            this.pos = LINKAGE_ZERO;
-            leftLinkage.setPosition(LINKAGE_ZERO);
-            rightLinkage.setPosition(LINKAGE_ZERO);
-        } else {
-            leftLinkage.setPosition(target);
-            rightLinkage.setPosition(target);
-            this.pos = target;
-        }
+        double clippedTarget = Range.clip(target, LINKAGE_ZERO, LINKAGE_FULL);
+        leftLinkage.setPosition(target);
+        this.pos = clippedTarget;
     }
 
     public double getPos() {

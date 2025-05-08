@@ -6,29 +6,23 @@ import com.seattlesolvers.solverslib.command.SequentialCommandGroup;
 import com.seattlesolvers.solverslib.command.WaitCommand;
 import com.seattlesolvers.solverslib.command.WaitUntilCommand;
 
-//import org.firstinspires.ftc.teamcode.config.subsystems.ExtendSubsystem;
-//import org.firstinspires.ftc.teamcode.config.subsystems.IntakeSubsystem;
-//import org.firstinspires.ftc.teamcode.config.subsystems.LiftSubsystem;
+import org.firstinspires.ftc.teamcode.config.subsystems.Claw;
+import org.firstinspires.ftc.teamcode.config.subsystems.Linkage;
 import org.firstinspires.ftc.teamcode.config.subsystems.OuttakeSubsystem;
 
 public class Transfer extends SequentialCommandGroup {
-//    public Transfer(LiftSubsystem liftSubsystem, OuttakeSubsystem outtakeSubsystem, IntakeSubsystem intakeSubsystem, ExtendSubsystem extendSubsystem) {
+//    public Transfer(OuttakeSubsystem outtakeSubsystem, Claw clawSubsystem, Linkage linkageSubsystem) {
 //        addCommands(
-//                new InstantCommand(liftSubsystem::toTransfer),
 //                new InstantCommand(outtakeSubsystem::toTransfer),
 //                new InstantCommand(intakeSubsystem::toTransfer),
-//                new InstantCommand(extendSubsystem::toTransfer),
+//                new InstantCommand(linkageSubsystem::toTransfer),
 //
-//                new ParallelCommandGroup(
-//                        new WaitUntilCommand(extendSubsystem::reachedTarget),
-//                        new WaitUntilCommand(liftSubsystem::reachedTarget),
-//                        new WaitCommand(2000) // Wait for outtake pivot to reach target
-//                ),
+//                new WaitCommand(2000), // Wait for linkage to reach target
 //
 //                new InstantCommand(outtakeSubsystem::close),
-//                new InstantCommand(intakeSubsystem::open),
+//                new InstantCommand(clawSubsystem::),
 //                new InstantCommand(intakeSubsystem::toHover)
 //        );
-//        addRequirements(liftSubsystem, outtakeSubsystem, intakeSubsystem, extendSubsystem);
+//        addRequirements(outtakeSubsystem, intakeSubsystem, linkageSubsystem);
 //    }
 }

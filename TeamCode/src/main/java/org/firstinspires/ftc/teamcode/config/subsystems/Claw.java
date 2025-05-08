@@ -4,6 +4,7 @@ import static org.firstinspires.ftc.teamcode.config.core.RobotConstants.*;
 
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.util.Range;
 import com.seattlesolvers.solverslib.command.SubsystemBase;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
@@ -31,28 +32,14 @@ public class Claw extends SubsystemBase {
     }
 
     public void rotate(double angle) {
-        if (angle >= CLAW_ROTATION_MAX) {
-            rotation.setPosition(CLAW_ROTATION_MAX);
-            this.rotationPos = CLAW_ROTATION_MAX;
-        } else if (angle <= CLAW_ROTATION_MIN) {
-            rotation.setPosition(CLAW_ROTATION_MIN);
-            this.rotationPos = CLAW_ROTATION_MIN;
-        } else {
-            rotation.setPosition(angle);
-            this.rotationPos = angle;
-        }
+        double clippedAngle = Range.clip(angle, CLAW_ROTATION_MIN, CLAW_ROTATION_MAX);
+        rotation.setPosition(clippedAngle);
+        this.rotationPos = clippedAngle;
     }
     public void grabMove(double angle) {
-        if (angle >= CLAW_CLOSED) {
-            grab.setPosition(CLAW_CLOSED);
-            this.grabPos = CLAW_CLOSED;
-        } else if (angle <= CLAW_OPEN) {
-            grab.setPosition(CLAW_OPEN);
-            this.grabPos = CLAW_OPEN;
-        } else {
-            grab.setPosition(angle);
-            this.grabPos = angle;
-        }
+        double clippedAngle = Range.clip(angle, CLAW_OPEN, CLAW_CLOSED);
+        grab.setPosition(clippedAngle);
+        this.grabPos = clippedAngle;
     }
 
     public void rotationIncrement(double amount) {
