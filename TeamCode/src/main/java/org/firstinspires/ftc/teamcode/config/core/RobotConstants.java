@@ -115,7 +115,7 @@ public class RobotConstants {
     public static double H_WRIST_DOWN = 0;
 
     // TODO figure out the right claw positions
-    public static double CLAW_ROTATION_MIN = 0;
+    public static double CLAW_ROTATION_MIN = 0.4;
     public static double CLAW_ROTATION_MAX = 0.6;
     public static double CLAW_OPEN = 0;
     public static double CLAW_CLOSED = 1;

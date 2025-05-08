@@ -34,15 +34,6 @@ public class HorizontalArmTest extends CommandOpMode {
                 .whenPressed(() -> horizontalArm.wristIncrement(0.1));
         firstDriver.getGamepadButton(GamepadKeys.Button.DPAD_LEFT)
                 .whenPressed(() -> horizontalArm.wristIncrement(-0.1));
-
-        firstDriver.getGamepadButton(GamepadKeys.Button.Y)
-                .whenPressed(() -> horizontalArm.rotationIncrement(0.1));
-        firstDriver.getGamepadButton(GamepadKeys.Button.A)
-                .whenPressed(() -> horizontalArm.rotationIncrement(-0.1));
-        firstDriver.getGamepadButton(GamepadKeys.Button.B)
-                .whenPressed(() -> horizontalArm.nomnom(0.05));
-        firstDriver.getGamepadButton(GamepadKeys.Button.X)
-                .whenPressed(() -> horizontalArm.nomnom(-0.05));
     }
 
     @Override
