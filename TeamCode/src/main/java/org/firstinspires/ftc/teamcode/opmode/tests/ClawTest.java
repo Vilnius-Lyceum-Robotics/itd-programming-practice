@@ -28,9 +28,9 @@ public class ClawTest extends CommandOpMode {
         firstDriver = new GamepadEx(gamepad1);
 
         firstDriver.getGamepadButton(GamepadKeys.Button.DPAD_LEFT)
-                .whenPressed(() -> claw.grabIncrement(0.05));
+                .whenPressed(() -> claw.setGrabState(GrabState.OPEN));
         firstDriver.getGamepadButton(GamepadKeys.Button.DPAD_RIGHT)
-                .whenPressed(() -> claw.grabIncrement(-0.05));
+                .whenPressed(() -> claw.setGrabState(GrabState.CLOSED));
         firstDriver.getGamepadButton(GamepadKeys.Button.DPAD_UP)
                 .whenPressed(() -> claw.rotationIncrement(0.05));
         firstDriver.getGamepadButton(GamepadKeys.Button.DPAD_DOWN)

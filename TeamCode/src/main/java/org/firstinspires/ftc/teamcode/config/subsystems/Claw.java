@@ -4,7 +4,6 @@ import static org.firstinspires.ftc.teamcode.config.core.RobotConstants.*;
 
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.util.Range;
 import com.seattlesolvers.solverslib.command.SubsystemBase;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
@@ -14,6 +13,7 @@ public class Claw extends SubsystemBase {
     private Servo rotation, grab;
     private Telemetry telemetry;
     private double rotationPos, grabPos;
+    private GrabState state;
 
     public Claw(HardwareMap hardwareMap, Telemetry telemetry, String rotationName, String grabName) {
         rotation = hardwareMap.get(Servo.class, rotationName);
@@ -25,35 +25,46 @@ public class Claw extends SubsystemBase {
         this.telemetry = telemetry;
 
         this.rotationPos = CLAW_ROTATION_MIN;
-        this.grabPos = CLAW_OPEN;
+        //this.grabPos = CLAW_OPEN;
+        this.state = GrabState.CLOSED;
         rotate(CLAW_ROTATION_MIN);
-        grabMove(CLAW_OPEN);
+        setGrabState(GrabState.CLOSED);
 
     }
 
     public void rotate(double angle) {
-        double clippedAngle = Range.clip(angle, CLAW_ROTATION_MIN, CLAW_ROTATION_MAX);
-        rotation.setPosition(clippedAngle);
-        this.rotationPos = clippedAngle;
+        if (angle >= CLAW_ROTATION_MAX) {
+            rotation.setPosition(CLAW_ROTATION_MAX);
+            this.rotationPos = CLAW_ROTATION_MAX;
+        } else if (angle <= CLAW_ROTATION_MIN) {
+            rotation.setPosition(CLAW_ROTATION_MIN);
+            this.rotationPos = CLAW_ROTATION_MIN;
+        } else {
+            rotation.setPosition(angle);
+            this.rotationPos = angle;
+        }
     }
-    public void grabMove(double angle) {
-        double clippedAngle = Range.clip(angle, CLAW_OPEN, CLAW_CLOSED);
-        grab.setPosition(clippedAngle);
-        this.grabPos = clippedAngle;
+
+    public void setGrabState(GrabState state) {
+        grab.setPosition(state.pos);
+        this.state = state;
+    }
+    public void toggleGrab() {
+        if (this.state == GrabState.OPEN) {
+            setGrabState(GrabState.CLOSED);
+        } else {
+            setGrabState(GrabState.OPEN);
+        }
     }
 
     public void rotationIncrement(double amount) {
         rotate(this.rotationPos + amount);
     }
 
-    public void grabIncrement(double amount) {
-        grabMove(this.grabPos + amount);
-    }
-
     public double getRotationPos() { return this.rotationPos; }
-    public double getGrabPos() { return this.grabPos; }
+    public GrabState getGrabState() { return this.state; }
     public void telemetry() {
         telemetry.addData("Claw rotation: ", getRotationPos());
-        telemetry.addData("Claw grab: ", getGrabPos());
+        telemetry.addData("Claw grab: ", getGrabState());
     }
 }
