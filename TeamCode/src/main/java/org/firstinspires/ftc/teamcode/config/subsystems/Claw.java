@@ -13,6 +13,7 @@ public class Claw extends SubsystemBase {
     private Servo rotation, grab;
     private Telemetry telemetry;
     private double rotationPos, grabPos;
+    private GrabState state;
 
     public Claw(HardwareMap hardwareMap, Telemetry telemetry, String rotationName, String grabName) {
         rotation = hardwareMap.get(Servo.class, rotationName);
@@ -24,9 +25,10 @@ public class Claw extends SubsystemBase {
         this.telemetry = telemetry;
 
         this.rotationPos = CLAW_ROTATION_MIN;
-        this.grabPos = CLAW_OPEN;
+        //this.grabPos = CLAW_OPEN;
+        this.state = GrabState.CLOSED;
         rotate(CLAW_ROTATION_MIN);
-        grabMove(CLAW_OPEN);
+        setGrabState(GrabState.CLOSED);
 
     }
 
@@ -42,16 +44,16 @@ public class Claw extends SubsystemBase {
             this.rotationPos = angle;
         }
     }
-    public void grabMove(double angle) {
-        if (angle >= CLAW_CLOSED) {
-            grab.setPosition(CLAW_CLOSED);
-            this.grabPos = CLAW_CLOSED;
-        } else if (angle <= CLAW_OPEN) {
-            grab.setPosition(CLAW_OPEN);
-            this.grabPos = CLAW_OPEN;
+
+    public void setGrabState(GrabState state) {
+        grab.setPosition(state.pos);
+        this.state = state;
+    }
+    public void toggleGrab() {
+        if (this.state == GrabState.OPEN) {
+            setGrabState(GrabState.CLOSED);
         } else {
-            grab.setPosition(angle);
-            this.grabPos = angle;
+            setGrabState(GrabState.OPEN);
         }
     }
 
@@ -59,14 +61,10 @@ public class Claw extends SubsystemBase {
         rotate(this.rotationPos + amount);
     }
 
-    public void grabIncrement(double amount) {
-        grabMove(this.grabPos + amount);
-    }
-
     public double getRotationPos() { return this.rotationPos; }
-    public double getGrabPos() { return this.grabPos; }
+    public GrabState getGrabState() { return this.state; }
     public void telemetry() {
         telemetry.addData("Claw rotation: ", getRotationPos());
-        telemetry.addData("Claw grab: ", getGrabPos());
+        telemetry.addData("Claw grab: ", getGrabState());
     }
 }

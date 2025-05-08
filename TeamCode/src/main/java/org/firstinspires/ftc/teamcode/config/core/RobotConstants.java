@@ -119,6 +119,14 @@ public class RobotConstants {
     public static double CLAW_ROTATION_MAX = 0.6;
     public static double CLAW_OPEN = 0;
     public static double CLAW_CLOSED = 0.225;
+    public enum GrabState {
+        OPEN(0),
+        CLOSED(0.225);
+
+        public final double pos;
+
+        GrabState(double pos) { this.pos = pos; }
+    }
 
     public static String H_CLAW_ROTATION_SERVO = "horizontalClawRotation";
     public static String H_CLAW_GRAB_SERVO = "horizontalClawGrab";
