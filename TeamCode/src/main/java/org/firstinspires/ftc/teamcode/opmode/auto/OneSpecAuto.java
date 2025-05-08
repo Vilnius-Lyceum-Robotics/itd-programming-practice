@@ -18,6 +18,7 @@ import org.firstinspires.ftc.teamcode.config.commands.Park;
 import org.firstinspires.ftc.teamcode.config.core.paths.OneSpec;
 import org.firstinspires.ftc.teamcode.config.pedropathing.constants.FConstants;
 import org.firstinspires.ftc.teamcode.config.pedropathing.constants.LConstants;
+import org.firstinspires.ftc.teamcode.config.subsystems.ExtendSubsystem;
 import org.firstinspires.ftc.teamcode.config.subsystems.IntakeSubsystem;
 import org.firstinspires.ftc.teamcode.config.subsystems.LiftSubsystem;
 import org.firstinspires.ftc.teamcode.config.subsystems.OuttakeSubsystem;
@@ -30,7 +31,7 @@ public class OneSpecAuto extends CommandOpMode {
     private LiftSubsystem liftSubsystem;
     private OuttakeSubsystem outtakeSubsystem;
     private IntakeSubsystem intakeSubsystem;
-
+    private ExtendSubsystem extendSubsystem;
 
     @Override
     public void initialize(){
@@ -49,7 +50,7 @@ public class OneSpecAuto extends CommandOpMode {
         liftSubsystem = new LiftSubsystem(hardwareMap, telemetry);
         outtakeSubsystem = new OuttakeSubsystem(hardwareMap, telemetry);
         intakeSubsystem = new IntakeSubsystem(hardwareMap, telemetry);
-
+        extendSubsystem = new ExtendSubsystem(hardwareMap, telemetry);
 
         schedule(
                 new RunCommand(() -> follower.update()),
@@ -64,8 +65,8 @@ public class OneSpecAuto extends CommandOpMode {
                         ),
                         new InstantCommand(outtakeSubsystem::open),
                         new ParallelCommandGroup(
-                                new FollowPathCommand(follower, OneSpec.park())
-                                //new Park(outtakeSubsystem, liftSubsystem, intakeSubsystem)
+                                new FollowPathCommand(follower, OneSpec.park()),
+                                new Park(outtakeSubsystem, liftSubsystem, intakeSubsystem, extendSubsystem)
                         )
                 )
         );
@@ -75,7 +76,7 @@ public class OneSpecAuto extends CommandOpMode {
     public void run(){
         super.run(); // DO NOT REMOVE! Runs FTCLib Command Scheduler
 
-
+        extendSubsystem.telemetry();
         liftSubsystem.telemetry();
         intakeSubsystem.telemetry();
         outtakeSubsystem.telemetry();

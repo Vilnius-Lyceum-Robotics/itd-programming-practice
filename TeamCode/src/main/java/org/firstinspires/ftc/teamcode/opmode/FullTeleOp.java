@@ -6,13 +6,28 @@ import com.pedropathing.follower.Follower;
 import com.qualcomm.hardware.lynx.LynxModule;
 import com.seattlesolvers.solverslib.command.CommandOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.seattlesolvers.solverslib.command.InstantCommand;
+import com.seattlesolvers.solverslib.drivebase.MecanumDrive;
 import com.seattlesolvers.solverslib.gamepad.GamepadEx;
 import com.seattlesolvers.solverslib.gamepad.GamepadKeys;
+import com.seattlesolvers.solverslib.hardware.motors.Motor;
 
+import org.firstinspires.ftc.teamcode.config.commands.Chamber;
+import org.firstinspires.ftc.teamcode.config.commands.ContractHorizontal;
+import org.firstinspires.ftc.teamcode.config.commands.Extend;
+import org.firstinspires.ftc.teamcode.config.commands.HighBucket;
+import org.firstinspires.ftc.teamcode.config.commands.PrepareWall;
+import org.firstinspires.ftc.teamcode.config.commands.ScoreSample;
+import org.firstinspires.ftc.teamcode.config.commands.SubmersibleGrab;
+import org.firstinspires.ftc.teamcode.config.commands.Transfer;
 import org.firstinspires.ftc.teamcode.config.pedropathing.constants.FConstants;
 import org.firstinspires.ftc.teamcode.config.pedropathing.constants.LConstants;
 import org.firstinspires.ftc.teamcode.config.subsystems.Chassis;
+import org.firstinspires.ftc.teamcode.config.subsystems.ExtendSubsystem;
+import org.firstinspires.ftc.teamcode.config.subsystems.IntakeSubsystem;
+import org.firstinspires.ftc.teamcode.config.subsystems.LiftSubsystem;
 import org.firstinspires.ftc.teamcode.config.subsystems.Linkage;
+import org.firstinspires.ftc.teamcode.config.subsystems.OuttakeSubsystem;
 
 import java.util.List;
 
