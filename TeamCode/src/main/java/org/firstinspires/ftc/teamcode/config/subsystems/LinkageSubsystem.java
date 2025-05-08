@@ -21,15 +21,15 @@ public class LinkageSubsystem extends SubsystemBase {
         this.telemetry = telemetry;
 
         leftServo = hardwareMap.get(Servo.class, SERVO_LINKAGE_LEFT);
-        rightServo = hardwareMap.get(Servo.class, SERVO_LINKAGE_RIGHT);
+//        rightServo = hardwareMap.get(Servo.class, SERVO_LINKAGE_RIGHT);
         leftServo.setDirection(Servo.Direction.FORWARD);
-        rightServo.setDirection(Servo.Direction.FORWARD);
+//        rightServo.setDirection(Servo.Direction.FORWARD);
     }
 
     public void setTarget(Double target){
         this.pos = target;
         leftServo.setPosition(target);
-        rightServo.setPosition(target);
+//        rightServo.setPosition(target);
     }
 
     public void setMappedTarget(Double input){

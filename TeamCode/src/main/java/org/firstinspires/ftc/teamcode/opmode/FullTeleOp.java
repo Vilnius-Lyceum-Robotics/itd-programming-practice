@@ -23,26 +23,25 @@ import org.firstinspires.ftc.teamcode.config.commands.Transfer;
 import org.firstinspires.ftc.teamcode.config.pedropathing.constants.FConstants;
 import org.firstinspires.ftc.teamcode.config.pedropathing.constants.LConstants;
 import org.firstinspires.ftc.teamcode.config.subsystems.Chassis;
-import org.firstinspires.ftc.teamcode.config.subsystems.ExtendSubsystem;
-import org.firstinspires.ftc.teamcode.config.subsystems.IntakeSubsystem;
-import org.firstinspires.ftc.teamcode.config.subsystems.LiftSubsystem;
+import org.firstinspires.ftc.teamcode.config.subsystems.Claw;
+//import org.firstinspires.ftc.teamcode.config.subsystems.ExtendSubsystem;
+//import org.firstinspires.ftc.teamcode.config.subsystems.IntakeSubsystem;
+//import org.firstinspires.ftc.teamcode.config.subsystems.LiftSubsystem;
 import org.firstinspires.ftc.teamcode.config.subsystems.Linkage;
 import org.firstinspires.ftc.teamcode.config.subsystems.OuttakeSubsystem;
 
 import java.util.List;
 
-@TeleOp(name = "MaybeSemiWorkingTeleOp", group = "!")
+@TeleOp(name = "FullTeleOp", group = "!")
 public class FullTeleOp extends CommandOpMode{
 
     private Follower follower;
-    //private ExtendSubsystem extendSubsystem;
-    //private LiftSubsystem liftSubsystem;
-    //private IntakeSubsystem intakeSubsystem;
-    //private OuttakeSubsystem outtakeSubsystem;\
+    private OuttakeSubsystem outtakeSubsystem;
     private Linkage linkage;
     private Chassis chassis;
-    private GamepadEx firstDriver;
-    private GamepadEx secondDriver;
+    private GamepadEx driver;
+    private GamepadEx operator;
+    private Claw claw;
 
 
     @Override
@@ -59,52 +58,37 @@ public class FullTeleOp extends CommandOpMode{
         telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
 
         follower = new Follower(hardwareMap, FConstants.class, LConstants.class);
-        //extendSubsystem = new ExtendSubsystem(hardwareMap, telemetry);
-        //liftSubsystem = new LiftSubsystem(hardwareMap, telemetry);
-        //intakeSubsystem = new IntakeSubsystem(hardwareMap, telemetry);
-        //outtakeSubsystem = new OuttakeSubsystem(hardwareMap, telemetry);
+
+        outtakeSubsystem = new OuttakeSubsystem(hardwareMap, telemetry);
         linkage = new Linkage(hardwareMap, telemetry);
         chassis = new Chassis(hardwareMap, telemetry);
 
-        firstDriver = new GamepadEx(gamepad1);
-        secondDriver = new GamepadEx(gamepad2);
+        driver = new GamepadEx(gamepad1);
+        operator = new GamepadEx(gamepad2);
 
-        /*operator.getGamepadButton(GamepadKeys.Button.DPAD_UP)
-                .whenPressed(new Extend(extendSubsystem, intakeSubsystem));
-        operator.getGamepadButton(GamepadKeys.Button.DPAD_DOWN)
-                .whenPressed(new ContractHorizontal(extendSubsystem, intakeSubsystem));
-
-        operator.getGamepadButton(GamepadKeys.Button.DPAD_LEFT)
-                .whenPressed(new HighBucket(outtakeSubsystem, liftSubsystem));
-        operator.getGamepadButton(GamepadKeys.Button.DPAD_RIGHT)
-                .whenPressed(new ScoreSample(liftSubsystem, outtakeSubsystem));
 
         operator.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
                 .whenPressed(new InstantCommand(() -> {
-                    intakeSubsystem.rotateCycle(true);
+                    claw.rotationIncrement(0.1);
                 }));
         operator.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER)
                 .whenPressed(new InstantCommand(() -> {
-                    intakeSubsystem.rotateCycle(false);
+                    claw.rotationIncrement(-0.01);
                 }));
 
-        operator.getGamepadButton(GamepadKeys.Button.CROSS)
-                .whenPressed(new SubmersibleGrab(intakeSubsystem));
-        operator.getGamepadButton(GamepadKeys.Button.CIRCLE)
-                .whenPressed(new Transfer(liftSubsystem, outtakeSubsystem, intakeSubsystem, extendSubsystem));
-        operator.getGamepadButton(GamepadKeys.Button.TRIANGLE)
-                .whenPressed(new Chamber(outtakeSubsystem, liftSubsystem));
-        operator.getGamepadButton(GamepadKeys.Button.SQUARE)
-                .whenPressed(new PrepareWall(outtakeSubsystem, intakeSubsystem, liftSubsystem));*/
+//        operator.getGamepadButton(GamepadKeys.Button.CROSS)
+//                .whenPressed(new SubmersibleGrab(intakeSubsystem));
+//        operator.getGamepadButton(GamepadKeys.Button.CIRCLE)
+//                .whenPressed(new Transfer(liftSubsystem, outtakeSubsystem, intakeSubsystem, extendSubsystem));
+//        operator.getGamepadButton(GamepadKeys.Button.TRIANGLE)
+//                .whenPressed(new Chamber(outtakeSubsystem, liftSubsystem));
+//        operator.getGamepadButton(GamepadKeys.Button.SQUARE)
+//                .whenPressed(new PrepareWall(outtakeSubsystem, intakeSubsystem, liftSubsystem));
 
-        // constructor takes in frontLeft, frontRight, backLeft, backRight motors
-        // IN THAT ORDER
-
-        firstDriver.getGamepadButton(GamepadKeys.Button.DPAD_UP)
-                .whenPressed(() -> linkage.extend());
-
-        firstDriver.getGamepadButton(GamepadKeys.Button.DPAD_DOWN)
-                .whenPressed(() -> linkage.retract());
+        operator.getGamepadButton(GamepadKeys.Button.DPAD_UP)
+                .whenPressed(new InstantCommand(() -> linkage.extend()));
+        operator.getGamepadButton(GamepadKeys.Button.DPAD_DOWN)
+                .whenPressed(new InstantCommand(() -> linkage.retract()));
 
     }
 
@@ -113,19 +97,19 @@ public class FullTeleOp extends CommandOpMode{
         super.run(); // DO NOT REMOVE! Runs FTCLib Command Scheduler
 
         // Pedro field centric movement
-        //follower.setTeleOpMovementVectors(driver.getLeftY(), driver.getLeftX(), driver.getRightX() * 0.40, false);
+        follower.setTeleOpMovementVectors(driver.getLeftY(), driver.getLeftX(), driver.getRightX() * 0.40, false);
         follower.update();
 
-        /*extendSubsystem.telemetry();
-        liftSubsystem.telemetry();
-        intakeSubsystem.telemetry();
-        outtakeSubsystem.telemetry();*/
+//        extendSubsystem.telemetry();
+//        liftSubsystem.telemetry();
+//        intakeSubsystem.telemetry();
+        outtakeSubsystem.telemetry();
 
-        chassis.robotCentricDriving(
-                firstDriver.getLeftX(),
-                firstDriver.getLeftY(),
-                firstDriver.getRightX()
-        );
+//        chassis.robotCentricDriving(
+//                firstDriver.getLeftX(),
+//                firstDriver.getLeftY(),
+//                firstDriver.getRightX()
+//        );
 
         telemetry.update(); // DO NOT REMOVE! Needed for telemetry
     }

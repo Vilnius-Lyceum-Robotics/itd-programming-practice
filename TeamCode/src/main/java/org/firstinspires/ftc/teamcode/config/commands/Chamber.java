@@ -9,14 +9,14 @@ import org.firstinspires.ftc.teamcode.config.subsystems.LiftSubsystem;
 import org.firstinspires.ftc.teamcode.config.subsystems.OuttakeSubsystem;
 
 public class Chamber extends ParallelCommandGroup {
-    public Chamber(OuttakeSubsystem outtakeSubsystem, LiftSubsystem liftSubsystem){
-        addCommands(
-                new InstantCommand(outtakeSubsystem::toChamber),
-                new InstantCommand(liftSubsystem::toChamber),
-
-                new WaitUntilCommand(liftSubsystem::reachedTarget),
-                new WaitCommand(2000)
-        );
-        addRequirements(outtakeSubsystem, liftSubsystem);
-    }
+//    public Chamber(OuttakeSubsystem outtakeSubsystem, LiftSubsystem liftSubsystem){
+//        addCommands(
+//                new InstantCommand(outtakeSubsystem::toChamber),
+//                new InstantCommand(liftSubsystem::toChamber),
+//
+//                new WaitUntilCommand(liftSubsystem::reachedTarget),
+//                new WaitCommand(2000)
+//        );
+//        addRequirements(outtakeSubsystem, liftSubsystem);
+//    }
 }

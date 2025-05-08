@@ -62,18 +62,25 @@ public class RobotConstants {
     // Outtake (vertical arm claw + pivot)
     public static final String SERVO_OUTTAKE_GRAB = "outtakeGrab";
     public static final String SERVO_OUTTAKE_ROTATE = "outtakeRotate";
-    public static final String SERVO_OUTTAKE_PIVOT_LEFT = "outtakePivotLeft";
-    public static final String SERVO_OUTTAKE_PIVOT_RIGHT = "outtakePivotRight";
+    public static final String MOTOR_OUTTAKE_PIVOT_RIGHT = "pivotR";
+    public static final String MOTOR_OUTTAKE_PIVOT_LEFT = "pivotL";
+
+
+    public static double OUTTAKE_kP = 0.005; // Proportional gain
+    public static double OUTTAKE_kI = 0; // Integral gain
+    public static double OUTTAKE_kD = 0; // Derivative gain
+    public static double OUTTAKE_kF = 0; // Feedforward gain
+    public static double OUTTAKE_ERROR_TOLERANCE = 20;
 
     public static double OUTTAKE_GRAB_CLOSE = 0;
     public static double OUTTAKE_GRAB_OPEN = 0;
     public static double OUTTAKE_ROTATE_NORMAL = 0;
     public static double OUTTAKE_ROTATE_FLIPPED = 0;
-    public static double OUTTAKE_PIVOT_TRANSFER = 0;
-    public static double OUTTAKE_PIVOT_BUCKET = 0;
-    public static double OUTTAKE_PIVOT_HUMAN = 0;
-    public static double OUTTAKE_PIVOT_CHAMBER = 0;
-    public static double OUTTAKE_PIVOT_PARK = 0;
+    public static int OUTTAKE_PIVOT_TRANSFER = 0;
+    public static int OUTTAKE_PIVOT_BUCKET = 0;
+    public static int OUTTAKE_PIVOT_HUMAN = 0;
+    public static int OUTTAKE_PIVOT_CHAMBER = 0;
+    public static int OUTTAKE_PIVOT_PARK = 0;
 
     // Intake (horizontal arm claw)
     public static final String SERVO_INTAKE_GRAB = "intakeGrab";
