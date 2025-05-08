@@ -11,6 +11,8 @@ import org.firstinspires.ftc.teamcode.config.subsystems.HorizontalArm;
 @TeleOp(name = "KazkoksNepanamintasHorizontalArmTest", group = "!")
 public class HorizontalArmTest extends CommandOpMode {
 
+    // TODO Combine this with the linkage subsystem
+
     private HorizontalArm horizontalArm;
     private GamepadEx firstDriver;
 
@@ -24,7 +26,7 @@ public class HorizontalArmTest extends CommandOpMode {
 
         firstDriver = new GamepadEx(gamepad1);
 
-        firstDriver.getGamepadButton(GamepadKeys.Button.DPAD_DOWN)
+        /*firstDriver.getGamepadButton(GamepadKeys.Button.DPAD_DOWN)
                 .whenPressed(() -> horizontalArm.elbowIncrement(-0.1));
 
         firstDriver.getGamepadButton(GamepadKeys.Button.DPAD_UP)
@@ -33,7 +35,7 @@ public class HorizontalArmTest extends CommandOpMode {
         firstDriver.getGamepadButton(GamepadKeys.Button.DPAD_RIGHT)
                 .whenPressed(() -> horizontalArm.wristIncrement(0.1));
         firstDriver.getGamepadButton(GamepadKeys.Button.DPAD_LEFT)
-                .whenPressed(() -> horizontalArm.wristIncrement(-0.1));
+                .whenPressed(() -> horizontalArm.wristIncrement(-0.1));*/
     }
 
     @Override

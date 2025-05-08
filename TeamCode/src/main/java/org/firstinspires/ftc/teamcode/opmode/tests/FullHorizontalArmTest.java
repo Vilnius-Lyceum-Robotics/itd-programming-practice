@@ -44,15 +44,15 @@ public class FullHorizontalArmTest extends CommandOpMode {
         firstDriver.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
                 .whenPressed(() -> claw.rotationIncrement(-0.05));
         firstDriver.getGamepadButton(GamepadKeys.Button.DPAD_DOWN)
-                .whenPressed(() -> arm.elbowIncrement(-0.1));
+                .whenPressed(() -> arm.setState(HorizontalArmState.TRANSFER));
 
         firstDriver.getGamepadButton(GamepadKeys.Button.DPAD_UP)
-                .whenPressed(() -> arm.elbowIncrement(0.1));
+                .whenPressed(() -> arm.setState(HorizontalArmState.IN_ROBOT));
 
         firstDriver.getGamepadButton(GamepadKeys.Button.DPAD_RIGHT)
-                .whenPressed(() -> arm.wristIncrement(0.1));
-        firstDriver.getGamepadButton(GamepadKeys.Button.DPAD_LEFT)
-                .whenPressed(() -> arm.wristIncrement(-0.1));
+                .whenPressed(() -> arm.setState(HorizontalArmState.INTAKE));
+        //firstDriver.getGamepadButton(GamepadKeys.Button.DPAD_LEFT)
+        //        .whenPressed(() -> arm.wristIncrement(-0.1));
     }
 
     @Override

@@ -102,30 +102,30 @@ public class RobotConstants {
 
     public static double LINKAGE_ZERO = 0.77;
     public static double LINKAGE_FULL = 1;
-    public static double ELBOW_DOWN = 0;
-    public static double ELBOW_INTAKE = 0.5;
-    public static double ELBOW_UP = 0.75;
 
     // Because we need the 5turn and 300 degrees moving at the same rate
     public static double ELBOW_COEF = 6;
-    enum ElbowState { //not used for now
+    public enum ElbowState { //not used for now
         DOWN(0),
-        TRANSFER(1),
-        INTAKE(0.5);
+        TRANSFER(0.75),
+        INTAKE(0.35);
 
         public final double pos;
 
         ElbowState(double pos) { this.pos = pos; }
     }
 
-    public static double H_WRIST_UP = 1;
-    public static double H_WRIST_DOWN = 0.3;
+    public enum WristState {
+        TRANSFER(0.8),
+        DOWN(0.3),
+        UP(1);
 
-    // TODO figure out the right claw rotation positions
+        public final double pos;
+
+        WristState(double pos) { this.pos = pos; }
+    }
     public static double CLAW_ROTATION_MIN = 0.4;
     public static double CLAW_ROTATION_MAX = 0.6;
-    public static double CLAW_OPEN = 0;
-    public static double CLAW_CLOSED = 0.225;
     public enum GrabState {
         OPEN(0),
         CLOSED(0.225);
@@ -137,6 +137,19 @@ public class RobotConstants {
 
     public static String H_CLAW_ROTATION_SERVO = "horizontalClawRotation";
     public static String H_CLAW_GRAB_SERVO = "horizontalClawGrab";
+
+    public enum HorizontalArmState {
+        TRANSFER(0.75, 0.8),
+        INTAKE(0.35, 0.3),
+        IN_ROBOT(0.75, 0.3);
+
+        public final double elbowPos, wristPos;
+
+        HorizontalArmState(double elbowPos, double wristPos) {
+            this.elbowPos = elbowPos;
+            this.wristPos = wristPos;
+        }
+    }
 
 
 }

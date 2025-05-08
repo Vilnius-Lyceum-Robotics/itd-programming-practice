@@ -12,7 +12,7 @@ public class Claw extends SubsystemBase {
 
     private Servo rotation, grab;
     private Telemetry telemetry;
-    private double rotationPos, grabPos;
+    private double rotationPos;
     private GrabState state;
 
     public Claw(HardwareMap hardwareMap, Telemetry telemetry, String rotationName, String grabName) {

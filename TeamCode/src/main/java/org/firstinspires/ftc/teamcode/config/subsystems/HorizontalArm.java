@@ -17,6 +17,7 @@ public class HorizontalArm extends SubsystemBase {
     private Servo leftElbow, rightElbow, wrist;
     private Telemetry telemetry;
     private double elbowPos, wristPos;
+    private HorizontalArmState state;
 
 
     public HorizontalArm(HardwareMap hardwareMap, Telemetry telemetry) {
@@ -30,14 +31,11 @@ public class HorizontalArm extends SubsystemBase {
         rightElbow.setDirection(Servo.Direction.REVERSE);
         wrist.setDirection(Servo.Direction.FORWARD);
 
-        this.elbowPos = ELBOW_DOWN;
-        setElbowAngle(ELBOW_DOWN);
-        this.wristPos = H_WRIST_UP;
-        setWristAngle(H_WRIST_UP);
+        setState(HorizontalArmState.IN_ROBOT);
 
     }
 
-    public void setElbowAngle(double target) {
+    /*public void setElbowAngle(double target) {
         double clippedTarget = Range.clip(target, ELBOW_DOWN, ELBOW_UP);
         leftElbow.setPosition(clippedTarget);
         rightElbow.setPosition(clippedTarget / ELBOW_COEF + 0.2);
@@ -48,23 +46,26 @@ public class HorizontalArm extends SubsystemBase {
         double clippedTarget = Range.clip(target, H_WRIST_DOWN, H_WRIST_UP);
         wrist.setPosition(clippedTarget);
         this.wristPos = clippedTarget;
-    }
+    }*/
 
 
     public double getElbowPos() { return this.elbowPos;}
     public double getWristPos() {return this.wristPos;}
+    public HorizontalArmState getState() { return this.state; }
 
     public void telemetry() {
         telemetry.addData("Left elbow position: ", getElbowPos());
         telemetry.addData("Right elbow position: ", getElbowPos() / ELBOW_COEF + 0.2);
         telemetry.addData("Wrist position: ", getWristPos());
+        telemetry.addData("Horizontal arm state: ", getState());
     }
 
-    public void elbowIncrement(double amount) {
-        setElbowAngle(this.elbowPos + amount);
-    }
-
-    public void wristIncrement(double amount) {
-        setWristAngle(this.wristPos + amount);
+    public void setState(HorizontalArmState state) {
+        this.state = state;
+        rightElbow.setPosition(state.elbowPos / ELBOW_COEF + 0.2);
+        leftElbow.setPosition(state.elbowPos);
+        wrist.setPosition(state.wristPos);
+        this.wristPos = state.wristPos;
+        this.elbowPos = state.elbowPos;
     }
 }
