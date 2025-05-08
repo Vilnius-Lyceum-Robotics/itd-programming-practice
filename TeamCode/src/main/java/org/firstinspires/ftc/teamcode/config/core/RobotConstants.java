@@ -120,5 +120,8 @@ public class RobotConstants {
     public static double CLAW_OPEN = 0;
     public static double CLAW_CLOSED = 1;
 
+    public static String H_CLAW_ROTATION_SERVO = "horizontalClawRotation";
+    public static String H_CLAW_GRAB_SERVO = "horizontalClawGrab";
+
 
 }

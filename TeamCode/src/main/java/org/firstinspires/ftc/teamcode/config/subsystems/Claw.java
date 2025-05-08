@@ -18,10 +18,16 @@ public class Claw extends SubsystemBase {
         rotation = hardwareMap.get(Servo.class, rotationName);
         grab = hardwareMap.get(Servo.class, grabName);
 
+        rotation.setDirection(Servo.Direction.REVERSE);
+        grab.setDirection(Servo.Direction.REVERSE);
+
         this.telemetry = telemetry;
 
         this.rotationPos = CLAW_ROTATION_MIN;
         this.grabPos = CLAW_OPEN;
+        rotate(CLAW_ROTATION_MIN);
+        grabMove(CLAW_OPEN);
+
     }
 
     public void rotate(double angle) {

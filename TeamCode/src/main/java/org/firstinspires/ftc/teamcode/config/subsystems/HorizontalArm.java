@@ -13,9 +13,9 @@ public class HorizontalArm extends SubsystemBase {
     // This subsystem contains horizontal arm elbow, wrist and claw
 
 
-    private Servo leftElbow, rightElbow, wrist, clawRotation, clawGripper;
+    private Servo leftElbow, rightElbow, wrist;
     private Telemetry telemetry;
-    private double elbowPos, wristPos, rotationPos, gripperPos;
+    private double elbowPos, wristPos;
 
 
     public HorizontalArm(HardwareMap hardwareMap, Telemetry telemetry) {
@@ -24,14 +24,10 @@ public class HorizontalArm extends SubsystemBase {
         leftElbow = hardwareMap.get(Servo.class, "leftElbow");
         rightElbow = hardwareMap.get(Servo.class, "rightElbow");
         wrist = hardwareMap.get(Servo.class, "wrist");
-        clawRotation = hardwareMap.get(Servo.class, "clawRotation");
-        clawGripper = hardwareMap.get(Servo.class, "clawGripper");
 
         leftElbow.setDirection(Servo.Direction.FORWARD);
         rightElbow.setDirection(Servo.Direction.REVERSE);
         wrist.setDirection(Servo.Direction.REVERSE);
-        clawRotation.setDirection(Servo.Direction.REVERSE);
-        clawGripper.setDirection(Servo.Direction.REVERSE);
 
         this.elbowPos = ELBOW_DOWN;
         setElbowAngle(ELBOW_DOWN);
