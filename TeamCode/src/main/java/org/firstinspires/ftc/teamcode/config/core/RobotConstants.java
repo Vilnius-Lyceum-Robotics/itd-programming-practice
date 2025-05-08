@@ -97,7 +97,7 @@ public class RobotConstants {
     public static double LINKAGE_FULL = 1;
     public static double ELBOW_DOWN = 0;
     public static double ELBOW_INTAKE = 0.5;
-    public static double ELBOW_UP = 1;
+    public static double ELBOW_UP = 0.75;
 
     // Because we need the 5turn and 300 degrees moving at the same rate
     public static double ELBOW_COEF = 6;
@@ -112,13 +112,13 @@ public class RobotConstants {
     }
 
     public static double H_WRIST_UP = 1;
-    public static double H_WRIST_DOWN = 0;
+    public static double H_WRIST_DOWN = 0.3;
 
-    // TODO figure out the right claw positions
+    // TODO figure out the right claw rotation positions
     public static double CLAW_ROTATION_MIN = 0.4;
     public static double CLAW_ROTATION_MAX = 0.6;
     public static double CLAW_OPEN = 0;
-    public static double CLAW_CLOSED = 1;
+    public static double CLAW_CLOSED = 0.225;
 
     public static String H_CLAW_ROTATION_SERVO = "horizontalClawRotation";
     public static String H_CLAW_GRAB_SERVO = "horizontalClawGrab";

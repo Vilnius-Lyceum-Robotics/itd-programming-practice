@@ -27,7 +27,7 @@ public class HorizontalArm extends SubsystemBase {
 
         leftElbow.setDirection(Servo.Direction.FORWARD);
         rightElbow.setDirection(Servo.Direction.REVERSE);
-        wrist.setDirection(Servo.Direction.REVERSE);
+        wrist.setDirection(Servo.Direction.FORWARD);
 
         this.elbowPos = ELBOW_DOWN;
         setElbowAngle(ELBOW_DOWN);
