@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.config.subsystems;
 
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.util.Range;
 import com.seattlesolvers.solverslib.command.SubsystemBase;
 
 import static org.firstinspires.ftc.teamcode.config.core.RobotConstants.*;
@@ -37,32 +38,16 @@ public class HorizontalArm extends SubsystemBase {
     }
 
     public void setElbowAngle(double target) {
-        if (target >= ELBOW_UP) {
-            leftElbow.setPosition(ELBOW_UP);
-            rightElbow.setPosition(ELBOW_UP / ELBOW_COEF + 0.2);
-            this.elbowPos = ELBOW_UP;
-        } else if (target <= ELBOW_DOWN) {
-            leftElbow.setPosition(ELBOW_DOWN);
-            rightElbow.setPosition(ELBOW_DOWN / ELBOW_COEF + 0.2);
-            this.elbowPos = ELBOW_DOWN;
-        } else {
-            leftElbow.setPosition(target);
-            rightElbow.setPosition(target / ELBOW_COEF + 0.2);
-            this.elbowPos = target;
-        }
+        double clippedTarget = Range.clip(target, ELBOW_DOWN, ELBOW_UP);
+        leftElbow.setPosition(clippedTarget);
+        rightElbow.setPosition(clippedTarget / ELBOW_COEF + 0.2);
+        this.elbowPos = clippedTarget;
     }
 
     public void setWristAngle(double target) {
-        if (target >= H_WRIST_UP) {
-            wrist.setPosition(H_WRIST_UP);
-            this.wristPos = H_WRIST_UP;
-        } else if (target <= H_WRIST_DOWN) {
-            wrist.setPosition(H_WRIST_DOWN);
-            this.wristPos = H_WRIST_DOWN;
-        } else {
-            wrist.setPosition(target);
-            this.wristPos = target;
-        }
+        double clippedTarget = Range.clip(target, H_WRIST_DOWN, H_WRIST_UP);
+        wrist.setPosition(clippedTarget);
+        this.wristPos = clippedTarget;
     }
 
 
@@ -82,7 +67,4 @@ public class HorizontalArm extends SubsystemBase {
     public void wristIncrement(double amount) {
         setWristAngle(this.wristPos + amount);
     }
-
-
-
 }

@@ -27,36 +27,36 @@ public class RobotConstants {
 //    public static double ROBOT_WIDTH = 0;
 //    public static double ROBOT_LENGTH = 0;
 
-    // Extend (horizontal extension)
-    public static final String MOTOR_EXTEND = "extend";
-
-    public static double EXTEND_kP = 0.005; // Proportional gain
-    public static double EXTEND_kI = 0; // Integral gain
-    public static double EXTEND_kD = 0.0001; // Derivative gain
-    public static double EXTEND_ERROR_TOLERANCE = 5;
-
-    public static int EXTEND_ZERO = 0;
-    public static int EXTEND_TRANSFER = 0;
-    public static int EXTEND_FULL = 300;
-
-
-    // Lift (vertical lift)
-    public static final String MOTOR_LIFT_LEFT = "leftLift";
-    public static final String MOTOR_LIFT_RIGHT = "rightLift";
-
-    public static double LIFT_kP = 0.005; // Proportional gain
-    public static double LIFT_kI = 0; // Integral gain
-    public static double LIFT_kD = 0.0001; // Derivative gain
-    public static double LIFT_kF = 0; // Feedforward gain
-    public static double LIFT_ERROR_TOLERANCE = 10;
-
-    public static int LIFT_ZERO = 0;
-    public static int LIFT_HIGH_BASKET = 0;
-    public static int LIFT_LOW_BASKET = 0;
-    public static int LIFT_TO_CHAMBER = 0;
-    public static int LIFT_SCORE_CHAMBER = 0;
-    public static int LIFT_HUMAN_PLAYER = 0;
-    public static int LIFT_TRANSFER = 0;
+//    // Extend (horizontal extension)
+//    public static final String MOTOR_EXTEND = "extend";
+//
+//    public static double EXTEND_kP = 0.005; // Proportional gain
+//    public static double EXTEND_kI = 0; // Integral gain
+//    public static double EXTEND_kD = 0.0001; // Derivative gain
+//    public static double EXTEND_ERROR_TOLERANCE = 5;
+//
+//    public static int EXTEND_ZERO = 0;
+//    public static int EXTEND_TRANSFER = 0;
+//    public static int EXTEND_FULL = 300;
+//
+//
+//    // Lift (vertical lift)
+//    public static final String MOTOR_LIFT_LEFT = "leftLift";
+//    public static final String MOTOR_LIFT_RIGHT = "rightLift";
+//
+//    public static double LIFT_kP = 0.005; // Proportional gain
+//    public static double LIFT_kI = 0; // Integral gain
+//    public static double LIFT_kD = 0.0001; // Derivative gain
+//    public static double LIFT_kF = 0; // Feedforward gain
+//    public static double LIFT_ERROR_TOLERANCE = 10;
+//
+//    public static int LIFT_ZERO = 0;
+//    public static int LIFT_HIGH_BASKET = 0;
+//    public static int LIFT_LOW_BASKET = 0;
+//    public static int LIFT_TO_CHAMBER = 0;
+//    public static int LIFT_SCORE_CHAMBER = 0;
+//    public static int LIFT_HUMAN_PLAYER = 0;
+//    public static int LIFT_TRANSFER = 0;
 
 
     // Outtake (vertical arm claw + pivot)
@@ -77,7 +77,7 @@ public class RobotConstants {
     public static double OUTTAKE_ROTATE_NORMAL = 0;
     public static double OUTTAKE_ROTATE_FLIPPED = 0;
     public static int OUTTAKE_PIVOT_TRANSFER = 0;
-    public static int OUTTAKE_PIVOT_BUCKET = 0;
+//    public static int OUTTAKE_PIVOT_BUCKET = 0;
     public static int OUTTAKE_PIVOT_HUMAN = 0;
     public static int OUTTAKE_PIVOT_CHAMBER = 0;
     public static int OUTTAKE_PIVOT_PARK = 0;

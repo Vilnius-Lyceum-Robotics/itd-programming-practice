@@ -9,10 +9,6 @@ import com.qualcomm.robotcore.util.Range;
 import com.seattlesolvers.solverslib.command.CommandOpMode;
 import com.seattlesolvers.solverslib.gamepad.GamepadEx;
 
-import org.firstinspires.ftc.teamcode.config.subsystems.ExtendSubsystem;
-import org.firstinspires.ftc.teamcode.config.subsystems.IntakeSubsystem;
-import org.firstinspires.ftc.teamcode.config.subsystems.LiftSubsystem;
-import org.firstinspires.ftc.teamcode.config.subsystems.LinkageSubsystem;
 import org.firstinspires.ftc.teamcode.config.subsystems.OuttakeSubsystem;
 
 import static org.firstinspires.ftc.teamcode.config.core.RobotConstants.*;
