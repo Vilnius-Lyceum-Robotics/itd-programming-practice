@@ -1,22 +1,17 @@
 package org.firstinspires.ftc.teamcode.config.commands;
 
 import com.seattlesolvers.solverslib.command.InstantCommand;
-import com.seattlesolvers.solverslib.command.ParallelCommandGroup;
-import com.seattlesolvers.solverslib.command.WaitCommand;
+import com.seattlesolvers.solverslib.command.SequentialCommandGroup;
 import com.seattlesolvers.solverslib.command.WaitUntilCommand;
 
-import org.firstinspires.ftc.teamcode.config.subsystems.LiftSubsystem;
 import org.firstinspires.ftc.teamcode.config.subsystems.OuttakeSubsystem;
 
-public class Chamber extends ParallelCommandGroup {
-    public Chamber(OuttakeSubsystem outtakeSubsystem, LiftSubsystem liftSubsystem){
+public class Chamber extends SequentialCommandGroup {
+    public Chamber(OuttakeSubsystem outtakeSubsystem){
         addCommands(
                 new InstantCommand(outtakeSubsystem::toChamber),
-                new InstantCommand(liftSubsystem::toChamber),
-
-                new WaitUntilCommand(liftSubsystem::reachedTarget),
-                new WaitCommand(2000)
+                new WaitUntilCommand(outtakeSubsystem::reachedTarget)
         );
-        addRequirements(outtakeSubsystem, liftSubsystem);
+        addRequirements(outtakeSubsystem);
     }
 }

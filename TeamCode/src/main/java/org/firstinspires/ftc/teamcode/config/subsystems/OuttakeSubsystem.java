@@ -1,10 +1,16 @@
 package org.firstinspires.ftc.teamcode.config.subsystems;
 
 import static org.firstinspires.ftc.teamcode.config.core.RobotConstants.*;
+import static org.firstinspires.ftc.teamcode.config.core.RobotConstants.OUTTAKE_kD;
+import static org.firstinspires.ftc.teamcode.config.core.RobotConstants.OUTTAKE_kF;
+import static org.firstinspires.ftc.teamcode.config.core.RobotConstants.OUTTAKE_kI;
 
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.seattlesolvers.solverslib.command.SubsystemBase;
+import com.seattlesolvers.solverslib.controller.PIDFController;
+import com.seattlesolvers.solverslib.hardware.motors.Motor;
+import com.seattlesolvers.solverslib.hardware.motors.MotorGroup;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
@@ -24,23 +30,69 @@ public class OuttakeSubsystem extends SubsystemBase {
 
     private Telemetry telemetry;
 
-    private Servo grabServo, rotateServo, leftPivotServo, rightPivotServo;
+    private Servo grabServo, rotateServo;
+    private Motor leftPivotMotor, rightPivotMotor, pivotEncoder;
+    private MotorGroup pivotMotors;
     private GrabState grabState = GrabState.CLOSED;
     private RotateState rotateState = RotateState.NORMAL;
     private PivotState pivotState = PivotState.PARK;
+    private PIDFController pidf;
+    private double pivotTarget = 0;
+    private boolean pivotPidOn = false;
 
     public OuttakeSubsystem(HardwareMap hardwareMap, Telemetry telemetry){
         this.telemetry = telemetry;
 
         grabServo = hardwareMap.get(Servo.class, SERVO_OUTTAKE_GRAB);
         rotateServo = hardwareMap.get(Servo.class, SERVO_OUTTAKE_ROTATE);
-        leftPivotServo = hardwareMap.get(Servo.class, SERVO_OUTTAKE_PIVOT_LEFT);
-        rightPivotServo = hardwareMap.get(Servo.class, SERVO_OUTTAKE_PIVOT_RIGHT);
+        leftPivotMotor = new Motor(hardwareMap, MOTOR_OUTTAKE_PIVOT_LEFT);
+        rightPivotMotor = new Motor(hardwareMap, MOTOR_OUTTAKE_PIVOT_RIGHT);
+        pivotEncoder = new Motor(hardwareMap, "rearLeft"); // 4th control hub motor port
+
+        rightPivotMotor.setInverted(false);
+        leftPivotMotor.setInverted(true);
+
+        pivotMotors = new MotorGroup(leftPivotMotor, rightPivotMotor);
+
+        pidf = new PIDFController(OUTTAKE_kP, OUTTAKE_kI, OUTTAKE_kD, OUTTAKE_kF);
+        pidf.setTolerance(OUTTAKE_ERROR_TOLERANCE);
+
+        pivotEncoder.stopAndResetEncoder();
 
         setGrabState(grabState);
         setRotateState(rotateState);
         setPivotState(pivotState);
     }
+
+    public void setPivotTarget(int target){
+        pivotPidOn = true;
+        this.pivotTarget = target;
+        pidf.setSetPoint(target);
+    }
+
+    public boolean reachedTarget(){
+        return pidf.atSetPoint();
+    }
+
+    public int getPivotPos(){
+        return pivotEncoder.getCurrentPosition();
+    }
+
+
+    @Override
+    public void periodic(){
+        if(!pivotPidOn) {
+            pivotMotors.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
+            return;
+        }
+        pidf.setPIDF(OUTTAKE_kP, OUTTAKE_kI, OUTTAKE_kD, OUTTAKE_kF);
+
+        double encoderPosition = getPivotPos();
+        double power = pidf.calculate(encoderPosition, pivotTarget);
+
+        pivotMotors.set(power);
+    }
+
 
     public void setGrabState(GrabState grabState){
         switch (grabState){
@@ -68,27 +120,23 @@ public class OuttakeSubsystem extends SubsystemBase {
         this.pivotState = pivotState;
         switch (pivotState){
             case TRANSFER:
-                leftPivotServo.setPosition(OUTTAKE_PIVOT_TRANSFER);
-                rightPivotServo.setPosition(OUTTAKE_PIVOT_TRANSFER);
+                setPivotTarget(OUTTAKE_PIVOT_TRANSFER);
                 break;
             case BUCKET:
-                leftPivotServo.setPosition(OUTTAKE_PIVOT_BUCKET);
-                rightPivotServo.setPosition(OUTTAKE_PIVOT_BUCKET);
+                setPivotTarget(OUTTAKE_PIVOT_BUCKET);
                 break;
             case HUMAN:
-                leftPivotServo.setPosition(OUTTAKE_PIVOT_HUMAN);
-                rightPivotServo.setPosition(OUTTAKE_PIVOT_HUMAN);
+                setPivotTarget(OUTTAKE_PIVOT_HUMAN);
                 break;
             case CHAMBER:
-                leftPivotServo.setPosition(OUTTAKE_PIVOT_CHAMBER);
-                rightPivotServo.setPosition(OUTTAKE_PIVOT_CHAMBER);
+                setPivotTarget(OUTTAKE_PIVOT_CHAMBER);
                 break;
             case PARK:
-                leftPivotServo.setPosition(OUTTAKE_PIVOT_PARK);
-                rightPivotServo.setPosition(OUTTAKE_PIVOT_PARK);
+                setPivotTarget(OUTTAKE_PIVOT_PARK);
                 break;
         }
     }
+
 
     public void open(){
         setGrabState(OuttakeSubsystem.GrabState.OPEN);
@@ -131,6 +179,7 @@ public class OuttakeSubsystem extends SubsystemBase {
     public void telemetry() {
         telemetry.addData("Outtake Grab State: ", grabState);
         telemetry.addData("Outtake Rotate State: ", rotateState);
-        telemetry.addData("Outtake Pivot State: ", pivotState);
+        telemetry.addData("Outtake Pivot Position: ", getPivotPos());
+        telemetry.addData("Outtake Pivot Target: ", pivotTarget);
     }
 }
