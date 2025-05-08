@@ -11,7 +11,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 public class HorizontalArm extends SubsystemBase {
 
     // This subsystem contains horizontal arm elbow, wrist and claw
-    // TODO extract the claw to its own subsystem
+
 
     private Servo leftElbow, rightElbow, wrist, clawRotation, clawGripper;
     private Telemetry telemetry;
@@ -33,15 +33,10 @@ public class HorizontalArm extends SubsystemBase {
         clawRotation.setDirection(Servo.Direction.REVERSE);
         clawGripper.setDirection(Servo.Direction.REVERSE);
 
-        /*this.elbowPos = ELBOW_DOWN;
+        this.elbowPos = ELBOW_DOWN;
         setElbowAngle(ELBOW_DOWN);
         this.wristPos = H_WRIST_UP;
-        setWristAngle(H_WRIST_UP);*/
-
-        this.rotationPos = CLAW_ROTATION_MIN;
-        setClawRotation(CLAW_ROTATION_MIN);
-        this.gripperPos = CLAW_OPEN;
-        nomnom(CLAW_OPEN);
+        setWristAngle(H_WRIST_UP);
 
     }
 
