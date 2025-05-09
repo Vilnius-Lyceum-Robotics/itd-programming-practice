@@ -62,8 +62,10 @@ public class RobotConstants {
     // Outtake (vertical arm claw + pivot)
     public static final String SERVO_OUTTAKE_GRAB = "outtakeGrab";
     public static final String SERVO_OUTTAKE_ROTATE = "outtakeRotate";
+    public static final String SERVO_OUTTAKE_ELBOW = "outtakeElbow";
     public static final String MOTOR_OUTTAKE_PIVOT_RIGHT = "pivotR";
     public static final String MOTOR_OUTTAKE_PIVOT_LEFT = "pivotL";
+
 
 
     public static double OUTTAKE_kP = 0.005; // Proportional gain
@@ -73,28 +75,32 @@ public class RobotConstants {
     public static double OUTTAKE_ERROR_TOLERANCE = 20;
 
     public static double OUTTAKE_GRAB_CLOSE = 0;
-    public static double OUTTAKE_GRAB_OPEN = 0;
+    public static double OUTTAKE_GRAB_OPEN = 0.2;
     public static double OUTTAKE_ROTATE_NORMAL = 0;
-    public static double OUTTAKE_ROTATE_FLIPPED = 0;
+    public static double OUTTAKE_ROTATE_FLIPPED = 0.75;
     public static int OUTTAKE_PIVOT_TRANSFER = 0;
 //    public static int OUTTAKE_PIVOT_BUCKET = 0;
-    public static int OUTTAKE_PIVOT_HUMAN = 0;
-    public static int OUTTAKE_PIVOT_CHAMBER = 0;
+    public static int OUTTAKE_PIVOT_HUMAN = -400;
+    public static int OUTTAKE_PIVOT_CHAMBER = -4000;
     public static int OUTTAKE_PIVOT_PARK = 0;
+    public static double OUTTAKE_ELBOW_TRANSFER = 0;
+    public static double OUTTAKE_ELBOW_HUMAN = 0.55;
+    public static double OUTTAKE_ELBOW_CHAMBER = 0.35;
+    public static double OUTTAKE_ELBOW_PARK = 0;
 
-    // Intake (horizontal arm claw)
-    public static final String SERVO_INTAKE_GRAB = "intakeGrab";
-    public static final String SERVO_INTAKE_PIVOT = "intakePivot";
-    public static final String SERVO_INTAKE_ROTATE = "intakeRotate";
-
-    public static double INTAKE_GRAB_CLOSE = 0;
-    public static double INTAKE_GRAB_OPEN = 0;
-    public static double INTAKE_ROTATE_MIN = 0; // Position that corresponds to -90 degree rotation
-    public static double INTAKE_ROTATE_MAX = 0; // Position that corresponds to +90 degree rotation
-    public static double INTAKE_PIVOT_GROUND = 0;
-    public static double INTAKE_PIVOT_HOVER = 0;
-    public static double INTAKE_PIVOT_TRANSFER = 0;
-    public static double INTAKE_PIVOT_PARK = 0;
+//    // Intake (horizontal arm claw)
+//    public static final String SERVO_INTAKE_GRAB = "intakeGrab";
+//    public static final String SERVO_INTAKE_PIVOT = "intakePivot";
+//    public static final String SERVO_INTAKE_ROTATE = "intakeRotate";
+//
+//    public static double INTAKE_GRAB_CLOSE = 0;
+//    public static double INTAKE_GRAB_OPEN = 0;
+//    public static double INTAKE_ROTATE_MIN = 0; // Position that corresponds to -90 degree rotation
+//    public static double INTAKE_ROTATE_MAX = 0; // Position that corresponds to +90 degree rotation
+//    public static double INTAKE_PIVOT_GROUND = 0;
+//    public static double INTAKE_PIVOT_HOVER = 0;
+//    public static double INTAKE_PIVOT_TRANSFER = 0;
+//    public static double INTAKE_PIVOT_PARK = 0;
 
     // Linkage slides *for testing* (horizontal extension)
     public static final String SERVO_LINKAGE_LEFT = "linkageLeft";

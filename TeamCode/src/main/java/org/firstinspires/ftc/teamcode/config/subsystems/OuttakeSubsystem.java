@@ -122,9 +122,9 @@ public class OuttakeSubsystem extends SubsystemBase {
             case TRANSFER:
                 setPivotTarget(OUTTAKE_PIVOT_TRANSFER);
                 break;
-            /*case BUCKET:
+            case BUCKET:
                 setPivotTarget(OUTTAKE_PIVOT_BUCKET);
-                break;*/
+                break;
             case HUMAN:
                 setPivotTarget(OUTTAKE_PIVOT_HUMAN);
                 break;
