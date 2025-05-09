@@ -25,7 +25,7 @@ public class OuttakeSubsystem extends SubsystemBase {
     }
 
     public enum ElbowState {
-        TRANSFER, BUCKET, HUMAN, CHAMBER
+        TRANSFER, BUCKET, HUMAN, CHAMBER, SCORE
     }
 
     public enum PivotState {
@@ -141,6 +141,9 @@ public class OuttakeSubsystem extends SubsystemBase {
                 break;
             case CHAMBER:
                 elbowServo.setPosition(OUTTAKE_ELBOW_CHAMBER);
+                break;
+            case SCORE:
+                elbowServo.setPosition(OUTTAKE_ELBOW_SCORE);
                 break;
         }
     }

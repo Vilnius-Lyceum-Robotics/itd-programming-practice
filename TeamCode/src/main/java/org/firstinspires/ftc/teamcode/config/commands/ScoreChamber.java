@@ -10,10 +10,13 @@ import org.firstinspires.ftc.teamcode.config.subsystems.OuttakeSubsystem;
 public class ScoreChamber extends SequentialCommandGroup {
     public ScoreChamber(OuttakeSubsystem outtakeSubsystem){
         addCommands(
+                new InstantCommand(() -> outtakeSubsystem.setElbowState(OuttakeSubsystem.ElbowState.SCORE)),
+                new WaitCommand(500),
                 new InstantCommand(outtakeSubsystem::toScoreChamber),
                 new WaitCommand(500),
                 new InstantCommand(outtakeSubsystem::open),
-                new WaitUntilCommand(outtakeSubsystem::reachedTarget)
+                new WaitUntilCommand(outtakeSubsystem::reachedTarget),
+                new PrepareWall(outtakeSubsystem)
         );
         addRequirements(outtakeSubsystem);
     }

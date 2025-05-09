@@ -81,13 +81,14 @@ public class RobotConstants {
     public static int OUTTAKE_PIVOT_TRANSFER = 0;
 //    public static int OUTTAKE_PIVOT_BUCKET = 0;
     public static int OUTTAKE_PIVOT_HUMAN = -400;
-    public static int OUTTAKE_PIVOT_PREPARE_CHAMBER = -3200;
-    public static int OUTTAKE_PIVOT_SCORE_CHAMBER = -2500;
+    public static int OUTTAKE_PIVOT_PREPARE_CHAMBER = -3500;
+    public static int OUTTAKE_PIVOT_SCORE_CHAMBER = -800;
     public static int OUTTAKE_PIVOT_PARK = 0;
     public static double OUTTAKE_ELBOW_TRANSFER = 0;
     public static double OUTTAKE_ELBOW_HUMAN = 0.6;
     public static double OUTTAKE_ELBOW_CHAMBER = 0.5;
-    public static double OUTTAKE_ELBOW_PARK = 0;
+    public static double OUTTAKE_ELBOW_SCORE = 0.46;
+
 
 //    // Intake (horizontal arm claw)
 //    public static final String SERVO_INTAKE_GRAB = "intakeGrab";
