@@ -14,6 +14,7 @@ import org.firstinspires.ftc.teamcode.config.commands.PrepareChamber;
 import org.firstinspires.ftc.teamcode.config.commands.ContractHorizontal;
 import org.firstinspires.ftc.teamcode.config.commands.Extension;
 import org.firstinspires.ftc.teamcode.config.commands.PrepareWall;
+import org.firstinspires.ftc.teamcode.config.commands.ScoreChamber;
 import org.firstinspires.ftc.teamcode.config.commands.SubmersibleGrab;
 import org.firstinspires.ftc.teamcode.config.commands.Transition;
 import org.firstinspires.ftc.teamcode.config.pedropathing.constants.FConstants;
@@ -28,6 +29,8 @@ import java.util.List;
 
 @TeleOp(name = "FullTeleOp", group = "!")
 public class FullTeleOp extends CommandOpMode{
+
+    // TODO fix whatever is going on with the outtake arm
 
     private Follower follower;
     private OuttakeSubsystem outtakeSubsystem;
@@ -45,10 +48,10 @@ public class FullTeleOp extends CommandOpMode{
         super.reset();
 
         // Bulk reads
-        List<LynxModule> allHubs = hardwareMap.getAll(LynxModule.class);
+        /*List<LynxModule> allHubs = hardwareMap.getAll(LynxModule.class);
         for (LynxModule hub : allHubs) {
             hub.setBulkCachingMode(LynxModule.BulkCachingMode.AUTO);
-        }
+        }*/
 
         telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
 
@@ -64,31 +67,37 @@ public class FullTeleOp extends CommandOpMode{
         secondDriver = new GamepadEx(gamepad2);
 
 
-        secondDriver.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
+        /*secondDriver.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
                 .whenPressed(new InstantCommand(() -> {
                     clawSubsystem.rotationIncrement(0.1);
                 }));
         secondDriver.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER)
                 .whenPressed(new InstantCommand(() -> {
                     clawSubsystem.rotationIncrement(-0.1);
-                }));
+                }));*/
 
-        secondDriver.getGamepadButton(GamepadKeys.Button.DPAD_UP)
+        // Intake arm controls
+
+        secondDriver.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
                 .whenPressed(new Extension(linkageSubsystem, horizontalArmSubsystem, clawSubsystem));
-        secondDriver.getGamepadButton(GamepadKeys.Button.DPAD_DOWN)
+        secondDriver.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER)
                 .whenPressed(new ContractHorizontal(linkageSubsystem, horizontalArmSubsystem));
-
-        secondDriver.getGamepadButton(GamepadKeys.Button.CROSS)
-                .whenPressed(new SubmersibleGrab(clawSubsystem, horizontalArmSubsystem));
         secondDriver.getGamepadButton(GamepadKeys.Button.CIRCLE)
-                .whenPressed(new PrepareChamber(outtakeSubsystem));
-        secondDriver.getGamepadButton(GamepadKeys.Button.SQUARE)
-                .whenPressed(new PrepareWall(outtakeSubsystem));
-        secondDriver.getGamepadButton(GamepadKeys.Button.TRIANGLE)
-                .whenPressed(new InstantCommand(clawSubsystem::open));
+                .whenPressed(new SubmersibleGrab(clawSubsystem, horizontalArmSubsystem));
+        secondDriver.getGamepadButton(GamepadKeys.Button.CROSS)
+                .whenPressed(new InstantCommand(clawSubsystem::toggleGrab));
 
-        firstDriver.getGamepadButton(GamepadKeys.Button.TRIANGLE)
+        // Outtake arm controls
+
+        secondDriver.getGamepadButton(GamepadKeys.Button.DPAD_RIGHT)
+                .whenPressed(new PrepareWall(outtakeSubsystem));
+        secondDriver.getGamepadButton(GamepadKeys.Button.DPAD_LEFT)
+                .whenPressed(new PrepareChamber(outtakeSubsystem));
+        secondDriver.getGamepadButton(GamepadKeys.Button.DPAD_DOWN)
+                .whenPressed(new ScoreChamber(outtakeSubsystem));
+        secondDriver.getGamepadButton(GamepadKeys.Button.DPAD_UP)
                 .whenPressed(new Transition(outtakeSubsystem, horizontalArmSubsystem, linkageSubsystem));
+
     }
 
     @Override
