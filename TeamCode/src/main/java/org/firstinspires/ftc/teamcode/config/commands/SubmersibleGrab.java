@@ -4,19 +4,25 @@ import com.seattlesolvers.solverslib.command.InstantCommand;
 import com.seattlesolvers.solverslib.command.SequentialCommandGroup;
 import com.seattlesolvers.solverslib.command.WaitCommand;
 
+import org.firstinspires.ftc.teamcode.config.core.RobotConstants;
+import org.firstinspires.ftc.teamcode.config.subsystems.Claw;
+import org.firstinspires.ftc.teamcode.config.subsystems.HorizontalArm;
+import org.firstinspires.ftc.teamcode.config.subsystems.Linkage;
+
 //import org.firstinspires.ftc.teamcode.config.subsystems.IntakeSubsystem;
 
 public class SubmersibleGrab extends SequentialCommandGroup {
 
-//    public SubmersibleGrab(IntakeSubsystem intakeSubsystem){
-//        addCommands(
-//                new InstantCommand(intakeSubsystem::toGround),
-//                new WaitCommand(1000),
-//                new InstantCommand(intakeSubsystem::close),
-//                new WaitCommand(1000),
-//                new InstantCommand(intakeSubsystem::toHover)
-//        );
-//        addRequirements(intakeSubsystem);
-//    }
+
+    public SubmersibleGrab(Claw clawSubsystem, HorizontalArm horizontalArmSubsystem){
+        addCommands(
+                new InstantCommand(horizontalArmSubsystem::ground),
+                new WaitCommand(500),
+                new InstantCommand(clawSubsystem::close),
+                new WaitCommand(300),
+                new InstantCommand(horizontalArmSubsystem::hover)
+        );
+        addRequirements(clawSubsystem, horizontalArmSubsystem);
+    }
 
 }

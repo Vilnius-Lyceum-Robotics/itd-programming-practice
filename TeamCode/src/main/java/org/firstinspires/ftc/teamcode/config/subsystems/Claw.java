@@ -15,9 +15,9 @@ public class Claw extends SubsystemBase {
     private double rotationPos;
     private GrabState state;
 
-    public Claw(HardwareMap hardwareMap, Telemetry telemetry, String rotationName, String grabName) {
-        rotation = hardwareMap.get(Servo.class, rotationName);
-        grab = hardwareMap.get(Servo.class, grabName);
+    public Claw(HardwareMap hardwareMap, Telemetry telemetry) {
+        rotation = hardwareMap.get(Servo.class, SERVO_HORIZONTAL_ROTATION);
+        grab = hardwareMap.get(Servo.class, SERVO_HORIZONTAL_GRAB);
 
         rotation.setDirection(Servo.Direction.REVERSE);
         grab.setDirection(Servo.Direction.REVERSE);
@@ -55,6 +55,13 @@ public class Claw extends SubsystemBase {
         } else {
             setGrabState(GrabState.OPEN);
         }
+    }
+
+    public void close(){
+        setGrabState(GrabState.CLOSED);
+    }
+    public void open(){
+        setGrabState(GrabState.OPEN);
     }
 
     public void rotationIncrement(double amount) {

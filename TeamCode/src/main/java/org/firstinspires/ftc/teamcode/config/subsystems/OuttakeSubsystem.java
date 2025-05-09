@@ -17,25 +17,30 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 public class OuttakeSubsystem extends SubsystemBase {
 
     public enum GrabState {
-        CLOSED, OPEN
+        CLOSED, MIDOPEN, OPEN
     }
 
     public enum RotateState {
         NORMAL, FLIPPED
     }
 
-    public enum PivotState {
+    public enum ElbowState {
         TRANSFER, BUCKET, HUMAN, CHAMBER, PARK
+    }
+
+    public enum PivotState {
+        TRANSFER, BUCKET, HUMAN, PREP_CHAMBER, SCORE_CHAMBER, PARK
     }
 
     private Telemetry telemetry;
 
-    private Servo grabServo, rotateServo;
+    private Servo grabServo, rotateServo, elbowServo;
     private Motor leftPivotMotor, rightPivotMotor, pivotEncoder;
     private MotorGroup pivotMotors;
     private GrabState grabState = GrabState.CLOSED;
     private RotateState rotateState = RotateState.NORMAL;
     private PivotState pivotState = PivotState.PARK;
+    private ElbowState elbowState = ElbowState.PARK;
     private PIDFController pidf;
     private double pivotTarget = 0;
     private boolean pivotPidOn = false;
@@ -45,6 +50,8 @@ public class OuttakeSubsystem extends SubsystemBase {
 
         grabServo = hardwareMap.get(Servo.class, SERVO_OUTTAKE_GRAB);
         rotateServo = hardwareMap.get(Servo.class, SERVO_OUTTAKE_ROTATE);
+        elbowServo = hardwareMap.get(Servo.class, SERVO_OUTTAKE_ELBOW);
+
         leftPivotMotor = new Motor(hardwareMap, MOTOR_OUTTAKE_PIVOT_LEFT);
         rightPivotMotor = new Motor(hardwareMap, MOTOR_OUTTAKE_PIVOT_RIGHT);
         pivotEncoder = new Motor(hardwareMap, "rearLeft"); // 4th control hub motor port
@@ -59,9 +66,9 @@ public class OuttakeSubsystem extends SubsystemBase {
 
         pivotEncoder.stopAndResetEncoder();
 
-        setGrabState(grabState);
-        setRotateState(rotateState);
-        setPivotState(pivotState);
+//        setGrabState(grabState);
+//        setRotateState(rotateState);
+//        setPivotState(pivotState);
     }
 
     public void setPivotTarget(int target){
@@ -101,6 +108,10 @@ public class OuttakeSubsystem extends SubsystemBase {
                 break;
             case OPEN:
                 grabServo.setPosition(OUTTAKE_GRAB_OPEN);
+                break;
+            case MIDOPEN:
+                grabServo.setPosition(OUTTAKE_GRAB_MID_OPEN);
+                break;
         }
     }
 
@@ -116,20 +127,44 @@ public class OuttakeSubsystem extends SubsystemBase {
         }
     }
 
+    public void setElbowState(ElbowState elbowState){
+        this.elbowState = elbowState;
+        switch (elbowState){
+            case TRANSFER:
+                elbowServo.setPosition(OUTTAKE_ELBOW_TRANSFER);
+                break;
+//            case BUCKET:
+//                setPivotTarget(OUTTAKE_PIVOT_BUCKET);
+//                break;
+            case HUMAN:
+                elbowServo.setPosition(OUTTAKE_ELBOW_HUMAN);
+                break;
+            case CHAMBER:
+                elbowServo.setPosition(OUTTAKE_ELBOW_CHAMBER);
+                break;
+            case PARK:
+                elbowServo.setPosition(OUTTAKE_ELBOW_PARK);
+                break;
+        }
+    }
+
     public void setPivotState(PivotState pivotState){
         this.pivotState = pivotState;
         switch (pivotState){
             case TRANSFER:
                 setPivotTarget(OUTTAKE_PIVOT_TRANSFER);
                 break;
-            /*case BUCKET:
-                setPivotTarget(OUTTAKE_PIVOT_BUCKET);
-                break;*/
+//            case BUCKET:
+//                setPivotTarget(OUTTAKE_PIVOT_BUCKET);
+//                break;
             case HUMAN:
                 setPivotTarget(OUTTAKE_PIVOT_HUMAN);
                 break;
-            case CHAMBER:
-                setPivotTarget(OUTTAKE_PIVOT_CHAMBER);
+            case PREP_CHAMBER:
+                setPivotTarget(OUTTAKE_PIVOT_PREPARE_CHAMBER);
+                break;
+            case SCORE_CHAMBER:
+                setPivotTarget(OUTTAKE_PIVOT_SCORE_CHAMBER);
                 break;
             case PARK:
                 setPivotTarget(OUTTAKE_PIVOT_PARK);
@@ -141,7 +176,7 @@ public class OuttakeSubsystem extends SubsystemBase {
     public void open(){
         setGrabState(OuttakeSubsystem.GrabState.OPEN);
     }
-
+    public void midOpen() { setGrabState(OuttakeSubsystem.GrabState.MIDOPEN); }
     public void close(){
         setGrabState(OuttakeSubsystem.GrabState.CLOSED);
     }
@@ -149,6 +184,7 @@ public class OuttakeSubsystem extends SubsystemBase {
     public void toTransfer(){
         setRotateState(RotateState.NORMAL);
         setPivotState(PivotState.TRANSFER);
+        setElbowState(ElbowState.TRANSFER);
         setGrabState(GrabState.OPEN);
     }
 
@@ -161,24 +197,35 @@ public class OuttakeSubsystem extends SubsystemBase {
     public void toHuman(){
         setRotateState(RotateState.NORMAL);
         setPivotState(PivotState.HUMAN);
+        setElbowState(ElbowState.HUMAN);
         setGrabState(GrabState.OPEN);
     }
 
-    public void toChamber() {
-        setRotateState(RotateState.FLIPPED);
-        setPivotState(PivotState.CHAMBER);
+    public void toPrepChamber() {
+//        setRotateState(RotateState.FLIPPED);
+        setRotateState(RotateState.NORMAL);
+
+        setPivotState(PivotState.PREP_CHAMBER);
+        setElbowState(ElbowState.CHAMBER);
         setGrabState(GrabState.CLOSED);
+    }
+
+    public void toScoreChamber(){
+        setGrabState(GrabState.CLOSED);
+        setPivotState(PivotState.SCORE_CHAMBER);
     }
 
     public void toPark(){
         setRotateState(RotateState.NORMAL);
         setPivotState(PivotState.PARK);
+        setElbowState(ElbowState.PARK);
         setGrabState(GrabState.CLOSED);
     }
 
     public void telemetry() {
         telemetry.addData("Outtake Grab State: ", grabState);
         telemetry.addData("Outtake Rotate State: ", rotateState);
+        telemetry.addData("Outtake Elbow State: ", elbowState);
         telemetry.addData("Outtake Pivot Position: ", getPivotPos());
         telemetry.addData("Outtake Pivot Target: ", pivotTarget);
     }

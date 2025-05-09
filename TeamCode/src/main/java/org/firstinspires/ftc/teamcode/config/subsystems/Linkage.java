@@ -22,8 +22,8 @@ public class Linkage extends SubsystemBase {
     public Linkage(HardwareMap hardwareMap, Telemetry telemetry) {
         this.telemetry = telemetry;
 
-        leftLinkage = hardwareMap.get(Servo.class, "leftLinkage");
-        rightLinkage = hardwareMap.get(Servo.class, "rightLinkage");
+        leftLinkage = hardwareMap.get(Servo.class, SERVO_LINKAGE_LEFT);
+        rightLinkage = hardwareMap.get(Servo.class, SERVO_LINKAGE_RIGHT);
         leftLinkage.setDirection(Servo.Direction.FORWARD);
         rightLinkage.setDirection(Servo.Direction.REVERSE);
 

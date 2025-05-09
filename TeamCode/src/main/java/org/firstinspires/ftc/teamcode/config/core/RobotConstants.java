@@ -68,20 +68,22 @@ public class RobotConstants {
 
 
 
-    public static double OUTTAKE_kP = 0.005; // Proportional gain
+    public static double OUTTAKE_kP = 0.0008; // Proportional gain
     public static double OUTTAKE_kI = 0; // Integral gain
-    public static double OUTTAKE_kD = 0; // Derivative gain
+    public static double OUTTAKE_kD = 0.00005; // Derivative gain
     public static double OUTTAKE_kF = 0; // Feedforward gain
     public static double OUTTAKE_ERROR_TOLERANCE = 20;
 
     public static double OUTTAKE_GRAB_CLOSE = 0;
+    public static double OUTTAKE_GRAB_MID_OPEN = 0.05;
     public static double OUTTAKE_GRAB_OPEN = 0.2;
     public static double OUTTAKE_ROTATE_NORMAL = 0;
     public static double OUTTAKE_ROTATE_FLIPPED = 0.75;
     public static int OUTTAKE_PIVOT_TRANSFER = 0;
 //    public static int OUTTAKE_PIVOT_BUCKET = 0;
     public static int OUTTAKE_PIVOT_HUMAN = -400;
-    public static int OUTTAKE_PIVOT_CHAMBER = -4000;
+    public static int OUTTAKE_PIVOT_PREPARE_CHAMBER = -3200;
+    public static int OUTTAKE_PIVOT_SCORE_CHAMBER = -2500;
     public static int OUTTAKE_PIVOT_PARK = 0;
     public static double OUTTAKE_ELBOW_TRANSFER = 0;
     public static double OUTTAKE_ELBOW_HUMAN = 0.55;
@@ -103,8 +105,8 @@ public class RobotConstants {
 //    public static double INTAKE_PIVOT_PARK = 0;
 
     // Linkage slides *for testing* (horizontal extension)
-    public static final String SERVO_LINKAGE_LEFT = "linkageLeft";
-    public static final String SERVO_LINKAGE_RIGHT = "linkageRight";
+    public static final String SERVO_LINKAGE_LEFT = "leftLinkage";
+    public static final String SERVO_LINKAGE_RIGHT = "rightLinkage";
 
     public static double LINKAGE_ZERO = 0.77;
     public static double LINKAGE_FULL = 1;
@@ -121,6 +123,9 @@ public class RobotConstants {
         ElbowState(double pos) { this.pos = pos; }
     }
 
+    public static String SERVO_HORIZONTAL_ELBOW_LEFT = "leftElbow";
+    public static String SERVO_HORIZONTAL_ELBOW_RIGHT = "rightElbow";
+
     public enum WristState {
         TRANSFER(0.8),
         DOWN(0.3),
@@ -130,6 +135,7 @@ public class RobotConstants {
 
         WristState(double pos) { this.pos = pos; }
     }
+    public static String SERVO_HORIZONTAL_WRIST = "wrist";
     public static double CLAW_ROTATION_MIN = 0.4;
     public static double CLAW_ROTATION_MAX = 0.6;
     public enum GrabState {
@@ -140,14 +146,15 @@ public class RobotConstants {
 
         GrabState(double pos) { this.pos = pos; }
     }
+    public static String SERVO_HORIZONTAL_GRAB = "hGrab";
 
-    public static String H_CLAW_ROTATION_SERVO = "horizontalClawRotation";
-    public static String H_CLAW_GRAB_SERVO = "horizontalClawGrab";
+    public static String SERVO_HORIZONTAL_ROTATION = "hRotation";
 
     public enum HorizontalArmState {
         TRANSFER(0.78, 0.8),
         INTAKE(0.45, 0.3),
-        IN_ROBOT(0.78, 0.3);
+        IN_ROBOT(0.78, 0.3),
+        HOVER(0.55, 0.3);
 
         public final double elbowPos, wristPos;
 

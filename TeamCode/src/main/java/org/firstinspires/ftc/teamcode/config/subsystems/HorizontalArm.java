@@ -23,9 +23,9 @@ public class HorizontalArm extends SubsystemBase {
     public HorizontalArm(HardwareMap hardwareMap, Telemetry telemetry) {
         this.telemetry = telemetry;
 
-        leftElbow = hardwareMap.get(Servo.class, "leftElbow");
-        rightElbow = hardwareMap.get(Servo.class, "rightElbow");
-        wrist = hardwareMap.get(Servo.class, "wrist");
+        leftElbow = hardwareMap.get(Servo.class, SERVO_HORIZONTAL_ELBOW_LEFT);
+        rightElbow = hardwareMap.get(Servo.class, SERVO_HORIZONTAL_ELBOW_RIGHT);
+        wrist = hardwareMap.get(Servo.class, SERVO_HORIZONTAL_WRIST);
 
         leftElbow.setDirection(Servo.Direction.FORWARD);
         rightElbow.setDirection(Servo.Direction.REVERSE);
@@ -67,5 +67,12 @@ public class HorizontalArm extends SubsystemBase {
         wrist.setPosition(state.wristPos);
         this.wristPos = state.wristPos;
         this.elbowPos = state.elbowPos;
+    }
+
+    public void ground(){
+        setState(HorizontalArmState.INTAKE);
+    }
+    public void hover(){
+        setState(HorizontalArmState.HOVER);
     }
 }
