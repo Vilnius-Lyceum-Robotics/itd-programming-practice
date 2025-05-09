@@ -57,6 +57,9 @@ public class Linkage extends SubsystemBase {
         setTarget(LINKAGE_FULL);
     }
     public void retract() {setTarget(LINKAGE_ZERO);}
+    public void half(){
+        setTarget(LINKAGE_FULL / 2);
+    }
 
     public void setState(LinkageState state) {
         this.state = state;

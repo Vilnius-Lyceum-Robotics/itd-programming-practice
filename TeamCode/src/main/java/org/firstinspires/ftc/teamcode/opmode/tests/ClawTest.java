@@ -24,7 +24,7 @@ public class ClawTest extends CommandOpMode {
         super.reset();
 
         telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
-        claw = new Claw(hardwareMap, telemetry, H_CLAW_ROTATION_SERVO, H_CLAW_GRAB_SERVO);
+        claw = new Claw(hardwareMap, telemetry);
         firstDriver = new GamepadEx(gamepad1);
 
         firstDriver.getGamepadButton(GamepadKeys.Button.DPAD_LEFT)

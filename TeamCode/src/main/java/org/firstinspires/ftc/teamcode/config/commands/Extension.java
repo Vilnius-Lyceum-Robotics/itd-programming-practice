@@ -3,19 +3,17 @@ package org.firstinspires.ftc.teamcode.config.commands;
 import com.seattlesolvers.solverslib.command.InstantCommand;
 import com.seattlesolvers.solverslib.command.ParallelCommandGroup;
 import com.seattlesolvers.solverslib.command.WaitCommand;
-import com.seattlesolvers.solverslib.command.WaitUntilCommand;
 
+import org.firstinspires.ftc.teamcode.config.subsystems.Claw;
 import org.firstinspires.ftc.teamcode.config.subsystems.HorizontalArm;
 import org.firstinspires.ftc.teamcode.config.subsystems.Linkage;
-//
-//import org.firstinspires.ftc.teamcode.config.subsystems.ExtendSubsystem;
-//import org.firstinspires.ftc.teamcode.config.subsystems.IntakeSubsystem;
 
-public class Extend extends ParallelCommandGroup {
-    public Extend(Linkage linkageSubsystem, HorizontalArm horizontalArmSubsystem){
+public class Extension extends ParallelCommandGroup {
+    public Extension(Linkage linkageSubsystem, HorizontalArm horizontalArmSubsystem, Claw clawSubsystem){
         addCommands(
                 new InstantCommand(linkageSubsystem::extend),
-                new InstantCommand(horizontalArmSubsystem::hover),
+                new InstantCommand(horizontalArmSubsystem::clear),
+                new InstantCommand(clawSubsystem::open),
                 new WaitCommand(400) // Make sure linkage extends
         );
         addRequirements(linkageSubsystem, horizontalArmSubsystem);

@@ -12,15 +12,13 @@ import com.seattlesolvers.solverslib.gamepad.GamepadKeys;
 
 import org.firstinspires.ftc.teamcode.config.commands.PrepareChamber;
 import org.firstinspires.ftc.teamcode.config.commands.ContractHorizontal;
-import org.firstinspires.ftc.teamcode.config.commands.Extend;
+import org.firstinspires.ftc.teamcode.config.commands.Extension;
 import org.firstinspires.ftc.teamcode.config.commands.PrepareWall;
 import org.firstinspires.ftc.teamcode.config.commands.SubmersibleGrab;
+import org.firstinspires.ftc.teamcode.config.commands.Transition;
 import org.firstinspires.ftc.teamcode.config.pedropathing.constants.FConstants;
 import org.firstinspires.ftc.teamcode.config.pedropathing.constants.LConstants;
 import org.firstinspires.ftc.teamcode.config.subsystems.Claw;
-//import org.firstinspires.ftc.teamcode.config.subsystems.ExtendSubsystem;
-//import org.firstinspires.ftc.teamcode.config.subsystems.IntakeSubsystem;
-//import org.firstinspires.ftc.teamcode.config.subsystems.LiftSubsystem;
 import org.firstinspires.ftc.teamcode.config.subsystems.HorizontalArm;
 import org.firstinspires.ftc.teamcode.config.subsystems.Linkage;
 import org.firstinspires.ftc.teamcode.config.subsystems.OuttakeSubsystem;
@@ -73,7 +71,7 @@ public class FullTeleOp extends CommandOpMode{
                 }));
 
         operator.getGamepadButton(GamepadKeys.Button.DPAD_UP)
-                .whenPressed(new Extend(linkageSubsystem, horizontalArmSubsystem));
+                .whenPressed(new Extension(linkageSubsystem, horizontalArmSubsystem, clawSubsystem));
         operator.getGamepadButton(GamepadKeys.Button.DPAD_DOWN)
                 .whenPressed(new ContractHorizontal(linkageSubsystem, horizontalArmSubsystem));
 
@@ -85,6 +83,9 @@ public class FullTeleOp extends CommandOpMode{
                 .whenPressed(new PrepareWall(outtakeSubsystem));
         operator.getGamepadButton(GamepadKeys.Button.TRIANGLE)
                 .whenPressed(new InstantCommand(clawSubsystem::open));
+
+        driver.getGamepadButton(GamepadKeys.Button.TRIANGLE)
+                .whenPressed(new Transition(outtakeSubsystem, horizontalArmSubsystem, linkageSubsystem));
     }
 
     @Override

@@ -10,6 +10,8 @@ import org.firstinspires.ftc.teamcode.config.subsystems.OuttakeSubsystem;
 public class PrepareChamber extends SequentialCommandGroup {
     public PrepareChamber(OuttakeSubsystem outtakeSubsystem){
         addCommands(
+                new InstantCommand(outtakeSubsystem::close),
+                new WaitCommand(300),
                 new InstantCommand(outtakeSubsystem::toPrepChamber),
                 new WaitCommand(100),
                 new InstantCommand(outtakeSubsystem::midOpen),

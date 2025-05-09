@@ -16,11 +16,13 @@ public class SubmersibleGrab extends SequentialCommandGroup {
 
     public SubmersibleGrab(Claw clawSubsystem, HorizontalArm horizontalArmSubsystem){
         addCommands(
+                new InstantCommand(clawSubsystem::open),
+                new WaitCommand(100),
                 new InstantCommand(horizontalArmSubsystem::ground),
                 new WaitCommand(500),
                 new InstantCommand(clawSubsystem::close),
                 new WaitCommand(300),
-                new InstantCommand(horizontalArmSubsystem::hover)
+                new InstantCommand(horizontalArmSubsystem::clear)
         );
         addRequirements(clawSubsystem, horizontalArmSubsystem);
     }

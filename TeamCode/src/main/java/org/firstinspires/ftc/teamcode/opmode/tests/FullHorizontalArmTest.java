@@ -29,7 +29,7 @@ public class FullHorizontalArmTest extends CommandOpMode {
 
         linkage = new Linkage(hardwareMap, telemetry);
         arm = new HorizontalArm(hardwareMap, telemetry);
-        claw = new Claw(hardwareMap, telemetry, H_CLAW_ROTATION_SERVO, H_CLAW_GRAB_SERVO);
+        claw = new Claw(hardwareMap, telemetry);
 
         firstDriver = new GamepadEx(gamepad1);
 

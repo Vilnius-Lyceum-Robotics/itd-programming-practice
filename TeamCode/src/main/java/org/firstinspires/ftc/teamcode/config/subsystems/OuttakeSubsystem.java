@@ -25,11 +25,11 @@ public class OuttakeSubsystem extends SubsystemBase {
     }
 
     public enum ElbowState {
-        TRANSFER, BUCKET, HUMAN, CHAMBER, PARK
+        TRANSFER, BUCKET, HUMAN, CHAMBER
     }
 
     public enum PivotState {
-        TRANSFER, BUCKET, HUMAN, PREP_CHAMBER, SCORE_CHAMBER, PARK
+        TRANSFER, BUCKET, HUMAN, PREP_CHAMBER, SCORE_CHAMBER
     }
 
     private Telemetry telemetry;
@@ -39,8 +39,8 @@ public class OuttakeSubsystem extends SubsystemBase {
     private MotorGroup pivotMotors;
     private GrabState grabState = GrabState.CLOSED;
     private RotateState rotateState = RotateState.NORMAL;
-    private PivotState pivotState = PivotState.PARK;
-    private ElbowState elbowState = ElbowState.PARK;
+    private PivotState pivotState;
+    private ElbowState elbowState;
     private PIDFController pidf;
     private double pivotTarget = 0;
     private boolean pivotPidOn = false;
@@ -142,9 +142,6 @@ public class OuttakeSubsystem extends SubsystemBase {
             case CHAMBER:
                 elbowServo.setPosition(OUTTAKE_ELBOW_CHAMBER);
                 break;
-            case PARK:
-                elbowServo.setPosition(OUTTAKE_ELBOW_PARK);
-                break;
         }
     }
 
@@ -165,9 +162,6 @@ public class OuttakeSubsystem extends SubsystemBase {
                 break;
             case SCORE_CHAMBER:
                 setPivotTarget(OUTTAKE_PIVOT_SCORE_CHAMBER);
-                break;
-            case PARK:
-                setPivotTarget(OUTTAKE_PIVOT_PARK);
                 break;
         }
     }
@@ -215,12 +209,12 @@ public class OuttakeSubsystem extends SubsystemBase {
         setPivotState(PivotState.SCORE_CHAMBER);
     }
 
-    public void toPark(){
-        setRotateState(RotateState.NORMAL);
-        setPivotState(PivotState.PARK);
-        setElbowState(ElbowState.PARK);
-        setGrabState(GrabState.CLOSED);
-    }
+//    public void toPark(){
+//        setRotateState(RotateState.NORMAL);
+//        setPivotState(PivotState.PARK);
+//        setElbowState(ElbowState.PARK);
+//        setGrabState(GrabState.CLOSED);
+//    }
 
     public void telemetry() {
         telemetry.addData("Outtake Grab State: ", grabState);

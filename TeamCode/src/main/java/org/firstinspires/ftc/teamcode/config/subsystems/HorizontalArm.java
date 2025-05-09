@@ -2,7 +2,6 @@ package org.firstinspires.ftc.teamcode.config.subsystems;
 
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.util.Range;
 import com.seattlesolvers.solverslib.command.SubsystemBase;
 
 import static org.firstinspires.ftc.teamcode.config.core.RobotConstants.*;
@@ -71,6 +70,9 @@ public class HorizontalArm extends SubsystemBase {
 
     public void ground(){
         setState(HorizontalArmState.INTAKE);
+    }
+    public void clear(){
+        setState(HorizontalArmState.CLEAR_BAR);
     }
     public void hover(){
         setState(HorizontalArmState.HOVER);

@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode.config.core;
 
 import com.acmerobotics.dashboard.config.Config;
-import com.pedropathing.localization.Pose;
 
 @Config
 public class RobotConstants {
@@ -72,7 +71,7 @@ public class RobotConstants {
     public static double OUTTAKE_kI = 0; // Integral gain
     public static double OUTTAKE_kD = 0.00005; // Derivative gain
     public static double OUTTAKE_kF = 0; // Feedforward gain
-    public static double OUTTAKE_ERROR_TOLERANCE = 20;
+    public static double OUTTAKE_ERROR_TOLERANCE = 10;
 
     public static double OUTTAKE_GRAB_CLOSE = 0;
     public static double OUTTAKE_GRAB_MID_OPEN = 0.05;
@@ -86,8 +85,8 @@ public class RobotConstants {
     public static int OUTTAKE_PIVOT_SCORE_CHAMBER = -2500;
     public static int OUTTAKE_PIVOT_PARK = 0;
     public static double OUTTAKE_ELBOW_TRANSFER = 0;
-    public static double OUTTAKE_ELBOW_HUMAN = 0.55;
-    public static double OUTTAKE_ELBOW_CHAMBER = 0.35;
+    public static double OUTTAKE_ELBOW_HUMAN = 0.6;
+    public static double OUTTAKE_ELBOW_CHAMBER = 0.5;
     public static double OUTTAKE_ELBOW_PARK = 0;
 
 //    // Intake (horizontal arm claw)
@@ -152,9 +151,10 @@ public class RobotConstants {
 
     public enum HorizontalArmState {
         TRANSFER(0.78, 0.8),
-        INTAKE(0.45, 0.3),
-        IN_ROBOT(0.78, 0.3),
-        HOVER(0.55, 0.3);
+        INTAKE(0.4, 0.3),
+        IN_ROBOT(0.78, 0.8),
+        CLEAR_BAR(0.6, 0.4),
+        HOVER(0.5, 0.3);
 
         public final double elbowPos, wristPos;
 

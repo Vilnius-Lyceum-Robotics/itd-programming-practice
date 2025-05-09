@@ -16,7 +16,7 @@
 //    }
 //
 //    public enum PivotState {
-//        TRANSFER, GROUND, HOVER, PARK
+//        TRANSFER, GROUND, CLEAR_BAR, PARK
 //    }
 //
 //    private Telemetry telemetry;
@@ -59,7 +59,7 @@
 //            case GROUND:
 //                pivotServo.setPosition(INTAKE_PIVOT_GROUND);
 //                break;
-//            case HOVER:
+//            case CLEAR_BAR:
 //                pivotServo.setPosition(INTAKE_PIVOT_HOVER);
 //                break;
 //            case PARK:
@@ -84,7 +84,7 @@
 //        }
 //
 //        setRotateDegrees(rotateDegrees);
-//        setPivotState(PivotState.HOVER);
+//        setPivotState(PivotState.CLEAR_BAR);
 //        setGrabState(GrabState.OPEN);
 //    }
 //
@@ -120,7 +120,7 @@
 //
 //    public void toHover(){
 //        setRotateDegrees(0);
-//        setPivotState(PivotState.HOVER);
+//        setPivotState(PivotState.CLEAR_BAR);
 //    }
 //
 //    public void toPark(){
