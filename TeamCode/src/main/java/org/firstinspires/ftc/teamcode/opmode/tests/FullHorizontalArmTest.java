@@ -34,13 +34,13 @@ public class FullHorizontalArmTest extends CommandOpMode {
         firstDriver = new GamepadEx(gamepad1);
 
         firstDriver.getGamepadButton(GamepadKeys.Button.A)
-                .whenPressed(() -> linkage.extend());
+                .whenPressed(() -> linkage.setState(LinkageState.EXTENDED));
         firstDriver.getGamepadButton(GamepadKeys.Button.Y)
-                .whenPressed(() -> linkage.retract());
+                .whenPressed(() -> linkage.setState(LinkageState.RETRACTED));
         firstDriver.getGamepadButton(GamepadKeys.Button.B)
                 .whenPressed(() -> claw.toggleGrab());
         firstDriver.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER)
-                .whenPressed(() -> claw.rotationIncrement(0.05));
+                .whenPressed(() -> linkage.setState(LinkageState.TRANSFER));
         firstDriver.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
                 .whenPressed(() -> claw.rotationIncrement(-0.05));
         firstDriver.getGamepadButton(GamepadKeys.Button.DPAD_DOWN)

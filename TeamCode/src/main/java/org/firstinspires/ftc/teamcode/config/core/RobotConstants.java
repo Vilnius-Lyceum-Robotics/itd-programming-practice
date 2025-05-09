@@ -139,9 +139,9 @@ public class RobotConstants {
     public static String H_CLAW_GRAB_SERVO = "horizontalClawGrab";
 
     public enum HorizontalArmState {
-        TRANSFER(0.75, 0.8),
-        INTAKE(0.35, 0.3),
-        IN_ROBOT(0.75, 0.3);
+        TRANSFER(0.78, 0.8),
+        INTAKE(0.45, 0.3),
+        IN_ROBOT(0.78, 0.3);
 
         public final double elbowPos, wristPos;
 
@@ -149,6 +149,16 @@ public class RobotConstants {
             this.elbowPos = elbowPos;
             this.wristPos = wristPos;
         }
+    }
+
+    public enum LinkageState {
+        RETRACTED(0.77),
+        EXTENDED(1),
+        TRANSFER(0.87);
+
+        public final double pos;
+
+        LinkageState(double pos) { this.pos = pos; }
     }
 
 

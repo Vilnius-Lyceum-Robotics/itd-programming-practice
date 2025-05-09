@@ -17,6 +17,7 @@ public class Linkage extends SubsystemBase {
     private Servo leftLinkage;
     private Servo rightLinkage;
     private double pos = LINKAGE_ZERO;
+    private LinkageState state;
 
     public Linkage(HardwareMap hardwareMap, Telemetry telemetry) {
         this.telemetry = telemetry;
@@ -48,6 +49,7 @@ public class Linkage extends SubsystemBase {
     public double getPos() {
         return this.pos;
     }
+    public LinkageState getState() { return this.state; }
 
     public void telemetry() {
         telemetry.addData("Linkage servo position: ", getPos());
@@ -65,4 +67,10 @@ public class Linkage extends SubsystemBase {
         setTarget(LINKAGE_FULL);
     }
     public void retract() {setTarget(LINKAGE_ZERO);}
+
+    public void setState(LinkageState state) {
+        this.state = state;
+        leftLinkage.setPosition(state.pos);
+        rightLinkage.setPosition(state.pos);
+    }
 }
