@@ -18,6 +18,7 @@ import org.firstinspires.ftc.teamcode.config.commands.SubmersibleGrab;
 import org.firstinspires.ftc.teamcode.config.commands.Transition;
 import org.firstinspires.ftc.teamcode.config.pedropathing.constants.FConstants;
 import org.firstinspires.ftc.teamcode.config.pedropathing.constants.LConstants;
+import org.firstinspires.ftc.teamcode.config.subsystems.Chassis;
 import org.firstinspires.ftc.teamcode.config.subsystems.Claw;
 import org.firstinspires.ftc.teamcode.config.subsystems.HorizontalArm;
 import org.firstinspires.ftc.teamcode.config.subsystems.Linkage;
@@ -32,9 +33,10 @@ public class FullTeleOp extends CommandOpMode{
     private OuttakeSubsystem outtakeSubsystem;
     private HorizontalArm horizontalArmSubsystem;
     private Linkage linkageSubsystem;
-    private GamepadEx driver;
-    private GamepadEx operator;
+    private GamepadEx firstDriver;
+    private GamepadEx secondDriver;
     private Claw clawSubsystem;
+    private Chassis chassis;
 
 
     @Override
@@ -56,35 +58,36 @@ public class FullTeleOp extends CommandOpMode{
         linkageSubsystem = new Linkage(hardwareMap, telemetry);
         horizontalArmSubsystem = new HorizontalArm(hardwareMap, telemetry);
         clawSubsystem = new Claw(hardwareMap, telemetry);
+        chassis = new Chassis(hardwareMap, telemetry);
 
-        driver = new GamepadEx(gamepad1);
-        operator = new GamepadEx(gamepad2);
+        firstDriver = new GamepadEx(gamepad1);
+        secondDriver = new GamepadEx(gamepad2);
 
 
-        operator.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
+        secondDriver.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
                 .whenPressed(new InstantCommand(() -> {
                     clawSubsystem.rotationIncrement(0.1);
                 }));
-        operator.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER)
+        secondDriver.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER)
                 .whenPressed(new InstantCommand(() -> {
                     clawSubsystem.rotationIncrement(-0.1);
                 }));
 
-        operator.getGamepadButton(GamepadKeys.Button.DPAD_UP)
+        secondDriver.getGamepadButton(GamepadKeys.Button.DPAD_UP)
                 .whenPressed(new Extension(linkageSubsystem, horizontalArmSubsystem, clawSubsystem));
-        operator.getGamepadButton(GamepadKeys.Button.DPAD_DOWN)
+        secondDriver.getGamepadButton(GamepadKeys.Button.DPAD_DOWN)
                 .whenPressed(new ContractHorizontal(linkageSubsystem, horizontalArmSubsystem));
 
-        operator.getGamepadButton(GamepadKeys.Button.CROSS)
+        secondDriver.getGamepadButton(GamepadKeys.Button.CROSS)
                 .whenPressed(new SubmersibleGrab(clawSubsystem, horizontalArmSubsystem));
-        operator.getGamepadButton(GamepadKeys.Button.CIRCLE)
+        secondDriver.getGamepadButton(GamepadKeys.Button.CIRCLE)
                 .whenPressed(new PrepareChamber(outtakeSubsystem));
-        operator.getGamepadButton(GamepadKeys.Button.SQUARE)
+        secondDriver.getGamepadButton(GamepadKeys.Button.SQUARE)
                 .whenPressed(new PrepareWall(outtakeSubsystem));
-        operator.getGamepadButton(GamepadKeys.Button.TRIANGLE)
+        secondDriver.getGamepadButton(GamepadKeys.Button.TRIANGLE)
                 .whenPressed(new InstantCommand(clawSubsystem::open));
 
-        driver.getGamepadButton(GamepadKeys.Button.TRIANGLE)
+        firstDriver.getGamepadButton(GamepadKeys.Button.TRIANGLE)
                 .whenPressed(new Transition(outtakeSubsystem, horizontalArmSubsystem, linkageSubsystem));
     }
 
@@ -93,7 +96,7 @@ public class FullTeleOp extends CommandOpMode{
         super.run(); // DO NOT REMOVE! Runs FTCLib Command Scheduler
 
         // Pedro field centric movement
-        follower.setTeleOpMovementVectors(driver.getLeftY(), driver.getLeftX(), driver.getRightX() * 0.40, false);
+        follower.setTeleOpMovementVectors(firstDriver.getLeftY(), firstDriver.getLeftX(), firstDriver.getRightX() * 0.40, false);
         follower.update();
 
 
@@ -102,11 +105,11 @@ public class FullTeleOp extends CommandOpMode{
         clawSubsystem.telemetry();
         outtakeSubsystem.telemetry();
 
-//        chassis.robotCentricDriving(
-//                firstDriver.getLeftX(),
-//                firstDriver.getLeftY(),
-//                firstDriver.getRightX()
-//        );
+        chassis.robotCentricDriving(
+                firstDriver.getLeftX(),
+                firstDriver.getLeftY(),
+                firstDriver.getRightX()
+               );
 
         telemetry.update(); // DO NOT REMOVE! Needed for telemetry
     }
