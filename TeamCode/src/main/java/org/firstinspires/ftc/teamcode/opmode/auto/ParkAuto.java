@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.seattlesolvers.solverslib.command.CommandOpMode;
 import com.seattlesolvers.solverslib.command.InstantCommand;
 import com.seattlesolvers.solverslib.command.ParallelCommandGroup;
+import com.seattlesolvers.solverslib.command.ParallelRaceGroup;
 import com.seattlesolvers.solverslib.command.RunCommand;
 import com.seattlesolvers.solverslib.command.SequentialCommandGroup;
 import com.seattlesolvers.solverslib.command.WaitCommand;
@@ -20,6 +21,7 @@ import org.firstinspires.ftc.teamcode.config.commands.ScoreChamber;
 import org.firstinspires.ftc.teamcode.config.core.paths.OneSpec;
 import org.firstinspires.ftc.teamcode.config.pedropathing.constants.FConstants;
 import org.firstinspires.ftc.teamcode.config.pedropathing.constants.LConstants;
+import org.firstinspires.ftc.teamcode.config.subsystems.Chassis;
 import org.firstinspires.ftc.teamcode.config.subsystems.Claw;
 import org.firstinspires.ftc.teamcode.config.subsystems.HorizontalArm;
 import org.firstinspires.ftc.teamcode.config.subsystems.Linkage;
@@ -27,16 +29,17 @@ import org.firstinspires.ftc.teamcode.config.subsystems.OuttakeSubsystem;
 
 import java.util.List;
 
-@Autonomous(name = "One Specimen Auto", group = "!")
-public class OneSpecAuto extends CommandOpMode {
+@Autonomous(name = "ParkAuto", group = "!")
+public class ParkAuto extends CommandOpMode {
     private Follower follower;
     private OuttakeSubsystem outtakeSubsystem;
     private Linkage linkageSubsystem;
     private Claw clawSubsystem;
     private HorizontalArm horizontalArmSubsystem;
+    private Chassis chassisSubsystem;
 
     @Override
-    public void initialize(){
+    public void initialize() {
         // DO NOT REMOVE! Resetting FTCLib Command Scheduler
         super.reset();
 
@@ -53,24 +56,20 @@ public class OneSpecAuto extends CommandOpMode {
         linkageSubsystem = new Linkage(hardwareMap, telemetry);
         horizontalArmSubsystem = new HorizontalArm(hardwareMap, telemetry);
         clawSubsystem = new Claw(hardwareMap, telemetry);
+        chassisSubsystem = new Chassis(hardwareMap, telemetry);
 
         schedule(
-                new RunCommand(() -> follower.update()),
-
                 new SequentialCommandGroup(
-                        new ParallelCommandGroup(
-                                new FollowPathCommand(follower, OneSpec.score1()),
-                                new PrepareChamber(outtakeSubsystem)
-                        ),
-                        new WaitUntilCommand(() -> !follower.isBusy()), // Correct?
-                        new ScoreChamber(outtakeSubsystem),
-                        new FollowPathCommand(follower, OneSpec.park())
+                        new WaitCommand(1000),
+                        new InstantCommand(() -> chassisSubsystem.robotCentricDriving(0, 1, 0)),
+                        new WaitCommand(500),
+                        new InstantCommand(() -> chassisSubsystem.robotCentricDriving(0, 0, 0))
                 )
         );
     }
 
     @Override
-    public void run(){
+    public void run() {
         super.run(); // DO NOT REMOVE! Runs FTCLib Command Scheduler
 
         linkageSubsystem.telemetry();

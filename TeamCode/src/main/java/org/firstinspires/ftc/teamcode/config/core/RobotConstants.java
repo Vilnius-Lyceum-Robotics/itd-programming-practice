@@ -80,9 +80,12 @@ public class RobotConstants {
     public static double OUTTAKE_ROTATE_FLIPPED = 0.75;
     public static int OUTTAKE_PIVOT_TRANSFER = 0;
 //    public static int OUTTAKE_PIVOT_BUCKET = 0;
-    public static int OUTTAKE_PIVOT_HUMAN = -400;
-    public static int OUTTAKE_PIVOT_PREPARE_CHAMBER = -3500;
-    public static int OUTTAKE_PIVOT_SCORE_CHAMBER = -800;
+//    public static int OUTTAKE_PIVOT_HUMAN = -400;
+//    public static int OUTTAKE_PIVOT_PREPARE_CHAMBER = -3500;
+//    public static int OUTTAKE_PIVOT_SCORE_CHAMBER = -800;
+    public static int OUTTAKE_PIVOT_HUMAN = 400;
+    public static int OUTTAKE_PIVOT_PREPARE_CHAMBER = 3500;
+    public static int OUTTAKE_PIVOT_SCORE_CHAMBER = 800;
     public static int OUTTAKE_PIVOT_PARK = 0;
     public static double OUTTAKE_ELBOW_TRANSFER = 0;
     public static double OUTTAKE_ELBOW_HUMAN = 0.6;
@@ -153,7 +156,7 @@ public class RobotConstants {
     public enum HorizontalArmState {
         TRANSFER(0.78, 0.8),
         INTAKE(0.4, 0.3),
-        IN_ROBOT(0.78, 0.8),
+        IN_ROBOT(0.78, 0.9),
         CLEAR_BAR(0.6, 0.4),
         HOVER(0.5, 0.3);
 

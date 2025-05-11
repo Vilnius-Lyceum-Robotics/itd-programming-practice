@@ -15,10 +15,11 @@ import org.firstinspires.ftc.teamcode.config.subsystems.OuttakeSubsystem;
 public class Transition extends SequentialCommandGroup {
     public Transition(OuttakeSubsystem outtakeSubsystem, HorizontalArm horizontalArmSubsystem, Linkage linkageSubsystem){
         addCommands(
-                new InstantCommand(linkageSubsystem::half),
+                new InstantCommand(linkageSubsystem::extend),
                 new InstantCommand(outtakeSubsystem::toHuman),
-                new WaitCommand(200),
+                new WaitCommand(300),
                 new InstantCommand(() -> horizontalArmSubsystem.setState(RobotConstants.HorizontalArmState.IN_ROBOT)),
+                new WaitCommand(400),
                 new InstantCommand(linkageSubsystem::retract)
         );
         addRequirements(outtakeSubsystem);

@@ -14,8 +14,7 @@ public class Extension extends ParallelCommandGroup {
                 new InstantCommand(linkageSubsystem::extend),
                 new WaitCommand(1200),
                 new InstantCommand(horizontalArmSubsystem::clear),
-                new InstantCommand(clawSubsystem::open),
-                new WaitCommand(400) // Make sure linkage extends
+                new InstantCommand(clawSubsystem::open)
         );
         addRequirements(linkageSubsystem, horizontalArmSubsystem);
     }

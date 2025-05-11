@@ -7,6 +7,7 @@ import static org.firstinspires.ftc.teamcode.config.core.RobotConstants.OUTTAKE_
 
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.util.Range;
 import com.seattlesolvers.solverslib.command.SubsystemBase;
 import com.seattlesolvers.solverslib.controller.PIDFController;
 import com.seattlesolvers.solverslib.hardware.motors.Motor;
@@ -39,8 +40,8 @@ public class OuttakeSubsystem extends SubsystemBase {
     private MotorGroup pivotMotors;
     private GrabState grabState = GrabState.CLOSED;
     private RotateState rotateState = RotateState.NORMAL;
-    private PivotState pivotState;
-    private ElbowState elbowState;
+    private PivotState pivotState = PivotState.HUMAN;
+    private ElbowState elbowState = ElbowState.HUMAN;
     private PIDFController pidf;
     private double pivotTarget = 0;
     private boolean pivotPidOn = false;
@@ -56,8 +57,8 @@ public class OuttakeSubsystem extends SubsystemBase {
         rightPivotMotor = new Motor(hardwareMap, MOTOR_OUTTAKE_PIVOT_RIGHT);
         pivotEncoder = new Motor(hardwareMap, "rearLeft"); // 4th control hub motor port
 
-        rightPivotMotor.setInverted(false);
-        leftPivotMotor.setInverted(true);
+        rightPivotMotor.setInverted(true);
+        leftPivotMotor.setInverted(false);
 
         pivotMotors = new MotorGroup(leftPivotMotor, rightPivotMotor);
 
@@ -169,13 +170,27 @@ public class OuttakeSubsystem extends SubsystemBase {
         }
     }
 
+    public void mappedPivot(double input){
+            double clippedInput = Range.clip(input, -1, 1);
+            double mappedPos = Range.scale(clippedInput, -1, 1, 0, 4000);
 
+            setPivotTarget((int)mappedPos);
+    }
     public void open(){
         setGrabState(OuttakeSubsystem.GrabState.OPEN);
     }
     public void midOpen() { setGrabState(OuttakeSubsystem.GrabState.MIDOPEN); }
     public void close(){
         setGrabState(OuttakeSubsystem.GrabState.CLOSED);
+    }
+    public void toggle(){
+        if(grabState==GrabState.CLOSED){
+            setGrabState(GrabState.OPEN);
+        } else if (grabState == GrabState.OPEN){
+            setGrabState(GrabState.CLOSED);
+        } else {
+            setGrabState(GrabState.CLOSED);
+        }
     }
 
     public void toTransfer(){

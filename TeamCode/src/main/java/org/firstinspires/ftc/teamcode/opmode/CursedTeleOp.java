@@ -3,17 +3,15 @@ package org.firstinspires.ftc.teamcode.opmode;
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.pedropathing.follower.Follower;
-import com.qualcomm.hardware.lynx.LynxModule;
-import com.seattlesolvers.solverslib.command.CommandOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.seattlesolvers.solverslib.command.CommandOpMode;
 import com.seattlesolvers.solverslib.command.InstantCommand;
-import com.seattlesolvers.solverslib.command.RunCommand;
 import com.seattlesolvers.solverslib.gamepad.GamepadEx;
 import com.seattlesolvers.solverslib.gamepad.GamepadKeys;
 
-import org.firstinspires.ftc.teamcode.config.commands.PrepareChamber;
 import org.firstinspires.ftc.teamcode.config.commands.ContractHorizontal;
 import org.firstinspires.ftc.teamcode.config.commands.Extension;
+import org.firstinspires.ftc.teamcode.config.commands.PrepareChamber;
 import org.firstinspires.ftc.teamcode.config.commands.PrepareWall;
 import org.firstinspires.ftc.teamcode.config.commands.ScoreChamber;
 import org.firstinspires.ftc.teamcode.config.commands.SubmersibleGrab;
@@ -25,11 +23,10 @@ import org.firstinspires.ftc.teamcode.config.subsystems.Claw;
 import org.firstinspires.ftc.teamcode.config.subsystems.HorizontalArm;
 import org.firstinspires.ftc.teamcode.config.subsystems.Linkage;
 import org.firstinspires.ftc.teamcode.config.subsystems.OuttakeSubsystem;
+import org.firstinspires.ftc.teamcode.config.subsystems.Tank;
 
-import java.util.List;
-
-@TeleOp(name = "FullTeleOp", group = "!")
-public class FullTeleOp extends CommandOpMode{
+@TeleOp(name = "Tank teleop", group = "!")
+public class CursedTeleOp extends CommandOpMode{
 
     // TODO fix whatever is going on with the outtake arm
 
@@ -40,7 +37,7 @@ public class FullTeleOp extends CommandOpMode{
     private GamepadEx firstDriver;
     private GamepadEx secondDriver;
     private Claw clawSubsystem;
-    private Chassis chassis;
+    private Tank chassis;
 
 
     @Override
@@ -62,7 +59,7 @@ public class FullTeleOp extends CommandOpMode{
         linkageSubsystem = new Linkage(hardwareMap, telemetry);
         horizontalArmSubsystem = new HorizontalArm(hardwareMap, telemetry);
         clawSubsystem = new Claw(hardwareMap, telemetry);
-        chassis = new Chassis(hardwareMap, telemetry);
+        chassis = new Tank(hardwareMap, telemetry);
 
         firstDriver = new GamepadEx(gamepad1);
         secondDriver = new GamepadEx(gamepad2);

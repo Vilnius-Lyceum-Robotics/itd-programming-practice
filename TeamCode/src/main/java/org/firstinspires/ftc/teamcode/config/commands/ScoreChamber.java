@@ -13,7 +13,7 @@ public class ScoreChamber extends SequentialCommandGroup {
                 new InstantCommand(() -> outtakeSubsystem.setElbowState(OuttakeSubsystem.ElbowState.SCORE)),
                 new WaitCommand(500),
                 new InstantCommand(outtakeSubsystem::toScoreChamber),
-                new WaitCommand(500),
+                new WaitCommand(400),
                 new InstantCommand(outtakeSubsystem::open),
                 new WaitUntilCommand(outtakeSubsystem::reachedTarget),
                 new PrepareWall(outtakeSubsystem)

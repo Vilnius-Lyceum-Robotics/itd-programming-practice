@@ -4,6 +4,7 @@ import static org.firstinspires.ftc.teamcode.config.core.RobotConstants.*;
 
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.util.Range;
 import com.seattlesolvers.solverslib.command.SubsystemBase;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
@@ -13,6 +14,7 @@ public class Claw extends SubsystemBase {
     private Servo rotation, grab;
     private Telemetry telemetry;
     private double rotationPos;
+    private double cachedRotationPos;
     private GrabState state;
 
     public Claw(HardwareMap hardwareMap, Telemetry telemetry) {
@@ -66,6 +68,15 @@ public class Claw extends SubsystemBase {
 
     public void rotationIncrement(double amount) {
         rotate(this.rotationPos + amount);
+    }
+
+    public void setMappedTarget(Double input){
+        double clippedInput = Range.clip(input, -1, 1);
+        double mappedPos = Range.scale(clippedInput, -1, 1, CLAW_ROTATION_MIN, CLAW_ROTATION_MAX);
+        if (mappedPos == cachedRotationPos) return;
+        cachedRotationPos = mappedPos;
+
+        rotate(mappedPos);
     }
 
     public double getRotationPos() { return this.rotationPos; }
