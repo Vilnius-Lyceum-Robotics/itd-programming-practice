@@ -14,11 +14,10 @@ import org.firstinspires.ftc.teamcode.config.commands.ContractHorizontal;
 import org.firstinspires.ftc.teamcode.config.commands.Extension;
 import org.firstinspires.ftc.teamcode.config.commands.ScoreChamber;
 import org.firstinspires.ftc.teamcode.config.commands.SubmersibleGrab;
-import org.firstinspires.ftc.teamcode.config.commands.Transition;
 import org.firstinspires.ftc.teamcode.config.subsystems.Claw;
-import org.firstinspires.ftc.teamcode.config.subsystems.HorizontalArm;
+import org.firstinspires.ftc.teamcode.config.subsystems.HorizontalIntake;
 import org.firstinspires.ftc.teamcode.config.subsystems.Linkage;
-import org.firstinspires.ftc.teamcode.config.subsystems.OuttakeSubsystem;
+import org.firstinspires.ftc.teamcode.config.subsystems.Outtake;
 import org.firstinspires.ftc.teamcode.config.commands.PrepareChamber;
 import org.firstinspires.ftc.teamcode.config.commands.PrepareWall;
 
@@ -27,9 +26,9 @@ import org.firstinspires.ftc.teamcode.config.commands.PrepareWall;
 public class OuttakeClawConfig extends CommandOpMode {
 
     private Follower follower;
-    private OuttakeSubsystem outtakeSubsystem;
+    private Outtake outtake;
     private Linkage linkageSubsystem;
-    private HorizontalArm horizontalArmSubsystem;
+    private HorizontalIntake horizontalIntakeSubsystem;
     private Claw clawSubsystem;
     private GamepadEx operator;
 
@@ -41,35 +40,35 @@ public class OuttakeClawConfig extends CommandOpMode {
 
         telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
 
-        outtakeSubsystem = new OuttakeSubsystem(hardwareMap, telemetry);
+        outtake = new Outtake(hardwareMap, telemetry);
         linkageSubsystem = new Linkage(hardwareMap, telemetry);
-        horizontalArmSubsystem = new HorizontalArm(hardwareMap, telemetry);
+        horizontalIntakeSubsystem = new HorizontalIntake(hardwareMap, telemetry);
         clawSubsystem = new Claw(hardwareMap, telemetry);
 //        liftSubsystem = new LiftSubsystem(hardwareMap, telemetry);
 
         operator = new GamepadEx(gamepad1);
 
         operator.getGamepadButton(GamepadKeys.Button.TRIANGLE)
-                .whenPressed(new PrepareChamber(outtakeSubsystem));
+                .whenPressed(new PrepareChamber(outtake));
         operator.getGamepadButton(GamepadKeys.Button.SQUARE)
-                .whenPressed(new PrepareWall(outtakeSubsystem));
+                .whenPressed(new PrepareWall(outtake));
         operator.getGamepadButton(GamepadKeys.Button.CIRCLE)
-                .whenPressed(new ScoreChamber(outtakeSubsystem));
+                .whenPressed(new ScoreChamber(outtake));
         operator.getGamepadButton(GamepadKeys.Button.CROSS)
-                .whenPressed(new SubmersibleGrab(clawSubsystem, horizontalArmSubsystem));
+                .whenPressed(new SubmersibleGrab(clawSubsystem, horizontalIntakeSubsystem));
 
         operator.getGamepadButton(GamepadKeys.Button.DPAD_UP)
-                .whenPressed(new Extension(linkageSubsystem, horizontalArmSubsystem, clawSubsystem));
+                .whenPressed(new Extension(linkageSubsystem, horizontalIntakeSubsystem, clawSubsystem));
         operator.getGamepadButton(GamepadKeys.Button.DPAD_DOWN)
-                .whenPressed(new ContractHorizontal(linkageSubsystem, horizontalArmSubsystem));
+                .whenPressed(new ContractHorizontal(linkageSubsystem, horizontalIntakeSubsystem));
         operator.getGamepadButton(GamepadKeys.Button.DPAD_RIGHT)
-                .whenPressed(new InstantCommand(horizontalArmSubsystem::hover));
+                .whenPressed(new InstantCommand(horizontalIntakeSubsystem::hover));
 //        operator.getGamepadButton(GamepadKeys.Button.DPAD_LEFT)
 //                .whenPressed(new Transition(outtakeSubsystem, horizontalArmSubsystem, linkageSubsystem));
         operator.getGamepadButton(GamepadKeys.Button.DPAD_LEFT)
-                .whenPressed(new InstantCommand(outtakeSubsystem::open));
+                .whenPressed(new InstantCommand(outtake::open));
         operator.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER)
-                .whenPressed(new InstantCommand(outtakeSubsystem::close ));
+                .whenPressed(new InstantCommand(outtake::close ));
 
 //        operator.getGamepadButton(GamepadKeys.Button.TRIANGLE)
 //                .whenPressed(new );
@@ -81,7 +80,7 @@ public class OuttakeClawConfig extends CommandOpMode {
     public void run(){
         super.run(); // DO NOT REMOVE! Runs FTCLib Command Scheduler
 
-        outtakeSubsystem.telemetry();
+        outtake.telemetry();
 
         telemetry.update(); // DO NOT REMOVE! Needed for telemetry
     }

@@ -10,7 +10,7 @@ import com.seattlesolvers.solverslib.gamepad.GamepadEx;
 import com.seattlesolvers.solverslib.gamepad.GamepadKeys;
 
 import org.firstinspires.ftc.teamcode.config.subsystems.Claw;
-import org.firstinspires.ftc.teamcode.config.subsystems.HorizontalArm;
+import org.firstinspires.ftc.teamcode.config.subsystems.HorizontalIntake;
 import org.firstinspires.ftc.teamcode.config.subsystems.Linkage;
 
 @TeleOp(name = "A hungry vertically-challenged nomnom system", group = "!")
@@ -18,7 +18,7 @@ public class FullHorizontalArmTest extends CommandOpMode {
 
     private Linkage linkage;
     private Claw claw;
-    private HorizontalArm arm;
+    private HorizontalIntake arm;
     private GamepadEx firstDriver;
 
     @Override
@@ -28,7 +28,7 @@ public class FullHorizontalArmTest extends CommandOpMode {
         telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
 
         linkage = new Linkage(hardwareMap, telemetry);
-        arm = new HorizontalArm(hardwareMap, telemetry);
+        arm = new HorizontalIntake(hardwareMap, telemetry);
         claw = new Claw(hardwareMap, telemetry);
 
         firstDriver = new GamepadEx(gamepad1);

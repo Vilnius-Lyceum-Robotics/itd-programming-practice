@@ -5,19 +5,19 @@ import com.seattlesolvers.solverslib.command.SequentialCommandGroup;
 import com.seattlesolvers.solverslib.command.WaitCommand;
 import com.seattlesolvers.solverslib.command.WaitUntilCommand;
 
-import org.firstinspires.ftc.teamcode.config.subsystems.OuttakeSubsystem;
+import org.firstinspires.ftc.teamcode.config.subsystems.Outtake;
 
 public class ScoreChamber extends SequentialCommandGroup {
-    public ScoreChamber(OuttakeSubsystem outtakeSubsystem){
+    public ScoreChamber(Outtake outtake){
         addCommands(
-                new InstantCommand(() -> outtakeSubsystem.setElbowState(OuttakeSubsystem.ElbowState.SCORE)),
+                new InstantCommand(() -> outtake.setElbowState(Outtake.ElbowState.SCORE)),
                 new WaitCommand(500),
-                new InstantCommand(outtakeSubsystem::toScoreChamber),
+                new InstantCommand(outtake::toScoreChamber),
                 new WaitCommand(400),
-                new InstantCommand(outtakeSubsystem::open),
-                new WaitUntilCommand(outtakeSubsystem::reachedTarget),
-                new PrepareWall(outtakeSubsystem)
+                new InstantCommand(outtake::open),
+                new WaitUntilCommand(outtake::reachedTarget),
+                new PrepareWall(outtake)
         );
-        addRequirements(outtakeSubsystem);
+        addRequirements(outtake);
     }
 }

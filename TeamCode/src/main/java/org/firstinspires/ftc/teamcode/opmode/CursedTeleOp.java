@@ -18,11 +18,10 @@ import org.firstinspires.ftc.teamcode.config.commands.SubmersibleGrab;
 import org.firstinspires.ftc.teamcode.config.commands.Transition;
 import org.firstinspires.ftc.teamcode.config.pedropathing.constants.FConstants;
 import org.firstinspires.ftc.teamcode.config.pedropathing.constants.LConstants;
-import org.firstinspires.ftc.teamcode.config.subsystems.Chassis;
 import org.firstinspires.ftc.teamcode.config.subsystems.Claw;
-import org.firstinspires.ftc.teamcode.config.subsystems.HorizontalArm;
+import org.firstinspires.ftc.teamcode.config.subsystems.HorizontalIntake;
 import org.firstinspires.ftc.teamcode.config.subsystems.Linkage;
-import org.firstinspires.ftc.teamcode.config.subsystems.OuttakeSubsystem;
+import org.firstinspires.ftc.teamcode.config.subsystems.Outtake;
 import org.firstinspires.ftc.teamcode.config.subsystems.Tank;
 
 @TeleOp(name = "Tank teleop", group = "!")
@@ -31,8 +30,8 @@ public class CursedTeleOp extends CommandOpMode{
     // TODO fix whatever is going on with the outtake arm
 
     private Follower follower;
-    private OuttakeSubsystem outtakeSubsystem;
-    private HorizontalArm horizontalArmSubsystem;
+    private Outtake outtake;
+    private HorizontalIntake horizontalIntakeSubsystem;
     private Linkage linkageSubsystem;
     private GamepadEx firstDriver;
     private GamepadEx secondDriver;
@@ -55,9 +54,9 @@ public class CursedTeleOp extends CommandOpMode{
 
         follower = new Follower(hardwareMap, FConstants.class, LConstants.class);
 
-        outtakeSubsystem = new OuttakeSubsystem(hardwareMap, telemetry);
+        outtake = new Outtake(hardwareMap, telemetry);
         linkageSubsystem = new Linkage(hardwareMap, telemetry);
-        horizontalArmSubsystem = new HorizontalArm(hardwareMap, telemetry);
+        horizontalIntakeSubsystem = new HorizontalIntake(hardwareMap, telemetry);
         clawSubsystem = new Claw(hardwareMap, telemetry);
         chassis = new Tank(hardwareMap, telemetry);
 
@@ -77,30 +76,30 @@ public class CursedTeleOp extends CommandOpMode{
         // Intake arm controls
 
         secondDriver.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
-                .whenPressed(new Extension(linkageSubsystem, horizontalArmSubsystem, clawSubsystem));
+                .whenPressed(new Extension(linkageSubsystem, horizontalIntakeSubsystem, clawSubsystem));
         secondDriver.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER)
-                .whenPressed(new ContractHorizontal(linkageSubsystem, horizontalArmSubsystem));
+                .whenPressed(new ContractHorizontal(linkageSubsystem, horizontalIntakeSubsystem));
         secondDriver.getGamepadButton(GamepadKeys.Button.CIRCLE)
-                .whenPressed(new SubmersibleGrab(clawSubsystem, horizontalArmSubsystem));
+                .whenPressed(new SubmersibleGrab(clawSubsystem, horizontalIntakeSubsystem));
         secondDriver.getGamepadButton(GamepadKeys.Button.CROSS)
                 .whenPressed(new InstantCommand(clawSubsystem::toggleGrab));
 
         // Outtake arm controls
 
         secondDriver.getGamepadButton(GamepadKeys.Button.DPAD_RIGHT)
-                .whenPressed(new PrepareWall(outtakeSubsystem));
+                .whenPressed(new PrepareWall(outtake));
         secondDriver.getGamepadButton(GamepadKeys.Button.DPAD_LEFT)
-                .whenPressed(new PrepareChamber(outtakeSubsystem));
+                .whenPressed(new PrepareChamber(outtake));
         secondDriver.getGamepadButton(GamepadKeys.Button.DPAD_DOWN)
-                .whenPressed(new ScoreChamber(outtakeSubsystem));
+                .whenPressed(new ScoreChamber(outtake));
         secondDriver.getGamepadButton(GamepadKeys.Button.DPAD_UP)
-                .whenPressed(new Transition(outtakeSubsystem, horizontalArmSubsystem, linkageSubsystem));
+                .whenPressed(new Transition(outtake, horizontalIntakeSubsystem, linkageSubsystem));
 
 //        follower.startTeleopDrive();
         firstDriver.getGamepadButton(GamepadKeys.Button.CIRCLE)
-                .whenPressed(() -> outtakeSubsystem.close());
+                .whenPressed(() -> outtake.close());
         firstDriver.getGamepadButton(GamepadKeys.Button.SQUARE)
-                .whenPressed(() -> outtakeSubsystem.open());
+                .whenPressed(() -> outtake.open());
     }
 
     @Override
@@ -114,13 +113,13 @@ public class CursedTeleOp extends CommandOpMode{
         clawSubsystem.setMappedTarget(secondDriver.getLeftX());
 
         if(firstDriver.isDown(GamepadKeys.Button.TRIANGLE)){
-            outtakeSubsystem.mappedPivot(secondDriver.getRightY());
+            outtake.mappedPivot(secondDriver.getRightY());
         }
 
         linkageSubsystem.telemetry();
-        horizontalArmSubsystem.telemetry();
+        horizontalIntakeSubsystem.telemetry();
         clawSubsystem.telemetry();
-        outtakeSubsystem.telemetry();
+        outtake.telemetry();
 
         chassis.robotCentricDriving(
                 firstDriver.getLeftX(),

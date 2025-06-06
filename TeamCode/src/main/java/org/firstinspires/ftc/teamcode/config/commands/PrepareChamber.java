@@ -5,18 +5,18 @@ import com.seattlesolvers.solverslib.command.SequentialCommandGroup;
 import com.seattlesolvers.solverslib.command.WaitCommand;
 import com.seattlesolvers.solverslib.command.WaitUntilCommand;
 
-import org.firstinspires.ftc.teamcode.config.subsystems.OuttakeSubsystem;
+import org.firstinspires.ftc.teamcode.config.subsystems.Outtake;
 
 public class PrepareChamber extends SequentialCommandGroup {
-    public PrepareChamber(OuttakeSubsystem outtakeSubsystem){
+    public PrepareChamber(Outtake outtake){
         addCommands(
-                new InstantCommand(outtakeSubsystem::close),
+                new InstantCommand(outtake::close),
                 new WaitCommand(300),
-                new InstantCommand(outtakeSubsystem::toPrepChamber),
+                new InstantCommand(outtake::toPrepChamber),
                 new WaitCommand(100),
-                new InstantCommand(outtakeSubsystem::midOpen),
-                new WaitUntilCommand(outtakeSubsystem::reachedTarget)
+                new InstantCommand(outtake::midOpen),
+                new WaitUntilCommand(outtake::reachedTarget)
         );
-        addRequirements(outtakeSubsystem);
+        addRequirements(outtake);
     }
 }

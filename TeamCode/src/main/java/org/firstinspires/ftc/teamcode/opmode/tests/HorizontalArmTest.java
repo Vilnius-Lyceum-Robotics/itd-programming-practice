@@ -5,15 +5,14 @@ import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.seattlesolvers.solverslib.command.CommandOpMode;
 import com.seattlesolvers.solverslib.gamepad.GamepadEx;
-import com.seattlesolvers.solverslib.gamepad.GamepadKeys;
 
-import org.firstinspires.ftc.teamcode.config.subsystems.HorizontalArm;
+import org.firstinspires.ftc.teamcode.config.subsystems.HorizontalIntake;
 @TeleOp(name = "KazkoksNepanamintasHorizontalArmTest", group = "!")
 public class HorizontalArmTest extends CommandOpMode {
 
     // TODO Combine this with the linkage subsystem
 
-    private HorizontalArm horizontalArm;
+    private HorizontalIntake horizontalIntake;
     private GamepadEx firstDriver;
 
     @Override
@@ -22,7 +21,7 @@ public class HorizontalArmTest extends CommandOpMode {
 
         telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
 
-        horizontalArm = new HorizontalArm(hardwareMap, telemetry);
+        horizontalIntake = new HorizontalIntake(hardwareMap, telemetry);
 
         firstDriver = new GamepadEx(gamepad1);
 
@@ -42,7 +41,7 @@ public class HorizontalArmTest extends CommandOpMode {
     public void run(){
         super.run(); // DO NOT REMOVE! Runs FTCLib Command Scheduler
 
-        horizontalArm.telemetry();
+        horizontalIntake.telemetry();
 
         telemetry.update(); // DO NOT REMOVE! Needed for telemetry
     }

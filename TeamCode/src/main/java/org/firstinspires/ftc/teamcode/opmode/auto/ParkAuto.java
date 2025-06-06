@@ -7,35 +7,26 @@ import com.qualcomm.hardware.lynx.LynxModule;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.seattlesolvers.solverslib.command.CommandOpMode;
 import com.seattlesolvers.solverslib.command.InstantCommand;
-import com.seattlesolvers.solverslib.command.ParallelCommandGroup;
-import com.seattlesolvers.solverslib.command.ParallelRaceGroup;
-import com.seattlesolvers.solverslib.command.RunCommand;
 import com.seattlesolvers.solverslib.command.SequentialCommandGroup;
 import com.seattlesolvers.solverslib.command.WaitCommand;
-import com.seattlesolvers.solverslib.command.WaitUntilCommand;
-import com.seattlesolvers.solverslib.pedroCommand.FollowPathCommand;
 
-import org.firstinspires.ftc.teamcode.config.commands.Park;
-import org.firstinspires.ftc.teamcode.config.commands.PrepareChamber;
-import org.firstinspires.ftc.teamcode.config.commands.ScoreChamber;
-import org.firstinspires.ftc.teamcode.config.core.paths.OneSpec;
 import org.firstinspires.ftc.teamcode.config.pedropathing.constants.FConstants;
 import org.firstinspires.ftc.teamcode.config.pedropathing.constants.LConstants;
 import org.firstinspires.ftc.teamcode.config.subsystems.Chassis;
 import org.firstinspires.ftc.teamcode.config.subsystems.Claw;
-import org.firstinspires.ftc.teamcode.config.subsystems.HorizontalArm;
+import org.firstinspires.ftc.teamcode.config.subsystems.HorizontalIntake;
 import org.firstinspires.ftc.teamcode.config.subsystems.Linkage;
-import org.firstinspires.ftc.teamcode.config.subsystems.OuttakeSubsystem;
+import org.firstinspires.ftc.teamcode.config.subsystems.Outtake;
 
 import java.util.List;
 
 @Autonomous(name = "ParkAuto", group = "!")
 public class ParkAuto extends CommandOpMode {
     private Follower follower;
-    private OuttakeSubsystem outtakeSubsystem;
+    private Outtake outtake;
     private Linkage linkageSubsystem;
     private Claw clawSubsystem;
-    private HorizontalArm horizontalArmSubsystem;
+    private HorizontalIntake horizontalIntakeSubsystem;
     private Chassis chassisSubsystem;
 
     @Override
@@ -52,9 +43,9 @@ public class ParkAuto extends CommandOpMode {
         telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
 
         follower = new Follower(hardwareMap, FConstants.class, LConstants.class);
-        outtakeSubsystem = new OuttakeSubsystem(hardwareMap, telemetry);
+        outtake = new Outtake(hardwareMap, telemetry);
         linkageSubsystem = new Linkage(hardwareMap, telemetry);
-        horizontalArmSubsystem = new HorizontalArm(hardwareMap, telemetry);
+        horizontalIntakeSubsystem = new HorizontalIntake(hardwareMap, telemetry);
         clawSubsystem = new Claw(hardwareMap, telemetry);
         chassisSubsystem = new Chassis(hardwareMap, telemetry);
 
@@ -73,9 +64,9 @@ public class ParkAuto extends CommandOpMode {
         super.run(); // DO NOT REMOVE! Runs FTCLib Command Scheduler
 
         linkageSubsystem.telemetry();
-        horizontalArmSubsystem.telemetry();
+        horizontalIntakeSubsystem.telemetry();
         clawSubsystem.telemetry();
-        outtakeSubsystem.telemetry();
+        outtake.telemetry();
 
         telemetry.update(); // DO NOT REMOVE! Needed for telemetry
     }

@@ -8,7 +8,7 @@ import static org.firstinspires.ftc.teamcode.config.core.RobotConstants.*;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
-public class HorizontalArm extends SubsystemBase {
+public class HorizontalIntake extends SubsystemBase {
 
     // This subsystem contains horizontal arm elbow, wrist and claw
 
@@ -19,7 +19,7 @@ public class HorizontalArm extends SubsystemBase {
     private HorizontalArmState state;
 
 
-    public HorizontalArm(HardwareMap hardwareMap, Telemetry telemetry) {
+    public HorizontalIntake(HardwareMap hardwareMap, Telemetry telemetry) {
         this.telemetry = telemetry;
 
         leftElbow = hardwareMap.get(Servo.class, SERVO_HORIZONTAL_ELBOW_LEFT);

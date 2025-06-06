@@ -9,16 +9,14 @@ import com.qualcomm.robotcore.util.Range;
 import com.seattlesolvers.solverslib.command.CommandOpMode;
 import com.seattlesolvers.solverslib.gamepad.GamepadEx;
 
-import org.firstinspires.ftc.teamcode.config.subsystems.OuttakeSubsystem;
-
-import static org.firstinspires.ftc.teamcode.config.core.RobotConstants.*;
+import org.firstinspires.ftc.teamcode.config.subsystems.Outtake;
 
 @Config
 @TeleOp(name = "Constants setup")
 public class ConstantSetupOpMode extends CommandOpMode {
 
     private Follower follower;
-    private OuttakeSubsystem outtakeSubsystem;
+    private Outtake outtake;
 //    private LiftSubsystem liftSubsystem;
     private GamepadEx operator;
     public static int pivotTargetVar = 0;
@@ -32,7 +30,7 @@ public class ConstantSetupOpMode extends CommandOpMode {
 
         telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
 
-        outtakeSubsystem = new OuttakeSubsystem(hardwareMap, telemetry);
+        outtake = new Outtake(hardwareMap, telemetry);
 //        liftSubsystem = new LiftSubsystem(hardwareMap, telemetry);
 
         operator = new GamepadEx(gamepad1);
@@ -45,10 +43,10 @@ public class ConstantSetupOpMode extends CommandOpMode {
         double clippedInput = Range.clip(operator.getLeftY(), -1, 1);
         double mappedPos = Range.scale(clippedInput, -1, 1, 0, -3400);
 
-        outtakeSubsystem.setPivotTarget((int)mappedPos);
+        outtake.setPivotTarget((int)mappedPos);
         //liftSubsystem.setTarget(liftTargetVar);
 //        liftSubsystem.telemetry();
-        outtakeSubsystem.telemetry();
+        outtake.telemetry();
 
         telemetry.update(); // DO NOT REMOVE! Needed for telemetry
     }

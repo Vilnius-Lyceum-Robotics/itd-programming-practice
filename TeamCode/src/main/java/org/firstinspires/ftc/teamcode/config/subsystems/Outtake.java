@@ -15,7 +15,7 @@ import com.seattlesolvers.solverslib.hardware.motors.MotorGroup;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
-public class OuttakeSubsystem extends SubsystemBase {
+public class Outtake extends SubsystemBase {
 
     public enum GrabState {
         CLOSED, MIDOPEN, OPEN
@@ -46,7 +46,7 @@ public class OuttakeSubsystem extends SubsystemBase {
     private double pivotTarget = 0;
     private boolean pivotPidOn = false;
 
-    public OuttakeSubsystem(HardwareMap hardwareMap, Telemetry telemetry){
+    public Outtake(HardwareMap hardwareMap, Telemetry telemetry){
         this.telemetry = telemetry;
 
         grabServo = hardwareMap.get(Servo.class, SERVO_OUTTAKE_GRAB);
@@ -177,11 +177,11 @@ public class OuttakeSubsystem extends SubsystemBase {
             setPivotTarget((int)mappedPos);
     }
     public void open(){
-        setGrabState(OuttakeSubsystem.GrabState.OPEN);
+        setGrabState(Outtake.GrabState.OPEN);
     }
-    public void midOpen() { setGrabState(OuttakeSubsystem.GrabState.MIDOPEN); }
+    public void midOpen() { setGrabState(Outtake.GrabState.MIDOPEN); }
     public void close(){
-        setGrabState(OuttakeSubsystem.GrabState.CLOSED);
+        setGrabState(Outtake.GrabState.CLOSED);
     }
     public void toggle(){
         if(grabState==GrabState.CLOSED){
