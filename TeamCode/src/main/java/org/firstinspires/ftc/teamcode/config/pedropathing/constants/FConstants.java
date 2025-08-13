@@ -5,16 +5,17 @@ import com.pedropathing.follower.FollowerConstants;
 import com.pedropathing.util.CustomFilteredPIDFCoefficients;
 import com.pedropathing.util.CustomPIDFCoefficients;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import static org.firstinspires.ftc.teamcode.config.core.RobotConstants.*;
 
 public class FConstants {
     static {
         //TODO: Tune everything
         FollowerConstants.localizers = Localizers.PINPOINT;
 
-        FollowerConstants.leftFrontMotorName = "frontLeft";
-        FollowerConstants.leftRearMotorName = "rearLeft";
-        FollowerConstants.rightFrontMotorName = "frontRight";
-        FollowerConstants.rightRearMotorName = "rearRight";
+        FollowerConstants.leftFrontMotorName = LEFT_FRONT_MOTOR;
+        FollowerConstants.leftRearMotorName = LEFT_REAR_MOTOR;
+        FollowerConstants.rightFrontMotorName = RIGHT_FRONT_MOTOR;
+        FollowerConstants.rightRearMotorName = RIGHT_REAR_MOTOR;
 
         FollowerConstants.leftFrontMotorDirection = DcMotorSimple.Direction.REVERSE;
         FollowerConstants.leftRearMotorDirection = DcMotorSimple.Direction.REVERSE;

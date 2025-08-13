@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.opmode.tests;
 
+import static org.firstinspires.ftc.teamcode.config.core.RobotConstants.*;
+
 import com.seattlesolvers.solverslib.drivebase.MecanumDrive;
 import com.seattlesolvers.solverslib.gamepad.GamepadEx;
 import com.seattlesolvers.solverslib.hardware.motors.Motor;
@@ -17,10 +19,10 @@ public class RobotCentricDriving extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
 
-        fL = new Motor(hardwareMap, "leftFront", Motor.GoBILDA.RPM_435);
-        fR = new Motor(hardwareMap, "rightFront", Motor.GoBILDA.RPM_435);
-        bL = new Motor(hardwareMap, "leftRear", Motor.GoBILDA.RPM_435);
-        bR = new Motor(hardwareMap, "rightRear", Motor.GoBILDA.RPM_435);
+        fL = new Motor(hardwareMap, LEFT_FRONT_MOTOR, Motor.GoBILDA.RPM_435);
+        fR = new Motor(hardwareMap, RIGHT_FRONT_MOTOR, Motor.GoBILDA.RPM_435);
+        bL = new Motor(hardwareMap, LEFT_REAR_MOTOR, Motor.GoBILDA.RPM_435);
+        bR = new Motor(hardwareMap, RIGHT_REAR_MOTOR, Motor.GoBILDA.RPM_435);
 
         bL.setInverted(true);
         bR.setInverted(true);
