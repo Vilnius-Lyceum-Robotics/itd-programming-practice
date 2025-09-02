@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.config.subsystems;
 
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.util.Range;
 import com.seattlesolvers.solverslib.command.SubsystemBase;
 
 import static org.firstinspires.ftc.teamcode.config.core.RobotConstants.*;
@@ -13,59 +14,69 @@ public class HorizontalIntake extends SubsystemBase {
     // This subsystem contains horizontal arm elbow, wrist and claw
 
 
-    private Servo leftElbow, rightElbow, wrist;
+    private Servo leftRot, rightRot, inAngle;
     private Telemetry telemetry;
-    private double elbowPos, wristPos;
+    private double rotatorPos, anglePos;
     private HorizontalArmState state;
 
 
     public HorizontalIntake(HardwareMap hardwareMap, Telemetry telemetry) {
         this.telemetry = telemetry;
 
-        leftElbow = hardwareMap.get(Servo.class, SERVO_HORIZONTAL_ELBOW_LEFT);
-        rightElbow = hardwareMap.get(Servo.class, SERVO_HORIZONTAL_ELBOW_RIGHT);
-        wrist = hardwareMap.get(Servo.class, SERVO_HORIZONTAL_WRIST);
+        leftRot = hardwareMap.get(Servo.class, SERVO_HORIZONTAL_ROTATOR_LEFT);
+        rightRot = hardwareMap.get(Servo.class, SERVO_HORIZONTAL_ROTATOR_RIGHT);
+        inAngle = hardwareMap.get(Servo.class, SERVO_HORIZONTAL_ANGLE);
 
-        leftElbow.setDirection(Servo.Direction.FORWARD);
-        rightElbow.setDirection(Servo.Direction.REVERSE);
-        wrist.setDirection(Servo.Direction.FORWARD);
+        leftRot.setDirection(Servo.Direction.FORWARD);
+        rightRot.setDirection(Servo.Direction.REVERSE);
+        inAngle.setDirection(Servo.Direction.FORWARD);
 
-        setState(HorizontalArmState.IN_ROBOT);
+        setRotatorAngle(ROTATOR_DOWN);
+        setIntakeAngle(IN_ANGLE_UP);
 
     }
 
-    /*public void setElbowAngle(double target) {
-        double clippedTarget = Range.clip(target, ELBOW_DOWN, ELBOW_UP);
-        leftElbow.setPosition(clippedTarget);
-        rightElbow.setPosition(clippedTarget / ELBOW_COEF + 0.2);
-        this.elbowPos = clippedTarget;
+    public void setRotatorAngle(double target) {
+        double clippedTarget = Range.clip(target, ROTATOR_DOWN, ROTATOR_UP);
+        leftRot.setPosition(clippedTarget);
+        rightRot.setPosition(clippedTarget / ROTATOR_COEF + 0.2);
+        this.rotatorPos = clippedTarget;
     }
 
-    public void setWristAngle(double target) {
-        double clippedTarget = Range.clip(target, H_WRIST_DOWN, H_WRIST_UP);
-        wrist.setPosition(clippedTarget);
-        this.wristPos = clippedTarget;
-    }*/
+    public void setIntakeAngle(double target) {
+        double clippedTarget = Range.clip(target, IN_ANGLE_UP, IN_ANGLE_DOWN);
+        inAngle.setPosition(clippedTarget);
+        this.anglePos = clippedTarget;
+    }
 
+    public void incrementRotator(double amount) {
+        double target = this.rotatorPos + amount;
+        setRotatorAngle(target);
+    }
 
-    public double getElbowPos() { return this.elbowPos;}
-    public double getWristPos() {return this.wristPos;}
+    public void incrementAngle(double amount) {
+        double target = this.anglePos + amount;
+        setIntakeAngle(target);
+    }
+
+    public double getRotatorPos() { return this.rotatorPos;}
+    public double getAnglePos() {return this.anglePos;}
     public HorizontalArmState getState() { return this.state; }
 
     public void telemetry() {
-        telemetry.addData("Left elbow position: ", getElbowPos());
-        telemetry.addData("Right elbow position: ", getElbowPos() / ELBOW_COEF + 0.2);
-        telemetry.addData("Wrist position: ", getWristPos());
+        telemetry.addData("Left elbow position: ", getRotatorPos());
+        telemetry.addData("Right elbow position: ", getRotatorPos() / ROTATOR_COEF + 0.2);
+        telemetry.addData("Wrist position: ", getAnglePos());
         telemetry.addData("Horizontal arm state: ", getState());
     }
 
     public void setState(HorizontalArmState state) {
         this.state = state;
-        rightElbow.setPosition(state.elbowPos / ELBOW_COEF + 0.2);
-        leftElbow.setPosition(state.elbowPos);
-        wrist.setPosition(state.wristPos);
-        this.wristPos = state.wristPos;
-        this.elbowPos = state.elbowPos;
+        rightRot.setPosition(state.elbowPos / ROTATOR_COEF + 0.2);
+        leftRot.setPosition(state.elbowPos);
+        inAngle.setPosition(state.wristPos);
+        this.anglePos = state.wristPos;
+        this.rotatorPos = state.elbowPos;
     }
 
     public void ground(){

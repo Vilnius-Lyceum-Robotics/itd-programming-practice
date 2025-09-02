@@ -65,7 +65,7 @@ public class RobotConstants {
     public static double LINKAGE_FULL = 0.77;
 
     // Because we need the 5turn and 300 degrees moving at the same rate
-    public static double ELBOW_COEF = 6;
+    public static double ROTATOR_COEF = 6;
     public enum ElbowState { //not used for now
         DOWN(0),
         TRANSFER(0.75),
@@ -76,19 +76,19 @@ public class RobotConstants {
         ElbowState(double pos) { this.pos = pos; }
     }
 
-    public static String SERVO_HORIZONTAL_ELBOW_LEFT = "rotLeft";
-    public static String SERVO_HORIZONTAL_ELBOW_RIGHT = "rotRight";
+    public static String SERVO_HORIZONTAL_ROTATOR_LEFT = "rotLeft";
+    public static String SERVO_HORIZONTAL_ROTATOR_RIGHT = "rotRight";
 
-    public enum WristState {
+    public enum angleState {
         TRANSFER(0.8),
         DOWN(0.3),
         UP(1);
 
         public final double pos;
 
-        WristState(double pos) { this.pos = pos; }
+        angleState(double pos) { this.pos = pos; }
     }
-    public static String SERVO_HORIZONTAL_WRIST = "inAngle";
+    public static String SERVO_HORIZONTAL_ANGLE = "inAngle";
     public static double CLAW_ROTATION_MIN = 0.4;
     public static double CLAW_ROTATION_MAX = 0.6;
     public enum GrabState {
@@ -117,6 +117,11 @@ public class RobotConstants {
             this.wristPos = wristPos;
         }
     }
+
+    public static double ROTATOR_DOWN = 0;
+    public static double ROTATOR_UP = 1;
+    public static double IN_ANGLE_UP = 0.3;
+    public static double IN_ANGLE_DOWN = 0.9;
 
     public enum LinkageState {
         RETRACTED(0.77),

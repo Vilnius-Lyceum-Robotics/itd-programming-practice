@@ -1,10 +1,14 @@
 package org.firstinspires.ftc.teamcode.opmode.tests;
 
+import static org.firstinspires.ftc.teamcode.config.core.RobotConstants.ROTATOR_UP;
+
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.seattlesolvers.solverslib.command.CommandOpMode;
+import com.seattlesolvers.solverslib.command.RunCommand;
 import com.seattlesolvers.solverslib.gamepad.GamepadEx;
+import com.seattlesolvers.solverslib.gamepad.GamepadKeys;
 
 import org.firstinspires.ftc.teamcode.config.subsystems.HorizontalIntake;
 @TeleOp(name = "KazkoksNepanamintasHorizontalArmTest", group = "!")
@@ -25,16 +29,16 @@ public class HorizontalArmTest extends CommandOpMode {
 
         firstDriver = new GamepadEx(gamepad1);
 
-        /*firstDriver.getGamepadButton(GamepadKeys.Button.DPAD_DOWN)
-                .whenPressed(() -> horizontalArm.elbowIncrement(-0.1));
+        firstDriver.getGamepadButton(GamepadKeys.Button.DPAD_DOWN)
+                .whenPressed(() -> horizontalIntake.incrementAngle(-0.1));
 
         firstDriver.getGamepadButton(GamepadKeys.Button.DPAD_UP)
-                .whenPressed(() -> horizontalArm.elbowIncrement(0.1));
+                .whenPressed(() -> horizontalIntake.incrementAngle(0.1));
 
         firstDriver.getGamepadButton(GamepadKeys.Button.DPAD_RIGHT)
-                .whenPressed(() -> horizontalArm.wristIncrement(0.1));
+                .whenPressed(() -> horizontalIntake.incrementRotator(0.1));
         firstDriver.getGamepadButton(GamepadKeys.Button.DPAD_LEFT)
-                .whenPressed(() -> horizontalArm.wristIncrement(-0.1));*/
+                .whenPressed(() -> horizontalIntake.incrementRotator(-0.1));
     }
 
     @Override
