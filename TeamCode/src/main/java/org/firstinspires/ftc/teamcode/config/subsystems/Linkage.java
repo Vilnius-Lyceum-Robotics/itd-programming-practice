@@ -33,7 +33,8 @@ public class Linkage extends SubsystemBase {
     public void setTarget(double target) {
         double clippedTarget = Range.clip(target, LINKAGE_ZERO, LINKAGE_FULL);
         leftLinkage.setPosition(target);
-        this.pos = clippedTarget;
+        rightLinkage.setPosition(target);
+        this.pos = target;
     }
 
     public double getPos() {

@@ -61,8 +61,8 @@ public class RobotConstants {
     public static final String SERVO_LINKAGE_LEFT = "linkageLeft";
     public static final String SERVO_LINKAGE_RIGHT = "linkageRight";
 
-    public static double LINKAGE_ZERO = 0.77;
-    public static double LINKAGE_FULL = 1;
+    public static double LINKAGE_ZERO = 0.45;
+    public static double LINKAGE_FULL = 0.77;
 
     // Because we need the 5turn and 300 degrees moving at the same rate
     public static double ELBOW_COEF = 6;

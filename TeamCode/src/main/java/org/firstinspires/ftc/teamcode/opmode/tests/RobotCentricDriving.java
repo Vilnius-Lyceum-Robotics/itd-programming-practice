@@ -29,7 +29,6 @@ public class RobotCentricDriving extends LinearOpMode {
         fL.setInverted(true);
         fR.setInverted(true);
 
-        // constructor takes in frontLeft, frontRight, backLeft, backRight motors
         // IN THAT ORDER
         MecanumDrive drive = new MecanumDrive(
                 fL, fR, bL, bR
