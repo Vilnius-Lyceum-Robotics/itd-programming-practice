@@ -46,7 +46,7 @@ public class RobotConstants {
     public static double LINKAGE_FULL = 0.77;
 
     // Because we need the 5turn and 300 degrees moving at the same rate
-    public static double ROTATOR_COEF = 0;
+    public static double ROTATOR_COEF = 300d/(5*360);
     public static String SERVO_HORIZONTAL_ROTATOR_LEFT = "rotLeft";
     public static String SERVO_HORIZONTAL_ROTATOR_RIGHT = "rotRight";
     public static String SERVO_HORIZONTAL_ANGLE = "inAngle";
