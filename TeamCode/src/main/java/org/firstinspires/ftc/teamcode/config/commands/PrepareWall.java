@@ -5,13 +5,13 @@ import com.seattlesolvers.solverslib.command.SequentialCommandGroup;
 
 //import org.firstinspires.ftc.teamcode.config.subsystems.IntakeSubsystem;
 //import org.firstinspires.ftc.teamcode.config.subsystems.LiftSubsystem;
-import org.firstinspires.ftc.teamcode.config.subsystems.Outtake;
+//import org.firstinspires.ftc.teamcode.config.subsystems.Outtake;
 
 public class PrepareWall extends SequentialCommandGroup {
-    public PrepareWall(Outtake outtake){
-        addCommands(
-                new InstantCommand(outtake::toHuman)
-        );
-        addRequirements(outtake);
-    }
+//    public PrepareWall(Outtake outtake){
+//        addCommands(
+//                new InstantCommand(outtake::toHuman)
+//        );
+//        addRequirements(outtake);
+//    }
 }
