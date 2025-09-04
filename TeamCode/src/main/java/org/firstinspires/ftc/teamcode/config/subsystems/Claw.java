@@ -26,21 +26,21 @@ public class Claw extends SubsystemBase {
 
         this.telemetry = telemetry;
 
-        this.rotationPos = CLAW_ROTATION_MIN;
+        this.rotationPos = 0.6;
         //this.grabPos = CLAW_OPEN;
         this.state = GrabState.CLOSED;
-        rotate(CLAW_ROTATION_MIN);
+        rotate(0.6);
         setGrabState(GrabState.CLOSED);
 
     }
 
     public void rotate(double angle) {
-        if (angle >= CLAW_ROTATION_MAX) {
-            rotation.setPosition(CLAW_ROTATION_MAX);
-            this.rotationPos = CLAW_ROTATION_MAX;
-        } else if (angle <= CLAW_ROTATION_MIN) {
-            rotation.setPosition(CLAW_ROTATION_MIN);
-            this.rotationPos = CLAW_ROTATION_MIN;
+        if (angle >= CLAW_TWIST_MAX) {
+            rotation.setPosition(CLAW_TWIST_MAX);
+            this.rotationPos = CLAW_TWIST_MAX;
+        } else if (angle <= CLAW_TWIST_MIN) {
+            rotation.setPosition(CLAW_TWIST_MIN);
+            this.rotationPos = CLAW_TWIST_MIN;
         } else {
             rotation.setPosition(angle);
             this.rotationPos = angle;
@@ -72,7 +72,7 @@ public class Claw extends SubsystemBase {
 
     public void setMappedTarget(Double input){
         double clippedInput = Range.clip(input, -1, 1);
-        double mappedPos = Range.scale(clippedInput, -1, 1, CLAW_ROTATION_MIN, CLAW_ROTATION_MAX);
+        double mappedPos = Range.scale(clippedInput, -1, 1, CLAW_TWIST_MIN, CLAW_TWIST_MAX);
         if (mappedPos == cachedRotationPos) return;
         cachedRotationPos = mappedPos;
 

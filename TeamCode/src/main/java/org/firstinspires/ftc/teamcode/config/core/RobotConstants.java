@@ -89,8 +89,10 @@ public class RobotConstants {
         angleState(double pos) { this.pos = pos; }
     }
     public static String SERVO_HORIZONTAL_ANGLE = "inAngle";
-    public static double CLAW_ROTATION_MIN = 0.4;
-    public static double CLAW_ROTATION_MAX = 0.6;
+    public static double CLAW_TWIST_MIN = 0.55;
+    public static double CLAW_TWIST_DEFAULT = 0.6;
+    public static double CLAW_TWIST_MAX = 0.65;
+    public static double CLAW_TWIST_FLIPPED = 0.5;
     public enum GrabState {
         OPEN(0),
         CLOSED(0.225);
