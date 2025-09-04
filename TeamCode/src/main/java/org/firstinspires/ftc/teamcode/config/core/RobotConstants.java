@@ -29,10 +29,6 @@ public class RobotConstants {
     public static double OUTTAKE_ROTATE_NORMAL = 0;
     public static double OUTTAKE_ROTATE_FLIPPED = 0.75;
     public static int OUTTAKE_PIVOT_TRANSFER = 0;
-//    public static int OUTTAKE_PIVOT_BUCKET = 0;
-//    public static int OUTTAKE_PIVOT_HUMAN = -400;
-//    public static int OUTTAKE_PIVOT_PREPARE_CHAMBER = -3500;
-//    public static int OUTTAKE_PIVOT_SCORE_CHAMBER = -800;
     public static int OUTTAKE_PIVOT_HUMAN = 400;
     public static int OUTTAKE_PIVOT_PREPARE_CHAMBER = 3500;
     public static int OUTTAKE_PIVOT_SCORE_CHAMBER = 800;
@@ -42,22 +38,7 @@ public class RobotConstants {
     public static double OUTTAKE_ELBOW_CHAMBER = 0.5;
     public static double OUTTAKE_ELBOW_SCORE = 0.46;
 
-
-//    // Intake (horizontal arm claw)
-//    public static final String SERVO_INTAKE_GRAB = "intakeGrab";
-//    public static final String SERVO_INTAKE_PIVOT = "intakePivot";
-//    public static final String SERVO_INTAKE_ROTATE = "intakeRotate";
-//
-//    public static double INTAKE_GRAB_CLOSE = 0;
-//    public static double INTAKE_GRAB_OPEN = 0;
-//    public static double INTAKE_ROTATE_MIN = 0; // Position that corresponds to -90 degree rotation
-//    public static double INTAKE_ROTATE_MAX = 0; // Position that corresponds to +90 degree rotation
-//    public static double INTAKE_PIVOT_GROUND = 0;
-//    public static double INTAKE_PIVOT_HOVER = 0;
-//    public static double INTAKE_PIVOT_TRANSFER = 0;
-//    public static double INTAKE_PIVOT_PARK = 0;
-
-    // Linkage slides *for testing* (horizontal extension)
+    // Linkage slides
     public static final String SERVO_LINKAGE_LEFT = "linkageLeft";
     public static final String SERVO_LINKAGE_RIGHT = "linkageRight";
 
@@ -65,29 +46,9 @@ public class RobotConstants {
     public static double LINKAGE_FULL = 0.77;
 
     // Because we need the 5turn and 300 degrees moving at the same rate
-    public static double ROTATOR_COEF = 6;
-    public enum ElbowState { //not used for now
-        DOWN(0),
-        TRANSFER(0.75),
-        INTAKE(0.35);
-
-        public final double pos;
-
-        ElbowState(double pos) { this.pos = pos; }
-    }
-
+    public static double ROTATOR_COEF = 0;
     public static String SERVO_HORIZONTAL_ROTATOR_LEFT = "rotLeft";
     public static String SERVO_HORIZONTAL_ROTATOR_RIGHT = "rotRight";
-
-    public enum angleState {
-        TRANSFER(0.8),
-        DOWN(0.3),
-        UP(1);
-
-        public final double pos;
-
-        angleState(double pos) { this.pos = pos; }
-    }
     public static String SERVO_HORIZONTAL_ANGLE = "inAngle";
     public static double CLAW_TWIST_MIN = 0.55;
     public static double CLAW_TWIST_DEFAULT = 0.6;
@@ -102,23 +63,7 @@ public class RobotConstants {
         GrabState(double pos) { this.pos = pos; }
     }
     public static String SERVO_HORIZONTAL_GRAB = "inGrab";
-
     public static String SERVO_HORIZONTAL_ROTATION = "inTwist";
-
-    public enum HorizontalArmState {
-        TRANSFER(0.78, 0.8),
-        INTAKE(0.4, 0.3),
-        IN_ROBOT(0.78, 0.9),
-        CLEAR_BAR(0.6, 0.4),
-        HOVER(0.5, 0.3);
-
-        public final double elbowPos, wristPos;
-
-        HorizontalArmState(double elbowPos, double wristPos) {
-            this.elbowPos = elbowPos;
-            this.wristPos = wristPos;
-        }
-    }
 
     public static double ROTATOR_DOWN = 0;
     public static double ROTATOR_UP = 1;
